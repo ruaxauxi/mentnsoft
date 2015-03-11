@@ -1,0 +1,10 @@
+$(document).ready(function(){
+	
+	 $( "#accordion" ).accordion({
+		 active: false,
+		 heightStyle: "content",
+		 collapsible: true,
+		 
+	 });
+	 
+});// ready

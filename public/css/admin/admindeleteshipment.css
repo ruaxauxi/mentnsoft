@@ -1,0 +1,14 @@
+@CHARSET "ISO-8859-1";
+
+.warning{
+	font-weight: bold;
+	color: #c70000;
+}
+
+#divDeleteForm{
+	 display: none;
+}
+
+.bigsize{
+	font-size: 18px;
+}

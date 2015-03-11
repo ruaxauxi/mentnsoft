@@ -1,0 +1,265 @@
+@CHARSET "ISO-8859-1";
+
+
+#divNicks, {
+	margin-bottom: 10px;
+}
+
+#divNicks .custom-combobox-input{
+	width: 150px !important;
+	height: 20px !important;
+	
+	display: inline-block !important;
+	 
+	padding: 4px 6px !important;
+
+	font-size: 14px !important;
+	line-height: 20px !important;
+	color: #555 !important;
+	vertical-align: middle !important;
+	-webkit-border-radius: 4px !important;
+	-moz-border-radius: 4px !important;
+	border-radius: 4px !important;
+	
+}
+
+
+.ui-menu-item{
+	font-size: 12px;
+}
+.custom-combobox{
+	font-size: 12px;
+}
+
+.ui-autocomplete {
+	overflow-y: scroll;
+	overflow-x: hidden;	
+	max-height: 200px;
+	z-index: 5000;
+}
+
+* html .ui-autocomplete { /* IE max- */
+	height: expression(this.scrollHeight >   200 ?   "200px" :   "auto");
+}
+
+
+
+#orderdetailTable thead th{
+	line-height: 20px;
+	vertical-align: middle;
+	text-align: center;
+}
+
+#orderdetailTable  tbody td{
+	line-height: 20px;
+	vertical-align:  middle;
+}
+
+.divDescription .hidden{
+	display: none;
+}
+.divDescription .photo{
+	position: absolute;
+	top: 2px;
+	left: 125px;	 
+	width: 60px;
+	height: 20px;
+	 
+	z-index: 1000;
+	font-size: 11px;
+	font-weight: bold;
+	text-decoration: none;
+	padding: 5px;
+	text-align: center;
+	 
+}
+
+.divDescription{
+	position:relative;	
+	width: 200px;
+	height: auto;
+	display: inline-block;
+	overflow: auto;
+	min-height: 40px;
+	line-height: 20px;
+	vertical-align: middle;
+}
+
+.status{
+	width: 60px;
+	
+}
+
+.divNote{
+	width: 120px;
+	height: auto;
+	display: inline-block;
+	overflow: auto;
+}
+
+.rightalign{
+	text-align: right !important;
+}
+
+#orderInfo .label{	 
+	width: 80px; 
+	text-align: right;
+	padding: 5px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+	margin-right: 0px;
+}
+
+#orderInfo .val{
+	width: 160px;
+	border: 1px solid #c9c9c9;
+	display: inline-block;
+	padding: 2px;
+	margin-right: 10px;
+	font-weight: bold;
+	font-size: 13px;
+	
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+#totalItems{
+	height: 18px !important;
+	width: 40px;
+	font-size: 14px !important;
+	font-weight: bold !important; 	 
+	text-align: right;
+}
+
+#totalWeb, #totalWeb1,#totalDiscount {
+	height: 18px !important;
+	width: 65px;
+	font-size: 14px !important;
+	font-weight: bold !important; 	 
+	text-align: right;
+}
+
+
+
+#totalShip_us{
+	height: 18px !important;
+	width: 65px;
+	font-size: 14px !important;
+	font-weight: bold !important; 	 
+	text-align: right;
+}
+
+#totalTax{
+	height: 18px !important;
+	width: 65px;
+	font-size: 14px !important;
+	font-weight: bold !important; 	 
+	text-align: right;
+}
+
+#totalExtra_fee{
+	height: 18px !important;
+	width: 65px;
+	font-size: 14px !important;
+	font-weight: bold !important; 	 
+	text-align: right;
+}
+
+#divTotalWeb, #divTotalWeb1,#divTotalDiscount{
+	position: relative;
+	text-align: right;
+}
+#divTotalWeb span{
+
+	font-size: 14px !important;
+	font-weight: bold !important;
+	display: inline-block;
+	width: 10px;
+	height: 20px;
+	margin-right: 3px;
+}
+
+#total{
+	height: 18px !important;
+	width: 70px;
+	font-size: 14px !important;
+	font-weight: bold !important; 	 
+	text-align: right;
+}
+#divTotal{
+	position: relative;
+	text-align: right;
+}
+#divTotal span{
+
+	font-size: 14px !important;
+	font-weight: bold !important;
+	display: inline-block;
+	width: 10px;
+	height: 20px;
+	margin-right: 3px;
+}
+
+.divTotal_final{
+	position: relative;
+	display: block; 
+	  
+	text-align: center;
+}
+
+.total_final{
+	height: 32px !important;
+	width: 70px;
+	font-size: 14px !important;
+	font-weight: bold !important;
+	 
+	margin-top: 10px !important;
+	 
+	text-align: right;
+}
+
+.divTotal_final .label{
+	width: 80px;
+	text-align: right;
+	padding: 3px !important;
+}
+
+.divTotal_final .val{
+	width: 70px;
+	height: 26px;
+	border: 1px solid #c9c9c9;
+	display: inline-block;
+	padding: 0px;
+	margin-top: 2px;
+	margin-right: 2px;
+	padding-right: 2px;
+	font-weight: bold;
+	font-size: 12px;
+	text-align: right;
+	
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+
+.divTax .val{
+	width: 65px;
+	height: 18px;
+	border: 1px solid #c9c9c9;
+	display: block;
+	padding: 3px;
+	margin-top: 10px;
+	margin-left: 3px;
+	padding-right:3px;
+	font-weight: bold;
+	font-size: 12px;
+	text-align: right;
+	
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	
+	background-color: #c3c3c3;
+}

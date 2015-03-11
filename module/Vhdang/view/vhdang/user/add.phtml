@@ -1,0 +1,43 @@
+ <?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/user/script.js'); 
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/user/style.css');
+        
+        $title = 'Tạo tài khoản mới';
+        $this->headTitle($title);
+       
+        
+ ?>
+ <div id="divAdd">
+<?php 
+
+echo '<h1>' . $this->escapeHtml($title) . '</h1>';
+ ?>
+ 
+ <div class="row">
+   <div class="span6">
+     <form name="userAddForm" id="userAddForm" method="post" 
+                action="<?php echo $this->url('user',array('action'=> 'add'));?>">
+        
+         <label for="usertype" >Loại tài khoản</label>
+         <select name="usertype">
+            <option value="0">Khách hàng</option>
+            <option value="1" <?php echo $this->user->usertype==1?'selected':'' ;?>>Admin</option>
+         </select>
+        <label for="username" >Tên đăng nhập(*)</label>
+        <input type="text" name="username" id="username"                  
+                value="<?php echo $this->user->username;?>" maxlength="30"/>
+        <label for="password" >Mật khẩu (*)</label>
+        <input type="text" name="password" id="password" 
+                 value="<?php echo $this->user->password;?>" 
+                maxlength="30"/> 
+        
+              
+       <div id="errormsg"> <?php echo $errmsg;?></div>
+        <hr/>
+        
+        <label for="submitbutton"></label>
+        <input type="submit" name="submitbuttom" id="submitbutton" value=" Thêm " />
+     </form>
+    </div> 
+</div>
+</div>

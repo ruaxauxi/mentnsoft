@@ -1,0 +1,39 @@
+ 
+<?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/admin/export.js');  
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/admin/export.css');
+
+ 
+        
+        $title = 'Export Excel File';
+        $this->headTitle($title);
+       
+   
+ ?>
+ 
+<div class="span11">
+	<form name="frmShipment" id="frmShipment" method="post"
+		action="<?php echo $this->url('admin',array('action'=>'export'));?>">
+		 
+		 <div id="divShipemnts">
+		      Shipment: 
+		      <select name="shipment_id" id="shipment_id">
+		          <option></option>
+		          <?php foreach($this->shipments as $item):?>
+		          <option value="<?php echo $item->getId();?>" <?php echo $item->getId()==$this->shipment_id?"selected":""; ?> ><?php echo $item->getShip_name();?></option>
+		          <?php endforeach;?>
+		      </select>	      
+		      
+		      
+		     
+		      <input type="submit" name="btnShow" value="Export" class="btn" />	      
+		 </div>
+		
+		<hr/>
+ 
+	</form>
+
+</div>
+ 
+
+

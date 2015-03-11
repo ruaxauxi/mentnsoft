@@ -1,0 +1,47 @@
+@CHARSET "ISO-8859-1";
+
+.divBlock{
+	display: block;
+	width: 100%;
+	border-top: 1px solid #e9eaed;
+	border-left: 1px solid #e9eaed;
+	border-right: 1px solid #e9eaed; 
+	border-bottom: 1px solid #e9eaed;
+	padding: 10px;
+}
+
+#divBlockReply{
+	display: block;
+	margin-top: 10px;
+}
+
+.divBlockAnswer{
+	display: block;
+	width: 100%;
+	 
+	border-left: 1px solid #e9eaed;
+	border-right: 1px solid #e9eaed; 
+	border-bottom: 1px solid #e9eaed;
+	padding: 10px;
+}
+
+#divSubject{
+	font-weight: bold;
+	
+}
+.info{
+	font-style: italic;
+	font-size: 11px;
+	color: gray;
+}
+.nick{
+	display: inline-block;
+	padding-right: 5px;
+	font-weight: bold;
+	color: #c70000;
+}
+#reply{
+	width: 80%;
+	display: block;
+	
+}

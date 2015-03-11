@@ -1,0 +1,41 @@
+ <?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/user/script.js'); 
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/user/style.css');
+        
+        $title = 'Đăng nhập';
+        $this->headTitle($title);
+       
+        
+ ?>
+ <div id="divRegister">
+
+ 
+ <div class="row">
+       <div class="span6" id="divLoginForm">
+        <?php echo '<h1>' . $this->escapeHtml($title) . '</h1>';?>
+             <form name="userLoginForm" id="userLoginForm" method="post" 
+                        action="<?php echo $this->url('user',array('action'=> 'login'));?>">
+               <div id="main"> 
+                <label for="username" >Tên đăng nhập(*)</label>
+                <input type="text" name="username" id="username"  
+                        
+                        value="<?php echo $this->user->getNick();?>" maxlength="30"/>
+                <label for="password" >Mật khẩu (*)</label>
+                <input type="password" name="password" id="password" 
+                        maxlength="30"/> 
+                <label for="rememberme"></label>
+                <input type="checkbox" value="1" name="rememberme" id="rememberme" /> 
+                    <label for="rememberme" id="lblrememberme">Nhớ trạng thái đăng nhập</label>
+               <div id="errormsg"> <?php echo isset($errmsg)?$errmsg:"";?></div>
+                <hr/>
+                
+                <label for="submitbutton"></label>
+                <input type="submit" name="submitbuttom" id="submitbutton" value="Đăng nhập" class="btn" />
+                
+                </div>
+             </form>
+        </div> 
+</div>
+
+
+</div>

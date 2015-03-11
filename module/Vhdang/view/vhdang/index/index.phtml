@@ -1,0 +1,36 @@
+ <?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/index/index.js'); 
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/index/index.css');
+        
+        $title = 'Hello '.$this->UserInfo()->getNick();
+        $this->headTitle($title);
+       
+        
+ ?>
+ 
+ <div class="row">
+   <div class="span9">
+     <h4><?php echo $this->escapeHtml($title);?></h4>
+     <?php if ($this->totalUnread > 0):?>
+        <div class="alert alert-success" role="alert">
+            <?php echo 'Bạn có <b>'.$this->totalUnread.'</b> tin nhắn mới.'?>
+            <br/>
+            <a  href="<?php echo $this->url('customer',array('action'=>'question'));?>">Xem &gt;&gt; </a>
+        </div>
+        
+     <?php endif;?>
+     
+     <?php if ($this->updateAddress):?>
+         <hr/>
+        
+         <div class="alert alert-danger" role="alert">
+            <?php echo 'Bạn chưa cập nhật địa chỉ hoặc địa chỉ chưa đúng.'?>
+            <br/>
+            <a  href="<?php echo $this->url('user',array('action'=>'address'));?>">Vui lòng cập nhật tại đây</a>
+        </div>
+     
+     <?php endif;?>
+   </div>
+    
+</div>
+ 

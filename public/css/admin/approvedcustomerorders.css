@@ -1,0 +1,51 @@
+@CHARSET "ISO-8859-1";
+
+.store{
+	width: 80px;	
+}
+
+.divDescription{	 
+	max-height: 300px;
+	width: 560px;
+}
+
+#divNick,#divStore{
+	display: inline-block;
+}
+#divNick .custom-combobox-input{
+	width: 120px !important;
+	
+}
+
+#divStore .custom-combobox-input{
+	width: 150px !important;
+	
+}
+
+.ui-menu-item{
+	font-size: 12px;
+}
+.custom-combobox{
+	font-size: 12px;
+}
+
+.ui-autocomplete {
+	overflow-y: scroll;
+	overflow-x: hidden;	
+	max-height: 200px;
+}
+
+* html .ui-autocomplete { /* IE max- */
+	height: expression(this.scrollHeight >   200 ?   "200px" :   "auto");
+}
+
+
+
+.note{
+	width: 95%;
+	height: 25px;
+	-webkit-transition: height 0.2s;
+	-moz-transition: height 0.2s;
+	transition: height 0.2s;
+	margin-right: 20px;
+}

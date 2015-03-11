@@ -1,0 +1,126 @@
+ 
+ 
+<?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/admin/chitietlinhtinh.js'); 
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/admin/chitietlinhtinh.css');
+        
+        $title = 'Chi tiết lỗ tạm tính';
+        $this->headTitle($title);
+       
+        
+ ?>
+
+ <form action="<?php echo $this->url('admin',array('action'=>'chitietlinhtinh')); ?>" method="post" id="frmChitietlinhtinh">
+ <div class="row">    
+   <div class="span11">
+          <div id="divChitietlinhtinh">   
+            <h3>CHI TIẾT LỖ TẠM TÍNH THEO ĐỢT</h3>          
+              
+                <table id="shipment">
+                    <tr>
+                        <td><span class="label">Shipment:</span></td>
+                        <td><span class="val"><?php echo $this->shipment->getShip_name();?></span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="label">Note:</span></td>
+                        <td><span class="val"><?php echo $this->shipment->getNote();?> &nbsp; </span></td>
+                    </tr>
+                </table>
+                <hr />
+                
+                 <table class="table" id="orderdetailTable">
+        			<thead>
+        				<tr>
+        					<th>#</th>
+        					<th>Nick</th>
+        					<th>OrderNo</th>
+        					<th>Description</th>
+        					<th>Items</th>        					
+        					<th>Total Web</th>
+        					<th>Ship US</th>	
+        					<th>Extra fee</th>
+        					<th>Discount</th>
+        					<th>Total Web1</th>        					
+        					<th>Tax</th>
+        					<th>Service</th>
+        					<th>Total</th>
+        					<th>Total Final</th>        					
+        				</tr>
+        			</thead>
+        			<tbody>
+        				<?php 
+            	     	$total_item = 0;
+            	     	$total_discount = 0;
+            	     	$total_web = 0;
+            	     	$total_web1 = 0;
+            	     	$total_shipus = 0;
+            	     	$total_extrafee = 0;
+            	     	$total_tax = 0;
+            	     	 
+            	     	$total_final = 0;
+            	     	$total_service = 0;
+            	     	$i = 1;
+            	     ?>
+            	     <?php foreach($this->list as $item):?>
+		            	     <?php 
+		            	     	$total_item += $item->getItems();
+		            	     	$total_discount += $item->getDiscount();
+		            	     	$total_web += $item->getTotal_web();
+		            	     	$total_web1 += $item->getTotal_web1();
+		            	     	$total_shipus += $item->getShip_us();
+		            	     	$total_extrafee += $item->getExtra_fee();
+		            	     	$total_tax += $item->getTax();
+		            	     	$total_service += $item->getService();
+		            	     	$total_final += $item->getTotal_final();
+		            	     
+		            	     ?>
+            	     	<tr>
+            	     		<td><?php echo $i++;?></td>
+            	     		<td><?php echo $item->getNick();?></td>
+            	     		<td><a target="_blank" href="<?php echo $this->url('admin',array('action'=>'vieworder','id'=>$item->getOrderno()));?>" ><?php echo $item->getOrderno();?></a></td>
+            	     		<td><div><?php echo $item->getDescription();?></div></td>
+            	     		<td class="rightalign"><?php echo number_format($item->getItems(),0,'.',','); ?></td>
+            	     		<td class="rightalign"><?php echo number_format($item->getTotal_web(),2,'.',','); ?></td>
+            	     		<td class="rightalign"><?php echo number_format($item->getShip_us(),2,'.',','); ?></td>
+            	     		<td class="rightalign"><?php echo number_format($item->getExtra_fee(),2,'.',','); ?></td>            	     		
+            	     		<td class="rightalign"><?php echo number_format($item->getDiscount(),2,'.',','); ?></td>            	     		
+            	     		<td class="rightalign"><?php echo number_format($item->getTotal_web1(),2,'.',','); ?></td>
+            	     		<td class="rightalign"><?php echo number_format($item->getTax(),2,'.',','); ?></td>
+            	     		<td class="rightalign"><?php echo number_format($item->getService(),2,'.',','); ?></td>
+            	     		<td class="rightalign"><?php echo number_format($item->getTotal_final() - $item->getService() - $item->getExtra_fee(),2,'.',','); ?></td>
+            	     		<td class="rightalign"><?php echo number_format($item->getTotal_final(),2,'.',','); ?></td>
+            	     		
+            	     	</tr>
+            	     
+            	     <?php endforeach;?>
+        			</tbody>
+        			
+        			<tfoot>
+        			<tr>
+        			    <td colspan="4"><b>Tổng cộng:</b></td>
+            	         <td class="rightalign"><span class="label "><?php echo number_format($total_item,0,'.',',');?></span></td>
+            	         <td class="rightalign"><span class="label"><?php echo number_format($total_web,2,'.',',');?></span></td>
+            	         <td class="rightalign"><span class="label"><?php echo number_format($total_shipus,2,'.',',');?></span></td>
+            	         <td class="rightalign"><span class="label"><?php echo number_format($total_extrafee,2,'.',',');?></span></td>            	         
+            	         <td class="rightalign"><span class="label"><?php echo number_format($total_discount,2,'.',',');?></span></td>            	         
+            	         <td class="rightalign"><span class="label"><?php echo number_format($total_web1,2,'.',',');?></span></td>
+            	         <td class="rightalign"><span class="label"><?php echo number_format($total_tax,2,'.',',');?></span></td>
+            	         <td class="rightalign"><span class="label"><?php echo number_format($total_service,2,'.',',');?></span></td>
+            	         <td class="rightalign"><span class="label"><?php echo number_format($total_final - $total_extrafee - $total_service,2,'.',',');?></span></td>
+            	         <td class="rightalign"><span class="label"><?php echo number_format($total_final,2,'.',',');?></span></td>
+            	        
+            	     </tr>
+            	     
+            	     <tr>
+        			     <td colspan="14">
+        			     	 
+        			     </td>
+        			 </tr>
+        			</tfoot>
+        	</table>
+     		          
+             </div>
+         </div>
+    </div>
+ </form>
+ 

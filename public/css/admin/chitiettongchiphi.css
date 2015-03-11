@@ -1,0 +1,39 @@
+@CHARSET "UTF-8";
+
+.curency{
+	text-align: right;
+	font-weight: bold;
+	font-size: 13px;
+}
+
+.total{
+	color: #c70000;
+}
+
+
+#shipment .label{	 
+	width: 80px; 
+	text-align: right;
+	padding: 5px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+	margin-right: 0px;
+}
+
+#shipment .val{
+	width: 660px;
+	border: 1px solid #c9c9c9;
+	display: inline-block;
+	padding: 2px;
+	margin-right: 10px;
+	font-weight: bold;
+	font-size: 13px;
+	
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.rightalign{
+	text-align: right !important;
+}

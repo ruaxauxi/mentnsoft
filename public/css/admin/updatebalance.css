@@ -1,0 +1,171 @@
+@CHARSET "ISO-8859-1";
+
+#divAdminFilter,
+#divNickFilter,
+#divDateFilter{
+	display: inline-block;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+#nick_filter{
+	position: relative;
+	top: 5px !important;
+}
+
+#divDateFilter{
+	position: relative;
+	top: 3px;
+}
+
+#divDateFilter #date_filter{
+	width:  80px;
+	position: relative;
+	top: 2px !important;
+}
+
+#divAdminFilter .custom-combobox-input,
+#divNickFilter .custom-combobox-input {
+	width: 100px !important;
+	height: 20px !important;
+	
+	display: inline-block !important;
+	 
+	padding: 4px 6px !important;
+
+	font-size: 14px !important;
+	line-height: 20px !important;
+	color: #555 !important;
+	vertical-align: middle !important;
+	-webkit-border-radius: 4px !important;
+	-moz-border-radius: 4px !important;
+	border-radius: 4px !important;
+}
+
+#errormsg{
+	font-size: 13px;
+	font-weight: bold;
+	color: #c70000;
+}
+
+#divNicks, #divOrderNo,#divShipments{
+	margin-bottom: 10px;
+}
+
+#divNicks .custom-combobox-input{
+	width: 150px !important;
+	height: 20px !important;
+	
+	display: inline-block !important;
+	 
+	padding: 4px 6px !important;
+
+	font-size: 14px !important;
+	line-height: 20px !important;
+	color: #555 !important;
+	vertical-align: middle !important;
+	-webkit-border-radius: 4px !important;
+	-moz-border-radius: 4px !important;
+	border-radius: 4px !important;
+	
+}
+
+#divOrderNo .custom-combobox-input,#divShipments .custom-combobox-input{
+	width: 150px !important;
+	height: 20px !important;
+	
+	display: inline-block !important;
+	 
+	padding: 4px 6px !important;
+
+	font-size: 14px !important;
+	line-height: 20px !important;
+	color: #555 !important;
+	vertical-align: middle !important;
+	-webkit-border-radius: 4px !important;
+	-moz-border-radius: 4px !important;
+	border-radius: 4px !important;
+	
+}
+
+
+#divTitle .label{
+	line-height: 26px;
+	text-align: right;
+	padding: 3px !important;
+	margin-right: 2px;
+	
+}
+
+#divTitle .val{
+	line-height: 26px;
+	width: 160px;
+	border: 1px solid #c9c9c9;
+	display: inline-block;
+	padding: 2px;
+	
+	margin-right: 10px;
+	font-weight: bold;
+	font-size: 13px;
+	
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+ #divTransaction select{
+	width: 160px;
+ }
+
+#divTransaction input[type=text],#divTransaction textarea{
+	width: 150px;
+}
+
+.divNote{
+	width: 185px;
+	height: auto;
+	display: inline-block;
+	overflow: auto;
+}
+
+#usd{
+	font-size: 15px;
+	font-weight: bold;
+	color: #c70000;
+}
+
+.rate{
+	font-size: 14px;
+	font-weight: bold;
+	color: #c70000;
+}
+
+.waiting{
+	color: #c50000;
+	 
+	 
+}
+
+.error{
+	border: solid 1px red !important;
+	background-color: rgba(255,255,0,0.5) !important;
+	background-image: none !important;
+}
+
+
+.ui-menu-item{
+	font-size: 12px;
+}
+.custom-combobox{
+	font-size: 12px;
+}
+
+.ui-autocomplete {
+	overflow-y: scroll;
+	overflow-x: hidden;	
+	max-height: 200px;
+}
+
+* html .ui-autocomplete { /* IE max- */
+	height: expression(this.scrollHeight >   200 ?   "200px" :   "auto");
+}

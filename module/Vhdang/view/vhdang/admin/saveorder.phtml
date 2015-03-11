@@ -1,0 +1,164 @@
+ <?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/admin/saveorder.js'); 
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.autosize.min.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/jshashtable-3.0.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.numberformatter-1.2.3.js');
+        
+      /*   $this->headScript()->appendFile($this->basePath() . '/js/browserplus-min.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/plupload.full.min.js');
+         */
+        
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/admin/saveorder.css');
+        
+        $title = 'Lưu đơn hàng';
+        $this->headTitle($title);
+       
+  
+ ?>
+ 
+
+<div class="span11">
+	<form name="frmSaveOrder" id="frmSaveOrder" method="post"
+		action="<?php echo $this->url('admin',array('action'=>'saveorder'));?>">
+		<h4>Thông tin đơn hàng vừa nhập</h4>
+	    
+	    <div id="orderInfo">
+		
+		  <table>
+		  <tr>
+		      <td ><span class="label">OrderNo</span></td><td><span class="val"><?php echo $this->order->getOrderno();?></span><input type="hidden" name="orderno" id="orderno" value="<?php echo $this->order->getOrderno();?>" /></td>		      
+		      <td><span class="label">Items</span></td>  <td><span class="val"><?php echo $this->order->getItems(); ?></span><input type="hidden" name="order_items" id="order_items" value="<?php echo $this->order->getItems();?>" /></td>		      
+		      
+		       <td><span class="label">-</span></td> <td><span class="val">-</span></td>		      
+		  </tr>
+		  
+		  <tr>
+		     
+		      <td><span class="label">Store</span></td>  <td><span class="val"><?php echo $this->order->getStore_name();?></span><input type="hidden" name="order_store_id" id="order_store_id" value="<?php echo $this->order->getStore_id();?>" /></td>
+		      <td><span class="label">Discount</span></td>  <td><span class="val currency"><span class="dolar">$</span><?php echo number_format($this->order->getDiscount(),2,".",",");?></span><input type="hidden" name="order_discount" value="<?php echo $this->order->getDiscount();?>" /></td>
+		      <td><span class="label">Tax</span></td>  <td><span class="val currency"><span class="dolar">$</span><?php echo number_format($this->order->getTax(),2,".",",");?></span><input type="hidden" name="order_tax" value="<?php echo $this->order->getTax();?>" /></td>
+		  </tr>
+		  
+		  <tr>
+		      <td><span class="label">CreditCard</span></td>  <td><span class="val"><?php echo $this->order->getCreditcard();?></span><input type="hidden" name="creditcard" id="creditcard" value="<?php echo $this->order->getCreditcard();?>" /></td>
+		      <td><span class="label">Total Web</span></td>  <td><span class="val currency"><span class="dolar">$</span><?php echo number_format($this->order->getTotal_web(),2,".",",");?></span><input type="hidden" name="order_total_web" id="order_total_web" value="<?php echo $this->order->getTotal_web();?>" /></td>
+		     
+		      <td><span class="label">Ship US</span></td>  <td><span class="val currency" ><span class="dolar">$</span><?php echo number_format($this->order->getShip_us(),2,".",",");?></span><input type="hidden" name="order_ship_us" id="order_ship_us" value="<?php echo $this->order->getShip_us();?>" /></td>
+		      
+		      
+		  </tr>
+		   
+		  <tr>
+		      <td><span class="label">Holder</span></td>  <td><span class="val"><?php echo $this->order->getHolder();?></span><input type="hidden" name="holder" value="<?php echo $this->order->getHolder();?>" /></td>
+		       <td> <span class="label">Total Web 1</span></td> <td><span class="val currency highlight"><span class="dolar">$</span><?php echo number_format($this->order->getTotal_web1(),2,".",",");?></span><input type="hidden" name="order_total_web1" id="order_total_web1" value="<?php echo $this->order->getTotal_web1();?>" /></td>		       
+		       <td><span class="label">Total Final</span></td> <td><span class="val currency highlight"><span class="dolar">$</span><?php echo number_format($this->order->getTotal_final(),2,".",",");?></span><input type="hidden" name="order_total_final" id="order_total_final" value="<?php echo $this->order->getTotal_final();?>" /></td>
+		  </tr>	
+		   <tr>
+		      <td><span class="label">Description</span></td><td colspan="5"><span class="val" id="spanDescription" ><?php echo $this->order->getDescription();?>&nbsp;</span><input type="hidden" name="description" value="<?php echo $this->order->getDescription();?>" /></td>
+		  </tr>	 	 
+       </table>
+      </div>
+		<hr />
+		
+		
+		 <h4>Thông tin chi tiết</h4>
+	    <hr />
+	    
+	    <div id="divOrderdetails">
+	    	<table class="table" id="orderdetailTable">
+        			<thead>
+        				<tr>
+        					<th>#</th>
+        					<th>Nick</th>
+        					<th>Description</th>
+        					<th>Items</th>        					
+        					<th>Total Web</th>
+        					<th>Ship US</th>	
+        					<th>Extra fee</th>
+        					<th>Discount</th>
+        					<th>Total Web1</th>        					
+        					<th>Tax</th>
+        					<th>Service</th>
+        					<th>Total</th>
+        					<th>Total Final</th>
+        					 
+        					 
+        				</tr>
+        			</thead>
+        			<tbody>
+        				<?php 
+            	     	$total_item = 0;
+            	     	$total_discount = 0;
+            	     	$total_web = 0;
+            	     	$total_web1 = 0;
+            	     	$total_shipus = 0;
+            	     	$total_extrafee = 0;
+            	     	$total_tax = 0;
+            	     	$total_final = 0;
+            	     	$total_service = 0;
+            	     	$i = 1;
+            	     ?>
+            	     <?php foreach($this->details as $item):?>
+		            	     <?php 
+		            	     	$total_item += $item->getItems();
+		            	     	$total_discount += $item->getDiscount();
+		            	     	$total_web += $item->getTotal_web();
+		            	     	$total_web1 += $item->getTotal_web1();
+		            	     	$total_shipus += $item->getShip_us();
+		            	     	$total_extrafee += $item->getExtra_fee();
+		            	     	$total_tax += $item->getTax();
+		            	     	$total_service += $item->getService();
+		            	     	$total_final += $item->getTotal_final();
+		            	     
+		            	     ?>
+            	     	<tr>
+            	    		
+            	     		<td><?php echo $i++;?></td>
+            	     		<td><?php echo $item->getNick();?></td>
+            	     		<td><div class="divDescription"><?php echo $item->getDescription();?></div></td>
+            	     		<td class="rightalign"><?php echo number_format($item->getItems(),0,'.',','); ?></td>
+            	     		<td class="rightalign"><?php echo number_format($item->getTotal_web(),2,'.',','); ?></td>
+            	     		<td class="rightalign"><?php echo number_format($item->getShip_us(),2,'.',','); ?></td>
+            	     		<td class="rightalign"><?php echo number_format($item->getExtra_fee(),2,'.',','); ?></td>            	     		
+            	     		<td class="rightalign"><?php echo number_format($item->getDiscount(),2,'.',','); ?></td>            	     		
+            	     		<td class="rightalign"><?php echo number_format($item->getTotal_web1(),2,'.',','); ?></td>
+            	     		<td class="rightalign"><?php echo number_format($item->getTax(),2,'.',','); ?></td>
+            	     		<td class="rightalign"><?php echo number_format($item->getService(),2,'.',','); ?></td>
+            	     		<td class="rightalign"><?php echo number_format($item->getTotal_final() - $item->getService() - $item->getExtra_fee(),2,'.',','); ?></td>
+            	     		<td class="rightalign"><?php echo number_format($item->getTotal_final(),2,'.',','); ?></td>
+            	     		 
+            	     	</tr>
+            	     
+            	     <?php endforeach;?>
+        			</tbody>
+        			
+        			<tfoot>
+        			<tr>
+        			     <td colspan="3"><b>Tổng cộng:</b></td>
+            	         <td class="rightalign"><span class="label "><?php echo number_format($total_item,0,'.',',');?></span></td>
+            	         <td class="rightalign"><span class="label"><?php echo number_format($total_web,2,'.',',');?></span></td>
+            	         <td class="rightalign"><span class="label"><?php echo number_format($total_shipus,2,'.',',');?></span></td>
+            	         <td class="rightalign"><span class="label"><?php echo number_format($total_extrafee,2,'.',',');?></span></td>            	         
+            	         <td class="rightalign"><span class="label"><?php echo number_format($total_discount,2,'.',',');?></span></td>            	         
+            	         <td class="rightalign"><span class="label"><?php echo number_format($total_web1,2,'.',',');?></span></td>
+            	         <td class="rightalign"><span class="label"><?php echo number_format($total_tax,2,'.',',');?></span></td>
+            	         <td class="rightalign"><span class="label"><?php echo number_format($total_service,2,'.',',');?></span></td>
+            	         <td class="rightalign"><span class="label"><?php echo number_format($total_final - $total_extrafee - $total_service,2,'.',',');?></span></td>
+            	         <td class="rightalign"><span class="label"><?php echo number_format($total_final,2,'.',',');?></span></td>
+            	        
+            	     </tr>
+            	     
+            	     <tr>
+        			     <td colspan="13">
+        			     	<a href="<?php echo $this->url('admin',array('action'=>'order'));?>"  class="btn" >Tiếp tục</a>
+        			     </td>
+        			 </tr>
+        			</tfoot>
+        	</table>
+	    </div>
+		
+	</form>
+
+</div>
+
+

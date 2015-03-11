@@ -1,0 +1,149 @@
+ 
+<?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/admin/order.js'); 
+        $this->headScript()->appendFile($this->basePath() . '/js/jshashtable-3.0.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.numberformatter-1.2.3.js');
+         
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.autosize.min.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/browserplus-min.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/plupload.full.min.js');
+        
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/admin/order.css');
+        
+       
+        $this->headTitle('Đơn hàng');
+        $title = 'Đơn hàng';
+        
+ ?>
+ 
+  <?php 
+    $source = "" ;
+    $i = 0;
+    foreach($this->stores  as $item){
+        $source .= '{text:"'. $item->getName() . '_text",value:'. ++$i .'},';
+    }
+    
+    $source =   substr($source,0,strlen($source) -1 ) ;
+    
+    $cards = "";
+    
+    foreach($this->creditcards as $item){
+    	$cards .= "{creditcard:'". $item->getCreditcard()."', holder:'". $item->getHolder()."'},";
+    }
+    
+ ?>
+ <script>
+   var data = [<?php echo $source;?>]; 
+   var cards = [<?php echo $cards; ?>];
+</script>
+ 
+
+        <div class="span4" id="divOrderForm">
+        <form name="frmOrder" id="frmOrder" method="post" action="<?php echo $this->url('admin',array('action'=>'orderdetails'));?>">
+            <div id="orderForm">
+                    <h4><?php echo $this->escapeHtml($title);?></h4>
+                        <label for="orderno">Order number</label>                
+                        <input  type="text" name="orderno" id="orderno" data-val="" data-valid="0" maxlength="255" 
+                            data-url="<?php echo $this->url('admin',array('action'=>'checkorderno'));?>" class="required"
+                            value=""  
+                         />
+                        <label for="orderdate" >Ngày Order</label>
+                        <input type="text"  name="orderdate" id="orderdate" 
+                            value=""
+                            class="datepicker required"  />
+                       <div id="store_order"> 
+                            <label for="store" >Store</label>
+                            <select name="store_id" id="store" class="required">
+                                <option value=""></option>
+                                <?php foreach($this->stores as $item):?>
+                                    <option value="<?php echo $item->getId();?> "><?php echo $item->getName();?></option>
+                                <?php endforeach;?>
+                            </select>
+                            <input type="hidden" name="store_name" id="store_name" />
+                       </div>
+                       <div id="creditcard_order">
+                            <label for="creditcard">Credit card</label>
+                            <select name="creditcard" id="creditcard" class="required">
+                                <option value=""></option>
+                                <?php foreach($this->creditcards as $item):?>
+                                    <option value="<?php echo $item->getCreditcard();?>"><?php echo $item->getCreditcard();?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                         
+                        <input type="text" name="card_holder" id="card_holder"  maxlength="255"  disabled />
+                        <input type="hidden" name="holder" id="holder" />
+                        
+                        <label for="items">Items</label>
+                        <input type="text" name="items" maxlength="4" id="items" class="required" value="" />
+                        <div id="divTotalWeb">
+                            <label for="total_web">Total web</label>
+                            <input type="text" name="total_web" id="total_web" class="formatnumber required" value="" />
+                        </div>
+                        <div id="divTax">            
+                            <label for="tax">Tax</label>
+                            <input type="text" name="tax" id="tax" value="" class="formatnumber required" maxlength="5"/>
+                        </div>
+                        <div id="divShipUS">
+                            <label for="ship_us">Ship US</label>
+                            <input type="text" name="ship_us" id="ship_us" class="formatnumber required" value="0" />
+                        </div>
+                       
+                        <div id="divDiscount">
+                            <label for="discount">Discount</label>
+                            <input type="text" name="discount" id="discount" value="0" class="formatnumber required" />
+                        </div>
+                        <div id="divTotalWeb1">
+                            <label for="total_web1">Total Web1</label>
+                            <input type="text" name="total_web1" value="" id="total_web1"  class="formatnumber required" title="Total Web1 = Total Web - Discount" />
+                        </div>
+                        <div id="divTotalFinal">
+                            <label for="total_final">Total final</label>
+                            <input type="text"  name="total_final" id="total_final" class="formatnumber required" value="" title = "Total final = Total web1 + tax + ship us - discount" />
+                        </div>
+                        
+                        <div id="divDescription">
+                            <label for="description">Description</label>
+                            <textarea rows="4" cols="4" name="order_description" id="description"></textarea>
+                        </div>
+                        
+                        <input type="hidden" name="imageList" id="imageList" value="" />
+                        <div id="commands">                             
+                            <input type="submit" name="btnNext" id="btnNext" value="Next" class="btn" />
+                        </div>
+                  </div>
+            </form>                 
+        </div>
+        
+        <div class="span4">
+        	 <h4>Chọn hình ảnh</h4>
+        	 <hr />
+        	 <form name="uploadForm" id="imageuploadForm" method="post"
+						action="<?php echo $this->url('upload',array('action'=> 'add'));?>">
+				 	
+						<div id="container">
+								<div id="filelist"></div>
+								<br />
+								<a class="btn" id="pickfiles" href="javascript:void(0)">Chọn ảnh</a>
+								<a class="btn" id="uploadfiles" href="javascript:void(0)">Upload</a>
+						</div>
+			</form>
+			
+			<div class="imgList" id="imgitemHidden">
+		    	<div class="imgitem" >
+				<a class="delImg"  id="" title="Xóa ảnh"  href="javascript:void(0)">
+					<span class="icon-trash" data-url="<?php echo $this->url('upload',array('action'=> 'delete')); ?>" ></span>
+				</a>
+				<img title="Nhấn vào biểu tượng để xóa ảnh" src="" />
+			</div>		
+						
+			</div>
+			
+			<div id="OrderImages">
+				 
+		    		
+		    		 
+			</div>
+        </div>
+  
+ 

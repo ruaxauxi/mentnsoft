@@ -1,0 +1,134 @@
+ <?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/customer/transactions.js'); 
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/customer/transactions.css');
+        
+        $title = 'Theo dõi Balance';
+        $this->headTitle($title);
+       
+        
+ ?>
+  <div class="row">
+   <div class="span11">
+     
+     <div id="divTitle">
+            <h4><span class="label">Số dư trong tài khoản:</span><span class="rate val"><?php echo number_format($this->balance,2,'.',',');?> USD</span></h4>
+            <h4><?php echo $this->escapeHtml($title);?></h4>
+     </div>
+        
+        <form action='<?php echo $this->url('customer',array('action'=> 'loadmoretrans'));?>' name="transListForm" id="transListForm">
+            <table class="table" id="transList">
+                <thead>
+                   <tr>
+                    <th class="icontoggle" ><span class="ui-icon ui-icon-plus"></span></th>
+                    <th style="width: 120px; text-align: center;">Ngày</th>
+                    <th>Số tiền Nợ</th>
+                    <th>Số tiền Có</th>
+                    <th>Số dư TK</th>
+                    <th>Mô tả</th>
+                   
+                   </tr>
+                </thead>
+                <tbody>                
+                <?php foreach($this->transactions as $item):?>
+                    <tr>
+                        <td>
+                            <?php if (($item->orderdetail || $item->transfer)):?>
+                                <a title="Nhấn xem chi tiết các giao dịch" href="javascript:void(0)" class="viewmore" data-show="0"><span class="ui-icon ui-icon-plus"></span></a>
+                            <?php endif;?>
+                        </td>
+                        <td><?php echo date('d-m-Y',strtotime($item->getDate()));?></td>                        
+                        <td class="right"><?php echo $item->getType()=="-"?number_format($item->getAmount(),2,'.',','):'-'; ?></td>
+                        <td class="right"><?php echo $item->getType()=="+"?number_format($item->getAmount(),2,'.',','):'-'; ?></td>
+                        <td class="right"><?php echo number_format($item->getCredit(),2,'.',',');?></td>
+                        <td><?php echo $item->getNote();?></td>
+                        
+                    </tr> 
+                    <tr class="child">
+                        <td></td>
+                        <td colspan="5"><div class="details">
+                            
+                                <?php if ($item->transfer): ?>                                
+                                     <table class="table sub">
+                                        <thead>
+                                            <tr>
+                                                <th>Ngày CK</th>
+                                                <th>RefNo</th>
+                                                <th>Tỷ giá</th>
+                                                <th>VND</th>
+                                                <th>USD</th>
+                                                <th>Ghi chú</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><?php echo date('d-m-Y',strtotime($item->transfer->getTrans_date()));?></td>
+                                                <td><?php echo $item->transfer->getRefno();?></td>
+                                                <td class="right"><?php echo number_format($item->transfer->getX_rate(),0,".",",")?></td>
+                                                <td class="right"><?php echo number_format($item->transfer->getVnd(),0,".",",")?></td>
+                                                <td class="right"><?php echo number_format($item->transfer->getUSD(),2,".",",")?></td>
+                                                <td><?php echo $item->transfer->getNote();?></td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr><td colspan="6"></td></tr>
+                                        </tfoot>
+                                     </table>
+                                <?php endif;?>
+                                
+                                 <?php if ($item->orderdetail): ?>
+                                     <table class="table sub">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                
+                                                <th>Store</th>
+                                                <th>Description</th>
+                                                <th>Items</th>
+                                                <th>Total web</th>
+                                                <th>Discount</th>
+                                                <th>Total web1</th>
+                                                <th>Ship US</th>
+                                                <th>Tax</th>
+                                                <th>Service</th>
+                                                <th>Extra fee</th>
+                                                <th>Total Final</th>                                                 
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><?php echo date('d-m-Y',strtotime($item->orderdetail->getOrderdate()));?></td>
+                                                <td><?php echo $item->orderdetail->getStore_name();?></td>
+                                                <td><?php echo $item->orderdetail->getDescription();?></td>
+                                                <td class="right"><?php echo $item->orderdetail->getItems();?></td>
+                                                <td class="right"><?php echo number_format($item->orderdetail->getTotal_web(),2,".",",");?></td>
+                                                <td class="right"><?php echo number_format($item->orderdetail->getDiscount(),2,".",",");?></td>
+                                                <td class="right"><?php echo number_format($item->orderdetail->getTotal_web1(),2,".",",");?></td>
+                                                <td class="right"><?php echo number_format($item->orderdetail->getShip_us(),2,".",",");?></td>
+                                                <td class="right"><?php echo number_format($item->orderdetail->getTax(),2,".",",");?></td>
+                                                <td class="right"><?php echo number_format($item->orderdetail->getService(),2,".",",");?></td>
+                                                <td class="right"><?php echo number_format($item->orderdetail->getExtra_fee(),2,".",",");?></td>
+                                                <td class="right"><?php echo number_format($item->orderdetail->getTotal_final(),2,".",",");?></td>    
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr><td colspan="13"></td></tr>
+                                        </tfoot>
+                                     </table>
+                                <?php endif;?>
+                        
+                        
+                        </div>
+                       </td>
+                    </tr>
+                <?php endforeach;?>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6"></td>
+                    </tr>
+                </tfoot>
+            </table>
+        <div id="loadmore"><input type="hidden" name="page" id="btnLast" data-finish="0" data-isloading="0" value="1"/></div>
+     </form>
+   </div>
+</div>

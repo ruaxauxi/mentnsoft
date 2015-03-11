@@ -1,0 +1,67 @@
+@CHARSET "ISO-8859-1";
+
+
+.divDescription{
+	max-height: 300px;
+	width: 460px;
+}
+
+.divNote{
+	width: 120px;
+	height: auto;
+	display: inline-block;
+	overflow: auto;
+}
+
+
+
+.error{
+	border: 1px solid red !important;
+}
+
+#hiddenRow{
+	display: none;
+}
+
+.nick{
+	width: 120px;	
+}
+
+.ui-menu-item{
+	font-size: 12px;
+}
+.custom-combobox{
+	font-size: 12px;
+}
+
+.ui-autocomplete {
+	overflow-y: scroll;
+	overflow-x: hidden;	
+	max-height: 200px;
+}
+
+* html .ui-autocomplete { /* IE max- */
+	height: expression(this.scrollHeight >   200 ?   "200px" :   "auto");
+}
+
+ 
+
+.description{
+	width: 95%;
+	height: 25px;
+	-webkit-transition: height 0.2s;
+	-moz-transition: height 0.2s;
+	transition: height 0.2s;
+}
+
+.table tbody tr:hover{
+	 background:none !important;	 
+}
+
+.table  tbody tr:nth-child(even) {
+	background-color: #fff;
+}
+
+.table  tbody tr:nth-child(odd) {
+	background-color: #fff;
+}

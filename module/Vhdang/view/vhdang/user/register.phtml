@@ -1,0 +1,105 @@
+ <?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/user/script.js'); 
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/user/style.css');
+        
+        $title = 'Đăng ký';
+        $this->headTitle($title);
+       
+        
+ ?>
+ <div id="divRegister">
+<?php 
+
+echo '<h1>' . $this->escapeHtml($title) . '</h1>';
+ ?>
+ 
+ <form name="userForm" id="userForm" method="post" 
+            action="<?php echo $this->url('user',array('action'=> 'register'));?>">
+    <input type="hidden" id="id" name="id" />
+    <label for="username" >Tên đăng nhập(*)</label>
+    <input type="text" name="username" id="username"  data-info="Tên đăng nhập không chứa ký tự đặc biệt, tối thiểu 6 ký tự."
+            <?php echo $this->user->getError('username')==null?"":" class='input-error'"?>
+            value="<?php echo $this->user->getUsername();?>" maxlength="30"/>
+            <?php echo $this->user->getError('username')?>
+            
+    <label for="password" >Mật khẩu (*)</label>
+    <input type="password" name="password" id="password" data-info=" Mật khẩu ít nhất phải 6 ký tự."
+            <?php echo ($this->user->getError('password')!=null ||$this->user->getError('password2')!=null)?" class='input-error'":""?>
+            value="<?php echo ($this->user->getError('password')==null && $this->user->getError('password2')==null)?$this->user->getPassword():""?>"
+            maxlength="30"/> <?php echo $this->user->getError('password')?>
+    <label for="password2" >Xác nhận mật khẩu (*)</label>
+    <input type="password" name="password2" id="password2" data-info=" Nhập lại mật khẩu trên."
+             <?php echo $this->user->getError('password2')==null?"":" class='input-error'"?>
+             value="<?php echo ($this->user->getError('password')==null && $this->user->getError('password2')==null)?$this->user->getPassword2():""?>"
+            maxlength="30"/><?php echo $this->user->getError('password2')?>
+    <label for="firstname" >Họ tên (*)</label>
+    
+    <input type="text" name="firstname" id="firstname" data-info="Nhập vào họ và tên lót."
+            <?php echo $this->user->getError('firstname')==null?"":" class='input-error'"?>
+            value="<?php echo $this->user->getFirstname();?>" 
+            maxlength="100" size="100" placeholder="Nguyễn Văn"/>                 
+    <input type="text" name="lastname" id="lastname" data-info="Nhập vào tên."
+             <?php echo $this->user->getError('lastname')==null?"":" class='input-error'"?>
+            value="<?php echo $this->user->getLastname();?>" 
+                maxlength="100" size="30" placeholder="A"/>
+                <?php echo $this->user->getError('firstname').$this->user->getError('lastname');?>
+    <label for="birthdate" >Ngày sinh</label>
+    
+    <input type="text" name="birthdate" id="birthdate" data-info="Nhập vào ngày sinh theo dạng ngày-tháng-năm."
+            <?php  
+                if ($this->user->getBirthdate()!=null && $this->user->getBirthdateFormat()==null){
+            	       echo ' class="input-error"';
+                }
+            ?>
+            value="<?php 
+                if ($this->user->getBirthdateFormat()!=null ){
+                    echo $this->user->getBirthdateFormat();
+                }elseif ($this->user->getBirthDate() != null){
+                	echo $this->user->getBirthDate();
+                }
+            ?>" maxlength="10" placeholder="31-12-1985"/>
+             <?php echo $this->user->getError('birthdate')?>
+    <label for="gender" >Giới tính</label>
+    <select name="gender" 
+            <?php echo $this->user->getError('gender')==null?"":" class='input-error'"?>
+            id="gender">
+        <option value="-1" >--chọn--</option>
+        <option value="0" <?php if ($this->user->getGender() === 0) echo 'selected'; ?> >Nam</option>
+        <option value="1" <?php if ($this->user->getGender() === 1) echo 'selected'; ?>>Nữ</option>
+    </select><?php echo $this->user->getError('gender')?>
+    <label for="email" >Email</label>
+    <input type="text" name="email" id="email" data-info=" Nhập vào địa chỉ email hợp lệ." 
+             <?php echo $this->user->getError('email')==null?"":" class='input-error'"?>
+            value="<?php echo $this->user->getEmail();?>" 
+            maxlength="50" placeholder="nickname@domain.com"/>
+            <?php echo $this->user->getError('email')?>
+    <label for="city" >Tỉnh/Thành phố</label>
+    <select name="city" 
+            <?php echo $this->user->getError('city')==null?"":" class='input-error'"?>
+            id="city">
+        <?php 
+            foreach($this->cities as $key => $val){
+                $selected = $this->user->getCity()==$key?"selected":"";                 
+                echo "<option value='".$key."' $selected >".$val."</option>";
+            }
+        ?>
+    </select>  <?php echo $this->user->getError('city')?>
+    <label for="address" >Địa chỉ</label>
+    <textarea name="address" id="address" data-info=" Nhập vào địa chỉ đầy đủ."
+             <?php echo $this->user->getError('address')==null?"":" class='input-error'"?> 
+            maxlength="255" ><?php echo $this->user->getAddress();?></textarea>
+            <?php echo $this->user->getError('address')?>
+        <hr />           
+       <img id="captimage" alt="" src="<?php echo $this->captchaURL?>" />
+       <a id="refreshcaptcha" href="javascript:void(0)" data-link="<?php echo $this->url('user',array('action'=>'refreshcaptcha')); ?>" >Ảnh khác?</a>  
+       <input type="hidden" name="captid" id="captid" value="<?php echo $this->captid;?>" />  
+     <label for="captcha" >Nhập ký tự trong ảnh trên</label>
+     <input type="text" name="captcha"  data-info="Nhập vào mã xác thực mà bạn thấy trong ảnh trên."
+             <?php echo $this->user->getError('captcha')==null?"":" class='input-error'"?> 
+        id="captcha" /> <?php echo $this->user->getError('captcha')?>
+    
+    <label for="submitbutton"></label>
+    <input type="submit" name="submitbuttom" id="submitbutton" value="Đăng ký" />
+ </form>
+
+</div>

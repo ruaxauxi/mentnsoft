@@ -1,0 +1,19 @@
+@CHARSET "ISO-8859-1";
+
+.err{
+	color: #c70000;
+	font-size: 13px;
+	font-weight: bold;
+	display: inline-block ;
+}
+.success{
+	font-size: 13px;
+	font-weight: bold;
+	color: #008c4f;
+	display: inline-block ;
+}
+
+input.btn[type="submit"]{
+	display: inline-block !important;
+	margin-right: 10px;
+}

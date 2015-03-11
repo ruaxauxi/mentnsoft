@@ -1,0 +1,155 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle($this->translate('Mentn-Online'))->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
+
+        <!-- Le styles -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                        ->prependStylesheet($this->basePath() . '/css/bootstrap-responsive.min.css')
+                        ->prependStylesheet($this->basePath() . '/css/smoothness/jquery-ui-1.10.3.custom.css') 
+                        ->prependStylesheet($this->basePath() . '/css/jquery.ui.combobox.css')
+                                             
+                        ->prependStylesheet($this->basePath() . '/css/style.css')
+                        ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css') ?>
+
+        <!-- Scripts -->
+        <?php echo $this->headScript()->prependFile($this->basePath() . '/js/html5.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+                                      ->prependFile($this->basePath() . '/js/bootstrap.min.js')
+                                      ->prependFile($this->basePath() . '/js/custom.js')
+                                      ->prependFile($this->basePath() . '/js/jquery.ui.combobox.js')
+                                      ->prependFile($this->basePath() . '/js/jquery.ui.datepicker.vi_vn.js')
+                                      ->prependFile($this->basePath() . '/js/jquery-migrate-1.2.1.js')
+                                      ->prependFile($this->basePath() . '/js/jquery-ui-1.10.3.custom.min.js')
+                                      
+                                      ->prependFile($this->basePath() . '/js/jquery-1.10.2.min.js')?>
+
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    
+                    <div class="nav-collapse collapse">
+                        <ul class="nav">
+                            <li class="active"><a href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Trang chủ') ?></a></li>
+                            
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                    
+                     <?php 
+                    		$partial = array('layout/menu.phtml', 'Vhdang');
+                    		 echo $this->navigation('navigation')
+						         	 	 ->menu()
+						         	 	 ->setPartial($partial)
+						         	// 	 ->render()
+						         	//    ->setUlClass('nav')
+										    ->setMinDepth(0)
+										    ->setMaxDepth(1)
+						         //		 ->renderMenu()  
+         	 				;
+         	 				
+         	 	    ?>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+             <div class="row">
+             <?php if ($this->UserInfo()->isLogin()):?>
+                <div class="span2">
+                	<?php if ($this->UserInfo()->getNick() == 'dung'):?>
+                	 <ul class="list">
+	                        <li>CHỨC NĂNG</li>
+	                       
+	                        <li><a href="<?php echo $this->url('admin',array('action'=> 'shipment'))?>">Đợt hàng chưa xong</a></li>
+	                        <li><a href="<?php echo $this->url('admin',array('action'=> 'shipped'))?>">Đợt hàng đã xong</a></li>	                        
+	                        <li><a href="<?php echo $this->url('admin',array('action'=> 'createshipment'))?>">Tạo Đợt hàng</a></li>
+	                       <li><a href="<?php echo $this->url('admin',array('action'=> 'changepasswd'))?>">Đổi mật khẩu</a></li>
+	                        <li><a href="<?php echo $this->url('user',array('action'=> 'logout'))?>">Thoát</a></li> 
+	                                              
+                   	</ul>
+				    <?php elseif ($this->UserInfo()->getNick() == 'duong'): ?>
+					 <ul class="list">
+	                        <li>CHỨC NĂNG</li>
+							<li><a href="<?php echo $this->url('admin',array('action'=> 'savecustomerrequest'))?>">Lưu đơn hàng</a></li>
+							<li><a href="<?php echo $this->url('admin',array('action'=> 'order'))?>">Tạo Đơn hàng</a></li>
+							<li><a href="<?php echo $this->url('admin',array('action'=> 'orderlist'))?>">DS Đơn hàng</a></li>
+							<li><a href="<?php echo $this->url('admin',array('action'=> 'changepasswd'))?>">Đổi mật khẩu</a></li>
+							<li><a href="<?php echo $this->url('user',array('action'=> 'logout'))?>">Thoát</a></li> 
+					</ul>
+					
+                   <?php elseif ($this->UserInfo()->isAdmin()):?>
+                    <ul class="list">
+                        <li>CHỨC NĂNG</li>
+                        <li><a href="<?php echo $this->url('admin',array('action'=> 'changepasswd'))?>">Đổi mật khẩu</a></li>
+                        <li><a href="<?php echo $this->url('user',array('action'=> 'customer'))?>">Quản lý Khách Hàng</a></li>
+                        <li><a href="<?php echo $this->url('admin',array('action'=> 'stores'))?>">Quản lý Store</a></li>
+                        <li><a href="<?php echo $this->url('admin',array('action'=> 'xrates'))?>">Quản lý Tỷ giá</a></li>
+                        <li><a href="<?php echo $this->url('admin',array('action'=> 'transfermgm'))?>">Quản lý Chuyển khoản</a></li>
+                        <li><a href="<?php echo $this->url('user',array('action'=> 'transferhistory'))?>">Lịch sử Chuyển khoản</a></li>
+                        <li><a href="<?php echo $this->url('admin',array('action'=> 'customerorders'))?>">Danh sách Đặt hàng</a></li>
+                        <li><a href="<?php echo $this->url('admin',array('action'=> 'approvedcustomerorders'))?>">Yêu cầu đã duyệt</a></li>
+                        <li><a href="<?php echo $this->url('admin',array('action'=> 'savecustomerrequest'))?>">Lưu đơn hàng</a></li>
+                        <li><a href="<?php echo $this->url('admin',array('action'=> 'orderlist'))?>">DS Đơn hàng</a></li>
+                        <li><a href="<?php echo $this->url('admin',array('action'=> 'order'))?>">Tạo Đơn hàng</a></li>
+                        <li><a href="<?php echo $this->url('admin',array('action'=> 'updatebalance'))?>">Giao dịch khác</a></li>
+                        
+                        <li><a href="<?php echo $this->url('admin',array('action'=> 'shipment'))?>">Đợt hàng chưa xong</a></li>
+                        <li><a href="<?php echo $this->url('admin',array('action'=> 'shipped'))?>">Đợt hàng đã xong</a></li>
+                        
+                        <li><a href="<?php echo $this->url('admin',array('action'=> 'shippingweight'))?>">Nhập Shipping weight </a></li>
+                        
+                        <li><a href="<?php echo $this->url('admin',array('action'=> 'createshipment'))?>">Tạo Đợt hàng</a></li>
+                        <li><a href="<?php echo $this->url('admin',array('action'=> 'order'))?>">Theo dõi đơn hàng</a></li>
+                        <?php if ($this->UserInfo()->getNick() == 'ngan'):?>
+                        <li><a href="<?php echo $this->url('admin',array('action'=> 'shipmentfinalizing'))?>">Kiểm tra credit card</a></li>
+                        <?php endif;?>
+                        <li><a href="<?php echo $this->url('admin',array('action'=> 'question'))?>">Hỏi-Đáp</a></li>
+						<li><a href="<?php echo $this->url('user',array('action'=> 'changepasswd'))?>">Đổi mật khẩu</a></li>
+                        <li><a href="<?php echo $this->url('user',array('action'=> 'logout'))?>">Thoát</a></li> 
+                                              
+                    </ul>
+                  <?php else: ?>
+                    <ul class="list">
+                        <li><a href="<?php echo $this->url('user',array('action'=> 'changepasswd'))?>">Đổi mật khẩu</a></li>
+                        <li><a href="<?php echo $this->url('user',array('action'=> 'address'))?>">Cập nhật địa chỉ</a></li>
+                        <li><a href="<?php echo $this->url('user',array('action'=> 'transfer'))?>">Thông báo chuyển khoản</a></li>
+                        <li><a href="<?php echo $this->url('customer',array('action'=> 'order'))?>">Đặt hàng</a></li>
+                        <li><a href="<?php echo $this->url('customer',array('action'=> 'vieworder'))?>">Kết quả mua hàng</a></li>
+                        <li><a href="<?php echo $this->url('customer',array('action'=> 'transactions'))?>">Theo dõi Balance</a></li>
+                        <li><a href="<?php echo $this->url('customer',array('action'=> 'question'))?>">Hỏi-Đáp</a></li>
+                        <li><a href="<?php echo $this->url('user',array('action'=> 'logout'))?>">Thoát</a></li> 
+                        
+                    </ul>
+                  
+                  <?php endif;?>
+                </div>
+             <?php endif;?>
+                  <?php echo $this->content; ?>
+            </div>
+            <hr>
+            <footer>
+                <p>&copy;  <?php echo date('Y') ?> by Mentn-Online.</p>
+            </footer>
+        </div> <!-- /container -->
+        <?php echo $this->inlineScript() ?>
+        
+         <div id="splash" >
+           <span id="splashcontent"></span>
+            <br />
+            <img id="imgLoading" src="<?php echo $this->basePath(); ?>/images/loading.gif" />
+         </div> 
+         
+         <div id="notify">
+            <span></span>
+        </div>
+    </body>
+</html>

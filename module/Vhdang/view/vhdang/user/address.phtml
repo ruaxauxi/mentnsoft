@@ -1,0 +1,52 @@
+ <?php  
+ 
+        
+        $this->headScript()->appendFile($this->basePath() . '/js/user/address.js');
+        
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.autosize.min.js');
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/user/style.css');
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/user/address.css');
+        
+        $title = 'Địa chỉ giao hàng.';
+        $this->headTitle($title);
+       
+        
+ ?>
+
+   <div class="span6">
+        <h3><?php echo $this->escapeHtml($title);?></h3>
+        <form action="<?php echo $this->url('user',array('action'=>'address')); ?>" method="post" id="frmUpdateAddress" name="frmUpdateAddress">
+            <input type="hidden"   name="nick"  value="<?php echo $this->UserInfo()->getNick();?>"/>
+            
+            <label for="receiver">Tên người nhận</label>
+            <input type="text" name="receiver" value="<?php echo $this->address->getReceiver();?>" />
+            
+            <label for="city">Hình thức vận chuyển</label>
+            <select name="shipping_method_id" id="shipping_method_id">
+                <option>---</option>
+                 <?php foreach($this->shippingMethods as $s):?>
+                    <option value="<?php echo $s->getId();?>" <?php echo $this->address->getShipping_method_id()== $s->getId()?" selected":"";?> ><?php echo $s->getShipping_method(); ?></option>
+                 <?php endforeach;?>                        
+            </select>
+            
+            <label for="city">Tỉnh/Thành phố</label>
+            <select name="city" id="city">
+                 <?php foreach($this->city as $key=> $val):?>
+                    <option value="<?php echo $key;?>" <?php echo $this->address->getCity()== $key?" selected":"";?> ><?php echo $val; ?></option>
+                 <?php endforeach;?>                        
+            </select>
+            <label for="address">Địa chỉ</label>
+            <textarea rows="4" cols="" name="address" id="address" maxlength="255"><?php echo $this->address->getAddress();?></textarea>
+        
+            <label for="telephone">Số điện thoại</label>
+            <input type="text" name="telephone" value="<?php echo $this->address->getTelephone();?>" />
+            <label for="email">Email</label>
+            <input type="text" name="email" maxlength="255" value="<?php echo $this->address->getEmail();?>" />
+            <hr/>
+            <input type="submit" name="btnsubmit" value="Cập nhật" class="btn" /> 
+            <div class="err"><?php echo $this->msgErr;?></div>
+            <div class="success"><?php echo $this->msgSuccess;?></div>
+        </form>
+   </div> 
+ 
+ 

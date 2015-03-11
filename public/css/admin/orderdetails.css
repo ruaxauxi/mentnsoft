@@ -1,0 +1,514 @@
+@CHARSET "ISO-8859-1";
+
+#spanDescription{
+	width: 700px !important;
+}
+
+#imageDialog{
+	display: none;
+}
+ 
+ .imgList {
+	position: relative;
+	margin: 3px;
+	float: left;
+	width: 300px;
+	border: 1px solid #e9eaed;
+}
+
+.imgList a {
+	position: absolute;
+	top: 5px;
+	left: 275px;
+	padding: 0px;
+	text-decoration: none;
+	z-index: 1000;
+}
+
+.imgList span {
+	margin: 0px;
+	opacity: 0.55;
+}
+
+.imgList span.mouseenter {
+	opacity: 1;
+}
+
+.imgList img.imgmouseenter {
+	opacity: 0.35;
+}
+
+.imgList .delImg{
+	display: inline-block;
+	padding: 5px;
+}
+
+#imgitemHidden{
+	display: none;
+}
+ 
+
+#hiddenRow{
+	display: none;
+}
+
+#divOrderdetails{
+	 display: none;  
+}
+
+#nextstep{
+
+	position: relative;	
+	padding-right: 50px;
+}
+
+.error{
+	border: 1px solid red !important;
+	background-color: rgba(255,255,0,0.5) !important;
+	background-image: none !important;	
+}
+
+#nextstep span{
+	
+	font-size: 13px;
+	font-weight: bold;
+	padding: 5px !important;
+}
+
+#discount_order{
+	height: 16px !important;
+	width: 80px;
+	padding: 5px;
+	position: relative;
+	top: 5px;	 
+	font-size: 14px;
+	font-weight: bold;
+}
+
+#orderInfo .label{	 
+	width: 80px; 
+	text-align: right;
+	padding: 5px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+	margin-right: 0px;
+}
+#orderInfo .dolar{
+	font-weight: bold;
+	color: #c70000;
+	margin-right: 2px;
+}
+
+#orderInfo .highlight{
+	background-color: #c6c6c6;
+}
+
+.currency{
+	font-weight: bold !important;
+	color: #c70000 !important;
+}
+
+#orderInfo .currency{
+	font-weight: bold;
+	color: #c70000;
+}
+
+#orderInfo .val{
+	width: 160px;
+	border: 1px solid #c9c9c9;
+	display: inline-block;
+	padding: 2px;
+	margin-right: 10px;
+	font-weight: bold;
+	font-size: 13px;
+	
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.description{
+	width: 150px;
+	height: 26px;
+	margin-bottom: 0px;
+	font-size: 12px;
+	-webkit-transition: height 0.2s;
+	-moz-transition: height 0.2s;
+	transition: height 0.2s;
+}
+
+
+.divNicks .custom-combobox-input,
+.divStores .custom-combobox-input{
+	height: 18px !important;	
+	display: inline-block !important;	 
+	padding: 4px 6px !important;
+	font-size: 12px !important;
+	line-height: 20px !important;
+	color: #555 !important;
+	vertical-align: middle !important;
+	-webkit-border-radius: 4px !important;
+	-moz-border-radius: 4px !important;
+	border-radius: 4px !important;
+}
+
+.divNicks {
+	 margin: 0px !important;
+	 padding: 0px !important;
+}
+
+.group1{
+	width: 80px;
+	text-align: right;
+}
+ 
+
+.group1 input[type=text] {
+	width: 60px;
+	text-align: right;
+}
+
+.group2{
+	width: 60px;
+	text-align: right;
+}
+
+.group2 input[type=text] {
+	width: 40px;
+	text-align: right;
+}
+
+.group3{
+	text-align: right;
+	width: 60px;
+}
+ 
+.group3 input[type=text] {
+	width: 40px;
+	text-align: right;
+	
+}
+
+.group4{
+	width: 80px;
+	text-align: right;
+}
+
+.group4 input[type=text] {
+	width: 85px;
+	text-align: right;
+	
+}
+
+.items{
+	width: 30px !important;
+	text-align: right;
+}
+
+#totalItems{
+	height: 18px !important;
+	width: 35px;
+	font-size: 13px !important;
+	font-weight: bold !important; 	 
+	text-align: right;
+}
+
+#totalWeb, #totalWeb1{
+	height: 18px !important;
+	width: 60px;
+	font-size: 13px !important;
+	font-weight: bold !important; 	 
+	text-align: right;
+}
+
+#totalShip_us{
+	height: 18px !important;
+	width: 55px;
+	font-size: 13px !important;
+	font-weight: bold !important; 	 
+	text-align: right;
+}
+
+#totalTax{
+	height: 18px !important;
+	width: 55px;
+	font-size: 13px !important;
+	font-weight: bold !important; 	 
+	text-align: right;
+}
+
+#totalExtra_fee{
+	height: 18px !important;
+	width: 55px;
+	font-size: 13px !important;
+	font-weight: bold !important; 	 
+	text-align: right;
+}
+
+#divTotalWeb, #divTotalWeb1{
+	position: relative;
+	text-align: right;
+}
+
+#divTotalDiscount input[type=text]{
+	height: 18px !important;	
+	width: 60px;
+	font-size: 13px !important;
+	font-weight: bold !important; 	 
+	text-align: right;
+}
+
+#divTotal_total input[type=text]{
+	height: 18px !important;
+	width: 60px;
+	font-size: 13px !important;
+	font-weight: bold !important; 	 
+	text-align: right;
+}
+
+#divTotalWeb span{
+
+	font-size: 13px !important;
+	font-weight: bold !important;
+	display: inline-block;
+	width: 10px;
+	height: 20px;
+	margin-right: 3px;
+}
+
+#total{
+	height: 18px !important;
+	width: 65px;
+	font-size: 13px !important;
+	font-weight: bold !important; 	 
+	text-align: right;
+}
+#divTotal{
+	position: relative;
+	text-align: right;
+}
+#divTotal span{
+
+	font-size: 13px !important;
+	font-weight: bold !important;
+	display: inline-block;
+	width: 10px;
+	height: 20px;
+	margin-right: 3px;
+}
+
+.divTotal_final{
+	position: relative;
+	display: block; 
+	  
+	text-align: center;
+}
+
+.total_final{
+	height: 32px !important;
+	width: 70px;
+	font-size: 13px !important;
+	font-weight: bold !important;
+	 
+	margin-top: 10px !important;
+	 
+	text-align: right;
+}
+
+.divTotal_final .label{
+	width: 80px;
+	text-align: right;
+	padding: 3px !important;
+}
+
+.divTotal_final .val{
+	width: 70px;
+	height: 26px;
+	border: 1px solid #c9c9c9;
+	display: inline-block;
+	padding: 0px;
+	margin-top: 2px;
+	margin-right: 2px;
+	padding-right: 2px;
+	font-weight: bold;
+	font-size: 12px;
+	text-align: right;
+	
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+
+.divTax .val{
+	width: 65px;
+	height: 18px;
+	border: 1px solid #c9c9c9;
+	display: block;
+	padding: 3px;
+	margin-top: 10px;
+	margin-left: 3px;
+	padding-right:3px;
+	font-weight: bold;
+	font-size: 12px;
+	text-align: right;
+	
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	
+	background-color: #c3c3c3;
+}
+
+
+
+.total_r{
+	width: 100%;
+	display: block;
+	
+}
+
+.dolarsign{	 
+	font-size: 14px !important;
+	font-weight: bold !important;
+	display: inline-block;
+	width: 10px;
+	height: 20px;
+}
+
+.final_tax {
+	font-size: 12px;
+	font-weight: bold;
+	display: inline-block;
+	padding-left: 5px;	
+	 
+}
+
+ 
+.tax{
+	font-size: 12px !important;
+	font-weight: bold !important;
+	 
+	width: 30px !important;
+	text-align: right;
+	padding-right: 15px !important;
+}
+
+.divTax{
+	position: relative;
+}
+
+.taxLabel{
+	
+	position: absolute;
+	top: 8px; 
+	left: 42px;	
+	font-size: 13px;
+	font-weight:bold;
+	display: inline-block;
+	line-height: 12px;
+	vertical-align: middle; 	 
+	text-align: right;	 
+	margin-right: 3px;
+	
+}
+
+.tax_type{
+	width: 16px !important;
+}
+
+.divDel{
+	width: 20px !important;
+	display: block;
+	
+	vertical-align: middle;
+}
+
+.taxTable{
+	border: none !important;
+	border-collapse:collapse !important;
+}
+
+.taxTable .td_type{
+	display: inline-block;
+	width: 36px !important;	 
+	padding: 0px;
+}
+
+.taxTable input[type=radio]{
+	font-size: 9px;
+	width: 12px;
+	height: 12px;
+	display: inline-block;
+}
+
+.taxTable tr:nth-child(even),.taxTable  tr:nth-child(odd){
+	background-color: transparent !important;
+}
+ 
+
+.table tbody tr:hover{
+	 background-color: transparent !important;
+}
+
+
+.taxTable td, .taxTable tr{
+	border: none !important;
+	padding: 0px;
+}
+
+ 
+.divNicks .custom-combobox-input{
+	width: 80px;
+}
+
+
+
+#divOrderno .custom-combobox-input{ 
+	height: 20px !important;	
+	display: inline-block !important;	 
+	padding: 4px 6px !important;
+	font-size: 14px !important;
+	line-height: 20px !important;
+	color: #555 !important;
+	vertical-align: middle !important;
+	-webkit-border-radius: 4px !important;
+	-moz-border-radius: 4px !important;
+	border-radius: 4px !important;
+	
+}
+
+#orderdetailTable{
+	width: 800px !important;
+}
+
+#orderdetailTable input[type=text] {
+	height: 16px;
+	font-size: 11px;
+	margin: 2px;
+	font-weight: bold;	
+}
+
+#orderdetailTable th{
+	line-height: 20px;
+	vertical-align: middle;
+	padding: 3px;
+	text-align: center;
+}
+
+.ui-menu-item{
+	font-size: 12px;
+}
+.custom-combobox{
+	font-size: 12px;
+}
+
+.ui-autocomplete {
+	overflow-y: scroll;
+	overflow-x: hidden;	
+	max-height: 200px;
+}
+
+* html .ui-autocomplete { /* IE max- */
+	height: expression(this.scrollHeight >   200 ?   "200px" :   "auto");
+}

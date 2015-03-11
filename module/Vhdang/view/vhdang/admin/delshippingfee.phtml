@@ -1,0 +1,85 @@
+ 
+		<div id="divShippingFeeList">
+		
+        	 <div id="anchor"></div>        	              
+            <div id="shippingWeightList">
+               <div id="divTableHeader"></div>
+        		 	<table class="table" id="shippingWeightTable">
+        			<thead>
+        				<tr>
+        					<th style="width: 30px;"><div class="soNo">#</div></th>        					
+        					<th style="width: 150px;"><div class="soNick">Admin</div></th>
+        					<th style="width: 100px;"><div class="soDate">Date</div></th>
+        					<th style="width: 120px;"><div class="soTotal">Weight (kg)</div></th>
+        					<th style="width: 120px;"><div class="soTotal">Total</div></th>
+        					<th><div class="soNote">Note</div></th>
+        					<th style="width: 50px;">-</th>
+        					 
+        				</tr>
+        			</thead>
+        			<tbody>
+        			<?php  
+        			     $i = 1;
+        			      
+        			     $total = 0;
+        			     $weight = 0;
+        			      
+        			 ?>
+        			<?php if ($this->list):?>
+        			  
+        			    <?php foreach ($this->list as $item):?>
+        			        <?php 
+        			             
+        			             $total += $item->getTotal(); 
+        			             $weight += $item->getWeight();
+        			         ?>
+        			    	<tr class="trItem">
+        			    		<td class="soNo">
+        			    		  <div class="soNo">
+        			    		       <?php echo $i++; ?>
+        			    		  </div>          			    		  
+        			    		</td>        			    		 
+        			    		<td>
+        			    		       <div class="soNick"><?php echo $item->getAdmin();?></div>
+        			    		</td>
+        			    		<td ><?php echo date("d-m-Y",strtotime($item->getDate()));?></td>        			    		
+        			    		<td style="width: 100px"><div class="divTotal"><?php echo $item->getWeight()==0?"": number_format($item->getWeight(),2,".",",");?></div></td>   
+        			    		<td style="width: 100px"><div class="divTotal"><?php echo $item->getTotal()==0?"": number_format($item->getTotal(),2,".",",");?></div></td>      			    		
+        			    		<td><div class="divNote"><?php echo $item->getNote();?></div></td>
+        			    		<td><a class="del" href="#" data-id="<?php echo $item->getId();?>" data-url="<?php echo $this->url('admin',array('action'=>'delshippingfee'));?>" title="Xóa bỏ" ><span class="icon-trash"></span></a> </td>
+        			    		
+        			    	</tr>
+        			    	
+        			    
+        			    <?php endforeach;?>
+        			<?php endif;?>
+        			</tbody>
+        			<tfoot> 
+        			     <tr>
+        			         <td colspan="3">        			             
+        			         </td>
+        			          <td style="text-align: right">
+        			             <span class="label" id="total_weight"><?php echo number_format($weight,2,".",",");?></span>
+        			         </td> 
+        			         <td style="text-align: right">
+        			             <span class="label" id="total_final"><?php echo number_format($total,2,".",",");?></span>
+        			         </td>
+        			         <td>
+        			         </td>
+        			         <td>
+        			         </td>
+        			     </tr>       				 
+        			     <tr>
+        			         <td colspan="8">
+        			              
+        			          </td>  
+        			            
+        			          
+        			     </tr>
+        			</tfoot>
+        		</table>            
+            	</div>
+         	 
+            </div>
+            
+

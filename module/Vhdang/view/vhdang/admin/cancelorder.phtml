@@ -1,0 +1,313 @@
+<?php if (!$this->isAjaxRequest):?>
+<?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/admin/cancelorder.js'); 
+        $this->headScript()->appendFile($this->basePath() . '/js/jshashtable-3.0.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.numberformatter-1.2.3.js');
+         
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.autosize.min.js');
+        
+        
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/admin/cancelorder.css');
+        
+       
+        $this->headTitle('Đơn hàng');
+        $title = 'Đơn hàng';
+        
+ ?>
+ 
+ 
+ <div class="span11">
+    <form name="frmCancelOrder" id="frmCancelOrder" method="post"
+        action="<?php echo $this->url('admin',array('action'=>'cancelorder'));?>">
+    
+        <h4>Cancel các Order chưa add vào đợt hàng</h4>
+        <hr/>
+ 
+    <div id="allInfo">	
+  <?php endif;?>
+         <div id="orderList">
+			 <label for="orders" ><span class="label">OrderNo:</span>
+				<select name="orders" id="orders">
+					<option></option>
+					<?php foreach($this->orders as $item):?>
+					<option <?php echo $item->getOrderno() == $this->orderno?"selected":""?> value="<?php echo $item->getOrderno();?>"><?php echo $item->getOrderno();?></option>
+					<?php endforeach;?>
+				</select>
+			</label>
+			
+			
+			<button class="btn" type="submit" data-url="<?php echo $this->url('admin',array('action'=> 'createshipmentajaxadd'));?>"  value="search" name="btnSearch" id="btnSearch" ><span class="icon-search"></span>Search</button>
+                		 
+       </div>
+      
+        
+       <hr/>
+
+      
+    <div id="orderInfo">    
+    <?php if ($this->order->getOrderno()):?>	
+		  <table>
+		  <tr>
+		      <td ><span class="label">OrderNo</span></td><td><span class="val"><?php echo $this->order->getOrderno();?></span><input type="hidden" name="orderno" id="orderno" value="<?php echo $this->order->getOrderno();?>" /></td>		      
+		      <td><span class="label">Items</span></td>  <td><span class="val"><?php echo $this->order->getItems(); ?></span><input type="hidden" name="order_items" id="order_items" value="<?php echo $this->order->getItems();?>" /></td>		      
+		      
+		       <td><span class="label">-</span></td> <td><span class="val">-</span></td>		      
+		  </tr>
+		  
+		  <tr>
+		     
+		      <td><span class="label">Store</span></td>  <td><span class="val"><?php echo $this->order->getStore_name();?></span><input type="hidden" name="order_store_id" id="order_store_id" value="<?php echo $this->order->getStore_id();?>" /></td>
+		      <td><span class="label">Discount</span></td>  <td><span class="val currency"><span class="dolar">$</span><?php echo number_format($this->order->getDiscount(),2,".",",");?></span><input type="hidden" name="order_discount" value="<?php echo $this->order->getDiscount();?>" /></td>
+		      <td><span class="label">Tax</span></td>  <td><span class="val currency"><span class="dolar">$</span><?php echo number_format($this->order->getTax(),2,".",",");?></span><input type="hidden" name="order_tax" value="<?php echo $this->order->getTax();?>" /></td>
+		  </tr>
+		  
+		  <tr>
+		      <td><span class="label">CreditCard</span></td>  <td><span class="val"><?php echo $this->order->getCreditcard();?></span><input type="hidden" name="creditcard" id="creditcard" value="<?php echo $this->order->getCreditcard();?>" /></td>
+		      <td><span class="label">Total Web</span></td>  <td><span class="val currency hightligh-val"><span class="dolar">$</span><?php echo number_format($this->order->getTotal_web(),2,".",",");?></span><input type="hidden" name="order_total_web" id="order_total_web" value="<?php echo $this->order->getTotal_web();?>" /></td>
+		     
+		      <td><span class="label">Ship US</span></td>  <td><span class="val currency" ><span class="dolar">$</span><?php echo number_format($this->order->getShip_us(),2,".",",");?></span><input type="hidden" name="order_ship_us" id="order_ship_us" value="<?php echo $this->order->getShip_us();?>" /></td>
+		      
+		      
+		  </tr>
+		   
+		  <tr>
+		      <td><span class="label">Holder</span></td>  <td><span class="val"><?php echo $this->order->getHolder();?></span><input type="hidden" name="holder" value="<?php echo $this->order->getHolder();?>" /></td>
+		       <td> <span class="label">Total Web 1</span></td> <td><span class="val currency highlight hightligh-val"><span class="dolar">$</span><?php echo number_format($this->order->getTotal_web1(),2,".",",");?></span><input type="hidden" name="order_total_web1" id="order_total_web1" value="<?php echo $this->order->getTotal_web1();?>" /></td>		       
+		       <td><span class="label">Total Final</span></td> <td><span class="val currency highlight hightligh-val"><span class="dolar">$</span><?php echo number_format($this->order->getTotal_final(),2,".",",");?></span><input type="hidden" name="order_total_final" id="order_total_final" value="<?php echo $this->order->getTotal_final();?>" /></td>
+		  </tr>		
+		   <tr>
+		      <td><span class="label">Description</span></td><td colspan="5"><span class="val" id="spanDescription" ><?php echo $this->order->getDescription();?>&nbsp;</span><input type="hidden" name="description" value="<?php echo $this->order->getDescription();?>" /></td>
+		  </tr>	  
+       </table>
+      </div>
+     <?php if ($this->details):?> 
+      <hr/>
+       
+       <div id="divNewInfo">
+            <label title="Total_web1 còn lại của Order" for="total_web1" class="label">Total Web1:</label>
+            <input type="text" name="total_web1" id="total_web1" value="" />
+            <span class="space20"></span>
+            <label title="Total final còn lại của Order" for="total_final" class="label">Total Final:</label>
+            <input type="text" name="total_final" id="total_final" value="" />
+       </div>
+     
+       <input type="hidden" value="<?php echo $this->order->getTotal_web1();?>" name="current_total_web1" id="current_total_web1" />
+       <input type="hidden" value="<?php echo $this->order->getTotal_final();?>" name="current_total_final" id="current_total_final"/>
+      <hr />
+	    
+	    <div id="divOrderdetails">
+	    	<table class="table" id="orderdetailTable">
+        			<thead>
+        				<tr>
+        					<th>#</th>
+        					<th>Nick</th>
+        					<th>Description</th>
+        					<th>Items</th>        					
+        					<th>Total Web</th>        					
+        					<th>Total Web1</th>        				
+        					<th>Total Final</th>       
+        					<th style="width: 40px;">#item cancel</th>
+        					<th style="width: 60px;">#Total cancel</th> 	
+        					<th style="width: 180px;">Ghi chú</th>		
+        					<th><span class="icon icon-pencil"></span></th>		
+        				</tr>
+        			</thead>
+        			<tbody>
+        				<?php 
+            	     	$total_item = 0;
+            	     	$total_discount = 0;
+            	     	$total_web = 0;
+            	     	$total_web1 = 0;
+            	     	$total_shipus = 0;
+            	     	$total_extrafee = 0;
+            	     	$total_tax = 0;
+            	     	 
+            	     	$total_final = 0;
+            	     	$total_service = 0;
+            	     	$i = 1;
+            	     ?>
+            	     <?php foreach($this->details as $item):?>
+		            	     <?php 
+		            	     	$total_item += $item->getItems();
+		            	     	$total_discount += $item->getDiscount();
+		            	     	$total_web += $item->getTotal_web();
+		            	     	$total_web1 += $item->getTotal_web1();
+		            	     	$total_shipus += $item->getShip_us();
+		            	     	$total_extrafee += $item->getExtra_fee();
+		            	     	$total_tax += $item->getTax();
+		            	     	$total_service += $item->getService();
+		            	     	$total_final += $item->getTotal_final();
+		            	     
+		            	     ?>
+		            	 
+            	     	<tr class="trItem">
+            	     		<td>
+            	     		<?php echo $i++;?>
+            	     		 <input type="hidden" name="order_detail_ids[]" value="<?php echo $item->getId();?>" />
+            	     		</td>
+            	     		<td><?php echo $item->getNick();?>
+            	     		<input type="hidden" name="<?php echo $item->getId();?>_nick" value="<?php echo $item->getNick();?>" />
+            	     		</td>
+            	     		<td><div class="divDescription"><?php echo $item->getDescription();?></div></td>
+            	     		<td class="rightalign">
+            	     		    <?php echo number_format($item->getItems(),0,'.',','); ?>
+            	     		    <input type="hidden" class="items_val" value="<?php echo $item->getItems();?>" />
+            	     		</td>
+            	     		<td class="rightalign"><?php echo number_format($item->getTotal_web(),2,'.',','); ?></td>
+            	     		            	     		
+            	     		<td class="rightalign"><?php echo number_format($item->getTotal_web1(),2,'.',','); ?></td>
+            	     		<td class="rightalign">
+            	     		    <?php echo number_format($item->getTotal_final(),2,'.',','); ?>
+            	     		     <input type="hidden" class="totalFinal_val" value="<?php echo $item->getTotal_final();?>" />
+            	     		</td>
+            	     		
+            	     		<td>
+            	     		    <div>
+									<input  class="totalItems " disabled maxlength="3" type="text"
+										name="<?php echo $item->getId();?>_totalItems"
+										value="" />
+							   </div>
+            	     		</td>
+            	     		<td><div>
+									<input  class="totalUpdate " disabled maxlength="7" type="text"
+										name="<?php echo $item->getId();?>_totalUpdate"
+										value="" />
+								</div>
+							</td>
+							<td><div class="divNote">
+									<textarea rows="1" disabled name="<?php echo $item->getId();?>_note"
+										class="soNote"></textarea>
+							</div></td>
+							<td><input type="checkbox" class="chkEdit" value="true" /></td>
+							
+            	     	</tr>
+            	     
+            	     <?php endforeach;?>
+        			</tbody>        			
+        			<tfoot>
+        			<tr>
+        			    <td colspan="3"><b>Tổng cộng:</b></td>
+            	        <td class="rightalign"><span class="label "><?php echo number_format($total_item,0,'.',',');?></span></td>
+            	        <td class="rightalign"><span class="label"><?php echo number_format($total_web,2,'.',',');?></span></td>
+            	        <td class="rightalign"><span class="label"><?php echo number_format($total_web1,2,'.',',');?></span></td>
+            	        <td class="rightalign"><span class="label"><?php echo number_format($total_final,2,'.',',');?></span></td>
+            	        <td class="rightalign">
+            	        <input type="hidden" id="totalCanelledItem" value="" />
+            	        <input type="hidden" id="totalUpdated" value="" />
+            	        <span id="spanTotalItem" class="label">0</span></td>
+            	        <td class="rightalign"><span id="spanTotalUpdate" class="label">0</span></td>
+            	        <td>&nbsp;</td>      
+            	        <td>&nbsp;</td>         	         
+            	     </tr>
+            	     
+            	     <tr>
+        			     <td colspan="11">
+        			     	<button type="button" id="btnSave" data-url="<?php echo $this->url('admin',array('action'=>'cancelorder'));?>"  class="btn" >Lưu</button>
+        			     </td>
+        			 </tr>
+        			</tfoot>
+        	</table>
+            <?php endif;?> <!-- if it has items -->
+        <?php endif;?> <!-- if it is a valid order number -->
+        <?php if (count($this->itemcancelled)>0):?>
+        	<hr/>
+        	
+        	<h4>Các item bị cancel trong order <span class="val currency highlight hightligh-val"><?php echo $this->order->getOrderno()?></span></h4>
+        	
+        	<table class="table" id="itemcancelled">
+        			<thead>
+        				<tr>
+        					<th>#</th>
+        					<th>Nick</th>
+        					<th>Description</th>
+        					<th>Items</th>        					
+        					<th>Total Web</th>        					
+        					<th>Total Web1</th>        				
+        					<th>Total Final</th>       
+        					<th style="width: 40px;">#item cancel</th>
+        					<th style="width: 60px;">#Total cancel</th> 	
+        					<th style="width: 180px;">Ghi chú</th>	
+        				</tr>
+        			</thead>
+        			<tbody>
+        				<?php 
+            	     	$total_item = 0;
+            	     	$total_discount = 0;
+            	     	$total_web = 0;
+            	     	$total_web1 = 0;
+            	     	$total_shipus = 0;
+            	     	$total_extrafee = 0;
+            	     	$total_tax = 0;
+            	     	 
+            	     	$total_final = 0;
+            	     	$total_service = 0;
+            	     	$i = 1;
+            	     ?>
+            	     <?php foreach($this->itemcancelled as $item):?>
+		            	     <?php 
+		            	     	$total_item += $item->getItems();
+		            	     	$total_discount += $item->getDiscount();
+		            	     	$total_web += $item->getTotal_web();
+		            	     	$total_web1 += $item->getTotal_web1();
+		            	     	$total_shipus += $item->getShip_us();
+		            	     	$total_extrafee += $item->getExtra_fee();
+		            	     	$total_tax += $item->getTax();
+		            	     	$total_service += $item->getService();
+		            	     	$total_final += $item->getTotal_final();
+		            	     
+		            	     ?>
+		            	 
+            	     	<tr class="trItem">
+            	     		<td>
+            	     		<?php echo $i++;?>
+            	     		
+            	     		</td>
+            	     		<td><?php echo $item->getNick();?></td>
+            	     		<td><div class="divDescription"><?php echo $item->getDescription();?></div></td>
+            	     		<td class="rightalign">
+            	     		    <?php echo number_format($item->getItems(),0,'.',','); ?>            	     		     
+            	     		</td>
+            	     		<td class="rightalign"><?php echo number_format($item->getTotal_web(),2,'.',','); ?></td>            	     		            	     		
+            	     		<td class="rightalign"><?php echo number_format($item->getTotal_web1(),2,'.',','); ?></td>
+            	     		<td class="rightalign">
+            	     		    <?php echo number_format($item->getTotal_final(),2,'.',','); ?>            	     		     
+            	     		</td>
+            	     		<td class="rightalign"><?php echo number_format($item->getCancelled_items(),2,'.',',') ?></td> 
+            	     		<td class="rightalign">
+            	     		   <?php echo number_format($item->getCancelled_total(),2,'.',',') ?>
+            	     		</td>
+            	     		<td>
+            	     		    <?php echo $item->getNote();?>           	     		
+							</td> 							 						 
+            	     	</tr>
+            	     
+            	     <?php endforeach;?>
+        			</tbody>
+        			
+        			<tfoot>
+        			<tr>
+        			    <td colspan="3"><b>Tổng cộng:</b></td>
+            	        <td class="rightalign"><span class="label "><?php echo number_format($total_item,0,'.',',');?></span></td>
+            	        <td class="rightalign"><span class="label"><?php echo number_format($total_web,2,'.',',');?></span></td>
+            	        <td class="rightalign"><span class="label"><?php echo number_format($total_web1,2,'.',',');?></span></td>
+            	        <td class="rightalign"><span class="label"><?php echo number_format($total_final,2,'.',',');?></span></td>
+            	        <td class="rightalign">             	                     	        
+            	        </td>
+            	        <td class="rightalign"></td>
+            	        <td>&nbsp;</td>   
+            	         
+            	         
+            	     </tr>            	     
+            	      
+        			</tfoot>
+        	</table>
+        <?php endif;?>
+ 
+	    </div>    
+   
+<?php if (!$this->isAjaxRequest):?>      
+   </div>
+   </form>
+ </div>
+<?php endif;?>
+ 

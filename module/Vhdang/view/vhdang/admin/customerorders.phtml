@@ -1,0 +1,108 @@
+<?php if (!$this->isAjaxRequest):?>
+ <?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/admin/customerorders.js'); 
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.autosize.min.js');
+        
+        $this->headScript()->appendFile($this->basePath() . '/js/slimscroll/jquery.slimscroll.js');
+        
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/admin/customerorders.css');
+ 
+        
+        $title = 'DS Đặt hàng';
+        $this->headTitle($title);
+       
+        
+ ?>
+
+  <div class="span11">
+        <h4>Thông tin đặt hàng</h4>
+         <form action ="<?php echo $this->url('admin', array('action'=>'customerorders'));?>" 
+                name="orderForm"
+                method="post" id="orderForm">
+           <div id="orderList">        
+<?php endif;?>
+                   
+            <input type="hidden" name="page" id="page" value="<?php echo $page; ?>" />            
+            <table class="table">
+            <thead>
+                
+               <tr>
+                <td colspan="7"  style="text-align: right;">                
+                     <div class="ui-widget"  id="divNick">                            
+                       Nick: <select class="nick" name="nick">
+                                <option value="">--nick--</option>
+                                <?php foreach($this->nicks as $item):?>
+                                    <option value="<?php echo $item->getNick();?>"><?php echo $item->getNick();?></option>
+                                <?php endforeach;?>
+                            </select>
+                     </div>
+                    
+                     
+                     <div class="ui-widget" id="divStore">                            
+                        Store: <select class="store" name="store">
+                                    <option value="">--store--</option>
+                                    <?php foreach($this->stores as $item):?>
+                                        <option value="<?php echo $item->getId();?>"><?php echo $item->getName();?></option>
+                                    <?php endforeach;?>
+                                </select>
+                    </div> 
+                    <input type="submit" value="submit" class="btn" />                  
+                </td>
+                 
+              </tr>
+            
+               <tr>                     
+                    <th style="width: 25px;">#</th>
+                    <th>Nick</th> 
+                    <th style="width: 65px;">Ngày</th>                   
+                    <th>Store</th>   
+                    <th>Balance</th>                
+                    <th>Mô tả</th>
+                    <th>Ghi chú</th>                    
+                    <th style="text-align: center;"><span class="icon-check"></span></th>                      
+               </tr>            
+            </thead>
+            <tbody>
+                <?php $i = ($this->page -1)* $this->row + 1 ;?>
+                <?php foreach($this->paginator as $item):?>
+               <tr>
+                    <td style="text-align:center;" class="no"><?php echo $i++; ?></td>
+                    <td><?php echo $item->getNick();?></td>
+                    <td ><?php echo date('d-m-Y',strtotime($item->getDatecreated()));?></td>
+                    <td ><?php echo $item->getStore_name();?></td>
+                    <td><a href="#" title="<?php echo "Balance: ". number_format($item->getBalance(),2,".",",")."$; Waiting: ".number_format(($item->getWait_confirm()!=null?$item->getWait_confirm():0),2,".",",");?>" ><?php echo number_format($item->getBalance() + $item->getWait_confirm(),2,".",","); ?></a></td>
+                    <td><div class="divDescription"><?php echo $item->getDescription(); ?></div></td>
+                    <td  style="width: 150px;">
+                         <input type="hidden" class="orderid" value="<?php echo $item->getId();?>" />
+                        <textarea class="note" data-current="<?php echo $item->getNote();?>" rows="3" cols="" name="note[]" id="note_<?php echo $item->getId();?>" ><?php echo $item->getNote();?></textarea></td>                    
+                    <td style="text-align: center;" >
+                      
+                       <a title="Check" class="orderchecked" data-id="<?php echo $item->getId();?>" href="<?php echo $this->url('admin',array('action'=>'orderchecked','id'=> $item->getId()));?>"><span class="icon-check"></span></a>                      
+                   </td>                
+                    
+               </tr>
+               <?php endforeach;?>
+            </tbody>
+            <tfoot>
+                <tr>
+                            <td colspan="8">
+                                 <?php    
+                                    $url = $this->url('admin', array('action'=>'customerorders'));
+                                            echo $this->paginationControl(
+                                                        $paginator, 'Sliding', 'paginator-slide', 
+                                                        array('url'=>$url,'action'=>'customerorders')
+                                    );
+                                ?>   
+                            </td>
+                           </tr>
+            </tfoot>
+            </table>
+<?php if (!$this->isAjaxRequest):?>
+        </div> 
+       </form>
+    </div>
+<?php endif;?>
+
+
+ 
+    

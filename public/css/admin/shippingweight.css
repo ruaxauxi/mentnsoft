@@ -1,0 +1,491 @@
+@CHARSET "ISO-8859-1";
+
+#divResultSection{
+	position: relative;
+}
+#divShipemnts .custom-combobox-input{
+	 
+	height: 20px !important;
+	
+	display: inline-block !important;
+	 
+	padding: 4px 6px !important;
+
+	font-size: 14px !important;
+	line-height: 20px !important;
+	color: #555 !important;
+	vertical-align: middle !important;
+	-webkit-border-radius: 4px !important;
+	-moz-border-radius: 4px !important;
+	border-radius: 4px !important;
+	
+}
+
+
+#divResultHeader{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background-color: #fff;
+	z-index: 120;
+	width: 100%; 
+	height: 50px;
+	overflow: hidden;
+	display: block;
+	 
+}
+
+#searchOrderTable a{
+	text-decoration: underline;	
+	color: #08c;
+}
+
+#searchOrderTable a:visit,#searchOrderTable a:active{
+	color: #08c;
+}
+
+#searchOrderTable a:hover{
+	color: #c70000;
+}
+
+#divResultBody{	
+	width: 100%;
+	height: 520px;
+	overflow: auto; 
+	z-index: 119;
+	display: block;
+}
+
+ 
+#searchSection{
+	position: relative;
+	display: block;
+	background-color: #fff;
+	z-index: 100;
+	width: 100%;
+	padding-top: 10px;
+}
+
+#divTableHeader{
+	height: 37px;
+	width: 100%;
+	overflow: hidden;
+	z-index: 100 !important;
+	background-color: #fff !important;
+}
+ 
+
+
+
+#tbHeader thead th{
+	text-align: center !important;
+}
+ 
+.ui-autocomplete{
+	z-index: 1000 !important;
+}
+
+#searchDialog{
+	display: none;
+	width: 980px;
+	min-height: 650px;
+	z-index: 100;
+}
+
+#searchInfo{
+	line-height: 40px;
+	vertical-align: middle;
+}
+
+#searchDescription{
+	margin: 0px !important;
+	width: 400px;
+}
+
+#divSubmit{
+	margin-left: 20px;
+}
+
+#divSearchStore, #divSeaarchDescription, #divSubmit{
+	display: inline-block;
+}
+
+#orderList .custom-combobox-input{
+	 
+	height: 20px !important;
+	
+	display: inline-block !important;
+	 
+	padding: 4px 6px !important;
+
+	font-size: 14px !important;
+	line-height: 20px !important;
+	color: #555 !important;
+	vertical-align: middle !important;
+	-webkit-border-radius: 4px !important;
+	-moz-border-radius: 4px !important;
+	border-radius: 4px !important;
+	
+}
+
+#searchDialog .custom-combobox-input{
+	width: 150px !important;
+	height: 20px !important;
+	
+	display: inline-block !important;
+	 
+	padding: 4px 6px !important;
+
+	font-size: 14px !important;
+	line-height: 20px !important;
+	color: #555 !important;
+	vertical-align: middle !important;
+	-webkit-border-radius: 4px !important;
+	-moz-border-radius: 4px !important;
+	border-radius: 4px !important;
+	
+}
+
+#divSeaarchDescription{
+	margin-right: 20px;
+}
+
+#searchInfo .label{
+	display: inline-block;
+}
+
+.success{
+	background-image: url("../../../images/check.png");
+	background-repeat: no-repeat;
+	display: inline-block;
+	height: 32px;
+	color: #018A06;
+	padding-left: 28px;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 32px;
+	vertical-align: middle;
+}
+
+#lastcell{
+	border-right: 1px solid gray;
+}
+
+#shipmentTable .val{
+	text-align: right;
+	font-weight: bold;
+	border-right: 1px solid #ddd;
+	border-left: 1px solid #ddd;
+}
+
+#shipmentTable th{
+	text-align: center;
+}
+
+#totalRow .label{
+	margin-top: 2px !important;
+	margin-bottom: 2px !important;
+	pading-top: 5px;
+	padding-bottom: 5px;
+	
+}
+
+#totalRow td{
+	padding: 0px !important;
+}
+
+#tdTotal{
+	text-align: center;
+	font-weight: bold;
+	font-size: 13px;
+	border-left: 1px solid gray;
+	border-right: 1px solid #ddd;
+}
+
+#sumarize .right{
+	text-align: right;
+}
+
+#sumarize .red{
+	color: #c70000;
+}
+
+.trItem td {
+	height: 32px !important;
+	line-height: 32px !important;
+	vertical-align: middle;
+}
+
+.weight{
+	font-size: 12px !important;	
+	height: 18px !important;
+	padding: 3px !important;
+	margin: 0px !important;
+	text-align: right;
+}
+
+.soTotalWeb2{
+	width: 60px;	
+	display: block;
+}
+
+.soTotalWeb21{
+	width: 60px;	
+	display: block;
+}
+
+.total_web{
+	width: 60px;	
+	display: block;
+}
+
+.total_web1{
+	width: 60px;
+	display: block;
+}
+
+.soItems{
+	width: 40px;
+	display: block;
+}
+
+.soTotalFinal2{
+	width: 60px;
+	display: block;
+	
+}
+
+.soTotalFinal{
+	width: 60px;
+	display: block;
+	
+}
+
+.soHolder{
+	width: 60px;
+	display: block;
+}
+
+.soStoreName{
+	width: 80px;
+	display: block;
+}
+
+.items{
+	width: 30px;
+	display: block;
+}
+
+.total_final{
+	width: 60px;
+	display: block;
+	
+}
+
+
+.divDescription .hidden{
+	display: none;
+}
+.divDescription .photo{
+	position: absolute;
+	top: 2px;
+	left: 145px;	 
+	width: 60px;
+	height: 20px;
+	 
+	z-index: 1000;
+	font-size: 11px;
+	font-weight: bold;
+	text-decoration: none;
+	padding: 5px;
+	text-align: center;
+	display: none; 
+}
+
+.divDescription a{
+	z-index: 99;
+}
+.divDescription{
+	position:relative;		
+	width: 130px;
+	z-index: 99; 
+}
+
+
+#btnShipeOrderSave{
+	 
+}
+
+.viewmore{
+	display: table-row;
+}
+
+#shipmentTable .child{
+	height: 0px !important;
+}
+
+#shipmentTable .child td{	
+	 padding: 0px;
+}
+
+.extraInfo{
+	background-color: #fff !important;
+	padding: 5px;
+	line-height: 40px;
+	vertical-align: middle;
+	display: none;
+}
+
+.extraInfo label{
+	display: inline-block;
+	font-weight: bold;
+	
+}
+
+.extraInfo input[type=text]{
+	width:80px !important;
+	display: inline-block;
+	margin: 0px;
+	margin-right: 10px;
+	
+}
+
+.soWeight{
+	width: 100px !important;
+	display: block;
+}
+
+.weight {
+	width:90px !important;
+	display: inline-block;
+	margin: 0px;
+	margin-right: 10px;	
+}
+
+#sumarize .label{
+	display: inline-block;
+	width: 150px;
+	padding: 5px !important;
+	margin-right: 3px;
+}
+#sumarize .val{
+	width: 90px;
+	border: 1px solid #c9c9c9;
+	display: inline-block;
+	padding: 2px;
+	margin-right: 10px;
+	font-weight: bold;
+	font-size: 13px;
+	
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	text-align: right;
+}
+
+
+#shipmentInfo label{
+	 border: 0px;
+	 margin-top: 5px;
+	 margin-bottom: 2px;
+}
+
+#shipmentInfo input[type=text]{
+	margin-bottom: 0px;
+}
+
+#shipmentInfo table td{
+	 padding-right: 10px;
+	 vertical-align: top;
+}
+#note{
+	height: 50px;
+	width: 680px;
+}
+
+#orderList{
+	width: 420px;
+	display: inline-block;
+}
+
+#divSearch{
+	width: 360px;
+	display: inline-block;
+}
+
+#orderList label{
+	display: inline-block;
+}
+
+.soNo{
+	display: block;
+	width: 30px;
+	text-align: center;
+}
+.soTotal_web{
+	display: block;
+	width: 50px;
+}
+.soTotal_web1{
+	display: block;
+	width: 50px;
+}
+
+.soOrderdate{
+	display: block;
+	width: 70px;
+}
+
+.soNote2{
+	width: 100px;	 	 
+	display: block;
+}
+
+.soShipUS{
+	width: 60px;	 	 
+	display: block;
+}
+
+.divWeight{
+	width: 100px;
+	display: block;
+	text-align: right;
+}
+
+.soNote{
+	display: block;
+	width: 100%;	 
+	font-size: 12px;
+	margin: 0px !important;
+	padding: 3px !important;
+	
+}
+
+.divNote{
+	padding-right: 10px;
+}
+
+.soItems, .soDiscount,.soTotal_web, .soTotal_web1, .soShipUS,.soTax, .soTotalFinal{
+	text-align: right;	
+}
+
+.ui-menu-item{
+	font-size: 12px;
+}
+.custom-combobox{
+	font-size: 12px;
+}
+
+.ui-datepicker { 
+	z-index: 1000 !important;
+}
+
+.ui-autocomplete {
+	overflow-y: scroll;
+	overflow-x: hidden;	
+	max-height: 200px;
+}
+
+* html .ui-autocomplete { /* IE max- */
+	height: expression(this.scrollHeight >   200 ?   "200px" :   "auto");
+}

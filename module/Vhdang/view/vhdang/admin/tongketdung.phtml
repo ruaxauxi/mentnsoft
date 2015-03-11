@@ -1,0 +1,111 @@
+  <?php if (!$this->isAjaxRequest):?>
+ <?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/admin/tongketdung.js'); 
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/admin/tongketdung.css'); 
+        
+        
+       $title = 'Tổng kết theo Shipment';
+       $this->headTitle($title);
+       
+        
+ ?>
+ 
+ <form action="<?php echo $this->url("admin",array('action'=>'tongketdung')); ?>" method="post" id="frmTongketdung"> 
+ <div class="row">    
+   <div class="span11">
+          <div id="divTongketdung">
+ <?php endif;?>
+                <h3>TỔNG KẾT DUNG THEO ĐỢT</h3>
+                 <input type="hidden" name="page" id="page" value="<?php echo $this->page; ?>" />                   
+        		<table class="table" id="shippingTotalTable">
+        			<thead>
+        				<tr>
+        					<th style="width: 30px;">#</th>        					
+        					<th >Shipment</th>
+        					<th style="width: 90px;">Total Web1 (1) </th>
+        					<th style="width: 80px;">Cancel (2) </th>
+        					<th style="width: 80px;"> (1)-(2) = (3) </th>
+        					<th style="width: 80px;"> Service (3)*3% = (4)</th>
+        					<th style="width: 100px;">Shipping Weight (5)</th>
+        					<th style="width: 100px;"> Shipping (5)* 0.6 = (6)</th>
+        					<th style="width: 80px;">Total Final (4) + (6)</th> 
+        					<th style="width: 40px;">-</th>        					 
+        				</tr>
+        			</thead>
+        			<tbody>
+        			<?php $i = 1; ?>        			  
+        		 
+        			 <?php foreach ($this->paginator as $item):?>      
+        			  <?php if (!($this->UserInfo()->getUserGroup() == 'group2')&& ($this->UserInfo()->getNick()=='dung')): ?>
+        			    			         
+    			    	<tr class="trItem">
+    			    		<td class="soNo">
+    			    		  <div class="soNo">
+    			    		       <?php echo $i++; ?>
+    			    		  </div>          			    		  
+    			    		</td>        			    		 
+    			    		<td>
+			    		       <div class=""><?php echo $item->getShipment_name();?>
+			    		           <input type="hidden" name="shipment_id" value="<?php echo $item->getShipment_id();?>"/>
+			    		       </div>
+    			    		</td>
+    			    		<td ><div class="curency "><?php echo number_format($item->getTotal_web1(),2,".",",");?></div></td> 
+    			    		<td ><div class="curency "><?php echo number_format($item->getTotalItemCancel(),2,".",",");?></div></td> 
+    			    		<td ><div class="curency "><?php echo number_format($item->getTotal_web1() - $item->getTotalItemCancel(),2,".",",");?></div></td> 
+    			    		<td ><div class="curency total"><?php echo number_format($item->getService(),2,".",",");?></div></td>  
+    			    		<td ><div class="curency"><?php echo number_format($item->getShippingweight(),2,".",",");?></div></td>           			    		
+    			    		<td ><div class="curency total"><?php echo number_format($item->getShipping(),2,".",",");?></div></td>        			    		
+    			    		<td ><div class="curency total"><?php echo number_format($item->getTotal(),2,".",",");?></div></td> 
+    			    		<td>-</td>
+    			    		
+    			    	</tr>      			    	
+        			   <?php endif;?>
+        			   
+        			   <?php if ($this->UserInfo()->getUserGroup() == 'group2' || $this->UserInfo()->getNick()=='diem'): ?> 
+        			     <tr class="trItem">
+    			    		<td class="soNo">
+    			    		  <div class="soNo">
+    			    		       <?php echo $i++; ?>
+    			    		  </div>          			    		  
+    			    		</td>        			    		 
+    			    		<td>
+			    		       <div class=""><?php echo $item->getShipment_name();?>
+			    		           <input type="hidden" name="shipment_id" value="<?php echo $item->getShipment_id();?>"/>
+			    		       </div>
+    			    		</td>
+    			    		<td ><div class="curency "><?php echo number_format($item->getTotal_web1(),2,".",",");?></div></td> 
+    			    		<td ><div class="curency "><?php echo number_format($item->getTotalItemCancel(),2,".",",");?></div></td> 
+    			    		<td ><div class="curency "><?php echo number_format($item->getTotal_web1() - $item->getTotalItemCancel(),2,".",",");?></div></td> 
+    			    		<td ><div class="curency total"><?php echo number_format($item->getService(),2,".",",");?></div></td>  
+    			    		<td ><div class="curency"><?php echo number_format($item->getShippingweight(),2,".",",");?></div></td>           			    		
+    			    		<td ><div class="curency total"><?php echo number_format($item->getShipping(),2,".",",");?></div></td>        			    		
+    			    		<td ><div class="curency total"><?php echo number_format($item->getTotal(),2,".",",");?></div></td> 
+    			    		<td>-</td>
+    			    		
+    			    	</tr>     
+        			   
+        			   <?php endif;?>
+        			 <?php endforeach;?>
+        			 
+        			</tbody>
+        			<tfoot> 
+        			     <tr>
+                            <td colspan="10">
+                                 <?php    
+                                    $url = $this->url('admin', array('action'=>'tongketdung'));
+                                            echo $this->paginationControl(
+                                                        $this->paginator, 'Sliding', 'paginator-slide', 
+                                                        array('url'=>$url,'action'=>'tongketdung')
+                                    );
+                                ?>   
+                            </td>
+                         </tr>   				 
+        			     
+        			</tfoot>
+        		</table>  
+<?php if (!$this->isAjaxRequest):?>         
+          </div>
+   </div>
+</div>
+</form>
+<?php endif;?>

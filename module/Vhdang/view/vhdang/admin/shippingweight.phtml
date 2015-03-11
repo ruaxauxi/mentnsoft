@@ -1,0 +1,139 @@
+<?php if (!$this->isAjaxRequest):?>
+<?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/admin/shippingweight.js'); 
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.autosize.min.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/jshashtable-3.0.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.numberformatter-1.2.3.js');
+          
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.mousewheel.pack.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/fancybox/jquery.fancybox.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/fancybox/jquery.fancybox-buttons.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/fancybox/jquery.fancybox-thumbs.js');
+        
+        
+        
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/admin/shippingweight.css');
+
+ 
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/fancybox/jquery.fancybox.css');
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/fancybox/jquery.fancybox-buttons.css');
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/fancybox/jquery.fancybox-thumbs.css');
+        
+        
+        $title = 'Nhập Shipping weight';
+        $this->headTitle($title);
+       
+   
+ ?>
+ 
+<div class="span11">
+	<form name="frmShipment" id="frmShipment" method="post"
+		action="<?php echo $this->url('admin',array('action'=>'shippingweight'));?>">
+		 
+		 <div id="divShipemnts">
+		      Shipment: 
+		      <select name="shipment_id" id="shipment_id">
+		          <option></option>
+		          <?php foreach($this->shipments as $item):?>
+		          <option value="<?php echo $item->getId();?>" <?php echo $item->getId()==$this->shipment_id?"selected":""; ?> ><?php echo $item->getShip_name();?></option>
+		          <?php endforeach;?>
+		      </select>		      
+		      <input type="hidden" name="hidden_shipment_id" value="<?php echo $this->shipment_id;?>" />
+		      <input type="submit" name="btnShow" value="Submit" class="btn" />	      
+		 </div>
+		
+		<hr/>
+<?php endif;?>
+	<?php if ($this->shipment_id):?>	
+	  <?php if (!$this->isAjaxRequest):?>
+		<div id="divShippingWeight">
+      <?php endif;?>
+        		 
+        	 <div id="anchor"></div>        	              
+            <div id="shippingWeightList">
+               <div id="divTableHeader"></div>
+        		<table class="table" id="shippingWeightTable">
+        			<thead>
+        				<tr>
+        					<th style="width: 30px;"><div class="soNo">#</div></th>        					
+        					<th><div class="soNick">Nick</div></th>
+        					<th style="width: 40px;"><div class="soItems">Items</div></th>
+        					<th><div class="soWeight">Weight</div></th>
+        					<th><div class="soNote">Note</div></th>
+        					<th>-</th>
+        					 
+        				</tr>
+        			</thead>
+        			<tbody>
+        			<?php  
+        			     $i = 1;
+        			     $total_weight = 0; 
+        			     $total_item  = 0;
+        			      
+        			 ?>
+        			<?php if ($this->list):?>
+        			  
+        			    <?php foreach ($this->list as $item):?>
+        			        <?php 
+        			             $total_weight += $item->getWeight();
+        			             $total_item += $item->getTotal_item(); 
+        			         ?>
+        			    	<tr class="trItem">
+        			    		<td class="soNo">
+        			    		  <div class="soNo">
+        			    		       <?php echo $i++; ?>
+        			    		  </div>          			    		  
+        			    		</td>        			    		 
+        			    		<td>
+        			    		       <div class="soNick"><?php echo $item->getNick();?>
+        			    		           <input type="hidden" name="nicks[]" value="<?php echo $item->getNick();?>"/>
+        			    		       </div>
+        			    		</td>
+        			    		<td class="soItems" ><div class="soItems"><?php echo $item->getTotal_item();?></div></td>        			    		
+        			    		<td style="width: 100px"><div class="divWeight"><input  type="text" name="<?php echo $item->getNick();?>_weight" class="weight" value="<?php echo $item->getWeight()==0?"": number_format($item->getWeight(),2,".",",");?>"/></div></td>        			    		
+        			    		<td><div class="divNote"><textarea rows="1" cols="" class="soNote" name="<?php echo $item->getNick();?>_note"><?php echo $item->getNote();?></textarea></div></td>
+        			    		<td>-</td>
+        			    		
+        			    	</tr>
+        			    	
+        			    
+        			    <?php endforeach;?>
+        			<?php endif;?>
+        			</tbody>
+        			<tfoot> 
+        			     <tr>
+        			         <td colspan="2">        			             
+        			         </td>
+        			         <td style="text-align: right">
+        			            <span class="label"><?php echo number_format($total_item,0,".",","); ?></span>
+        			         </td>
+        			         <td style="text-align: right">
+        			             <span class="label" id="total_weight"><?php echo number_format($total_weight,2,".",",");?></span>
+        			         </td>
+        			         <td>
+        			         </td>
+        			     </tr>       				 
+        			     <tr>
+        			         <td colspan="2">
+        			             <input type="submit" value="Save" name="btnSave" class="btn" />
+        			          </td>  
+        			           <td colspan="4">
+        			             <input type="submit" value="Finish" name="btnFinish" class="btn" />
+        			          </td>  
+        			          
+        			     </tr>
+        			</tfoot>
+        		</table>           
+            	</div>
+         	 <?php if (!$this->isAjaxRequest):?>  
+                </div>
+             <?php endif;?>
+          <?php endif;?>
+ <?php if (!$this->isAjaxRequest):?>  
+	</form>
+
+</div>
+ 
+<?php endif;?>
+
+

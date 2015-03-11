@@ -1,0 +1,127 @@
+@CHARSET "ISO-8859-1";
+
+.divDate{
+	width: 100px;
+}
+
+#divNicks, {
+	margin-bottom: 10px;
+}
+
+#divNicks .custom-combobox-input{
+	width: 150px !important;
+	height: 20px !important;
+	
+	display: inline-block !important;
+	 
+	padding: 4px 6px !important;
+
+	font-size: 14px !important;
+	line-height: 20px !important;
+	color: #555 !important;
+	vertical-align: middle !important;
+	-webkit-border-radius: 4px !important;
+	-moz-border-radius: 4px !important;
+	border-radius: 4px !important;
+	
+}
+
+
+
+#divTitle .label{
+	line-height: 26px;
+	text-align: right;
+	padding: 3px !important;
+	margin-right: 2px;
+	
+}
+
+#divTitle .val{
+	line-height: 26px;
+	width: 160px;
+	border: 1px solid #c9c9c9;
+	display: inline-block;
+	padding: 2px;
+	
+	margin-right: 10px;
+	font-weight: bold;
+	font-size: 13px;
+	
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.rate{
+	font-size: 14px;
+	font-weight: bold;
+	color: #c70000;
+}
+
+
+.divDescription{
+	width: 440px;
+	height: auto;
+	display: inline-block;
+	overflow: auto;
+}
+
+.divNote{
+	width: 220px;
+	height: auto;
+	display: inline-block;
+	overflow: auto;
+}
+
+
+
+.error{
+	border: 1px solid red !important;
+}
+
+#hiddenRow{
+	display: none;
+}
+
+.store{
+	width: 120px;	
+}
+
+.ui-menu-item{
+	font-size: 12px;
+}
+.custom-combobox{
+	font-size: 12px;
+}
+
+.ui-autocomplete {
+	overflow-y: scroll;
+	overflow-x: hidden;	
+	max-height: 200px;
+}
+
+* html .ui-autocomplete { /* IE max- */
+	height: expression(this.scrollHeight >   200 ?   "200px" :   "auto");
+}
+
+ 
+
+.description{
+	width: 95%;
+	height: 25px;
+	-webkit-transition: height 0.2s;
+	-moz-transition: height 0.2s;
+	transition: height 0.2s;
+}
+
+.table tbody tr:hover{
+	 background:none !important;	 
+}
+
+.table  tbody tr:nth-child(even) {
+	background-color: #fff;
+}
+
+.table  tbody tr:nth-child(odd) {
+	background-color: #fff;
+}

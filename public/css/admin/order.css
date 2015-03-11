@@ -1,0 +1,165 @@
+@CHARSET "ISO-8859-1";
+
+#description{
+	width: 320px;
+	height: 42px;
+}
+
+
+
+#imgitemHidden{
+	display: none;
+}
+ 
+.imgList {
+	position: relative;
+	margin: 3px;
+	float: left;
+	width: 300px;
+	border: 1px solid #e9eaed;
+}
+
+.imgList a {
+	position: absolute;
+	top: 5px;
+	left: 275px;
+	padding: 0px;
+	text-decoration: none;
+	z-index: 1000;
+}
+
+.imgList span {
+	margin: 0px;
+	opacity: 0.55;
+}
+
+.imgList span.mouseenter {
+	opacity: 1;
+}
+
+.imgList img.imgmouseenter {
+	opacity: 0.35;
+}
+
+.imgList .delImg{
+	display: inline-block;
+	padding: 5px;
+}
+
+#subtotal{
+	margin-left: 0px;
+}
+
+#commands{
+	text-align: right;
+}
+
+#divDiscount, #divTotalWeb{
+	display: block;	
+}
+
+#divTotalWeb1, #divTotalFinal, #divTax, #divShipUS {
+	display: inline-block;	 
+}
+
+#orderForm{
+	width: 350px;
+	margin: auto;
+}
+
+#store_order{
+	margin-bottom: 10px;
+}
+#store_order .custom-combobox-input{
+	width: 150px !important;
+	height: 20px !important;
+	
+	display: inline-block !important;
+	 
+	padding: 4px 6px !important;
+
+	font-size: 14px !important;
+	line-height: 20px !important;
+	color: #555 !important;
+	vertical-align: middle !important;
+	-webkit-border-radius: 4px !important;
+	-moz-border-radius: 4px !important;
+	border-radius: 4px !important;
+	
+}
+#creditcard_order{
+	display: inline-block;
+}
+
+ 
+
+#creditcard_order .custom-combobox-input{
+	
+	 
+	margin-bottom: 10px;
+	
+	width: 150px !important;
+	
+	height: 20px !important;
+	
+	display: inline-block !important;
+	 
+	padding: 4px 6px !important;
+
+	font-size: 14px !important;
+	line-height: 20px !important;
+	color: #555 !important;
+	vertical-align: middle !important;
+	
+	-webkit-border-radius: 4px !important;
+	-moz-border-radius: 4px !important;
+	border-radius: 4px !important;
+	
+	
+}
+
+.info{
+	color: #999;
+	font-size: 10px;
+}
+
+ 
+.error{
+	border: solid 1px red !important;
+	background-color: rgba(255,255,0,0.5) !important;
+	background-image: none !important;
+}
+#frmOrder input[type=text]{
+	font-size: 14px;
+	font-weight: bold;
+	width: 150px;
+}
+
+#frmOrder .custom-combobox-input{
+	width: 150px;
+}
+
+ 
+
+#orderno{
+ 
+	margin-right: 10px;
+	
+}
+
+.ui-menu-item{
+	font-size: 12px;
+}
+.custom-combobox{
+	font-size: 12px;
+}
+
+.ui-autocomplete {
+	overflow-y: scroll;
+	overflow-x: hidden;	
+	max-height: 200px;
+}
+
+* html .ui-autocomplete { /* IE max- */
+	height: expression(this.scrollHeight >   200 ?   "200px" :   "auto");
+}

@@ -1,0 +1,93 @@
+ <?php if (!$this->isAjaxRequest):?>
+ <?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/admin/viewshippingfee.js'); 
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/admin/viewshippingfee.css');
+        
+        $title = 'Tổng chi phí Theo Đợt';
+        $this->headTitle($title);
+        
+        
+ ?>
+
+<form action="<?php echo $this->url('admin',array('action'=>'viewshippingfee')); ?> " method="post" id="frmViewshippingfee" >
+     <div class="row">    
+       <div class="span11">
+              <div id="divViewshippingfee"> 
+ <?php endif;?>    
+                <h3>TỔNG TIỀN SHIPPING THEO ĐỢT</h3>      
+                    <input type="hidden" name="page" id="page" value="<?php echo $this->page; ?>" />         
+            		<table class="table" id="shippingTotalTable">
+            			<thead>
+            				<tr>
+            					<th style="width: 30px;">#</th>        					
+            					<th >Shipment</th>
+            					<th style="width: 80px;">Total</th>            					 
+            					<th>-</th>        					 
+            				</tr>
+            			</thead>
+            			<tbody>
+            			<?php $i = 1; ?>        			  
+            		 
+            			 <?php foreach ($this->paginator as $item):?>    
+            			 <?php if (!($this->UserInfo()->getUserGroup() == 'group2') && $item->getShipment_id() > 23): ?>       			         
+        			    	<tr class="trItem">
+        			    		<td class="soNo">
+        			    		  <div class="soNo">
+        			    		       <?php echo $i++; ?>
+        			    		  </div>          			    		  
+        			    		</td>        			    		 
+        			    		<td>
+    			    		       <div class=""><?php echo $item->getShipment_name();?>
+    			    		           <input type="hidden" name="shipment_id" value="<?php echo $item->getShipment_id();?>"/>
+    			    		       </div>
+        			    		</td>
+        			    		<td ><div class="curency "><?php echo number_format($item->getTotal(),2,".",",");?></div></td> 
+        			    		 
+        			    		<td ><div class="curency">-</div></td> 
+        			    		
+        			    	</tr>      			    	
+            			   <?php endif;?> 
+            			   
+            			   <?php if ($this->UserInfo()->getUserGroup() == 'group2'): ?>       			         
+        			    	<tr class="trItem">
+        			    		<td class="soNo">
+        			    		  <div class="soNo">
+        			    		       <?php echo $i++; ?>
+        			    		  </div>          			    		  
+        			    		</td>        			    		 
+        			    		<td>
+    			    		       <div class=""><?php echo $item->getShipment_name();?>
+    			    		           <input type="hidden" name="shipment_id" value="<?php echo $item->getShipment_id();?>"/>
+    			    		       </div>
+        			    		</td>
+        			    		<td ><div class="curency "><?php echo number_format($item->getTotal(),2,".",",");?></div></td> 
+        			    		 
+        			    		<td ><div class="curency">-</div></td> 
+        			    		
+        			    	</tr>      			    	
+            			   <?php endif;?> 
+            			 <?php endforeach;?>
+            			 
+            			</tbody>
+            			
+            			<tfoot>
+    	                <tr>
+                            <td colspan="7">
+                                 <?php    
+                                    $url = $this->url('admin', array('action'=>'viewshippingfee'));
+                                            echo $this->paginationControl(
+                                                        $this->paginator, 'Sliding', 'paginator-slide', 
+                                                        array('url'=>$url,'action'=>'viewshippingfee')
+                                    );
+                                ?>   
+                            </td>
+                         </tr>
+    	               </tfoot>        			
+            			 
+            		</table>    
+ <?php if (!$this->isAjaxRequest):?>        	        
+              </div>
+       </div>
+    </div>
+  </form>
+<?php endif;?>

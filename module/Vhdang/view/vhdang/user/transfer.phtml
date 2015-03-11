@@ -1,0 +1,134 @@
+<?php if (!$this->isAjaxRequest):?>
+<?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/user/transfer.js'); 
+        $this->headScript()->appendFile($this->basePath() . '/js/jshashtable-3.0.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.autosize.min.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.numberformatter-1.2.3.js');
+        
+        
+        
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/user/transfer.css');
+        
+       
+        $this->headTitle('Thông báo chuyển khoản');
+        $title = 'Thông báo CK';
+        
+ ?>
+
+
+ 
+
+   <div class="span2" id="divTransfer">
+     <h4><?php echo $this->escapeHtml($title);?></h4>
+     <form name="transferForm" id="transferForm" method="post" 
+                action="<?php echo $this->url('user',array('action'=> 'transfer'));?>">
+        
+         
+        <input type="hidden" name="x_rate" value="<?php echo $this->rate->getRate();?>" />
+        <input type="hidden" name="nick" value="<?php echo $this->UserInfo()->getNick();?>" /> 
+        
+        <label>Tỷ giá: <span class="rate" ><?php echo number_format($this->rate->getRate(),0,'.',',');?> VNĐ/USD</span></label>
+        <br />
+        <label for="trans_date" >Ngày chuyển</label>
+        <input type="text" name="trans_date" class="datepicker required" id="trans_date" data-info="Ngày mà bạn đã thực hiện chuyển tiền." />
+        <label for="trans_type">Hình thức chuyển</label>
+         <select name="trans_type" id="trans_type" data-info="Chọn hình thức chuyển tiền online hay hình thức khác (tiền mặt, ATM,...).">
+               <option value="online">Online</option>
+               <option value="others">Khác</option>
+         </select>
+        <div id="divRefno">
+            <label for="Refno">RefNo</label>
+            <input type="text" name="refno" id="refno" class="required" data-info="RefNo là số tham chiếu bạn nhận được sau khi chuyển tiền thành công.Ví dụ: IBVCB.071113071490000"/>
+        </div>
+        <label for="vnd">Số tiền VNĐ</label> 
+        <input type="text" name="vnd" class="required" id="vnd" onkeypress="return isNumberKey(event)" maxlength="13" data-info="Nhập vào số tiền cần chuyển bằng VNĐ." />
+        <label for="note">Ghi chú</label>
+        <textarea rows="3" cols="" name="note" id="note" data-info="Nhập vào ghi chú nếu bạn có vấn đề cần lưu ý."></textarea>      
+       <div id="errormsg"> <?php echo $errmsg;?></div>
+        <hr/>
+        
+        <label for="submitbutton"></label>
+        <input class="btn" type="submit" name="btnAddNew" id="btnAddNew" value=" Thêm "  />
+     </form>
+   </div>
+   <div class="span9">
+        <div id="divTitle">
+            <h4><span class="label">Số dư trong tài khoản:</span><span class="rate val"><?php echo number_format($this->balance,2,'.',',');?> USD</span></h4>
+            <h4>Lịch sử chuyển khoản</h4>
+        </div>
+         <form action ="<?php echo $this->url('user', array('action'=>'transfer'));?>" 
+                name="transferInfoForm"
+                method="post" id="transferInfoForm">
+                
+            
+
+            <div id="transList">
+ <?php endif;?>            
+            <input type="hidden" name="page" id="page" value="<?php echo $page; ?>" />            
+            <table class="table">
+            <thead>
+               <tr>
+                     
+                    <th>#</th>
+                    <th style="width: 75px; text-align: center;">Ngày nhập</th>   
+                    <th style="width: 75px; text-align: center;">Ngày chuyển</th>  
+                    <th>RefNo</th>
+                    <th>HT CK</th>                
+                    <th>Tỷ giá</th>                    
+                    <th>VNĐ</th>      
+                    <th>USD</th>
+                    <th>Ghi chú</th>
+                    <th colspan="2">Trạng thái</th>                      
+               </tr>            
+            </thead>
+            <tbody>
+                <?php $i = ($page -1)* $row + 1 ;?>
+                <?php foreach($paginator as $item):?>
+               <tr class="<?php echo $item->getStatus();?>">
+                    
+                    <td><?php echo $i++; ?></td>
+                    <td style="width: 75px; text-align: center;" >
+                       <?php echo date('d-m-Y',strtotime($item->getDatecreated()));?>
+                     </td>
+                     <td style="width: 75px; text-align: center;"><?php echo date('d-m-Y',strtotime($item->getTrans_date())); ?></td>
+                     <td><?php echo $item->getRefno(); ?></td>
+                     <td style="text-align: center"><?php echo $item->getTrans_type()=="others"?"khác":$item->getTrans_type();?></td>
+                     <td style="text-align: right;" ><?php echo number_format($item->getX_rate(),0,'.',','); ?></td>
+                     <td style="text-align: right;"><?php echo number_format($item->getVnd(),0,'.',','); ?></td>
+                     <td style="text-align: right;"><?php echo number_format($item->getUsd(),2,'.',','); ?></td>
+                     <td><div class="divNote"><?php echo $item->getNote();?></div></td>
+                     <td <?php echo $item->getStatus() != 'waiting'?'colspan="2"':'';?>><span title="<?php echo $item->getStatus()=='waiting'?'Đang chờ kiểm tra':'Đã nhận được';?>"><?php echo $item->getStatus(); ?></span></td>   
+                   <?php if ($item->getStatus() == 'waiting'):?>              
+                    <td>                       
+                        <a title="Xóa bỏ" class="delTrans" href="<?php echo $this->url('user',array('action'=>'transfer','tid'=> $item->getId()));?>"><span class="icon-trash"></span></a>
+                    </td>   
+                   <?php endif;?>             
+                    
+               </tr>
+               <?php endforeach;?>
+            </tbody>
+            <tfoot>
+                <tr>
+                            <td colspan="11">
+                                 <?php    
+                                    $url = $this->url('user', array('action'=>'transfer'));
+                                            echo $this->paginationControl(
+                                                        $paginator, 'Sliding', 'paginator-slide', 
+                                                        array('url'=>$url,'action'=>'transfer')
+                                    );
+                                ?>   
+                            </td>
+                           </tr>
+            </tfoot>
+            </table>
+ <?php if (!$this->isAjaxRequest):?>
+        </div> 
+       </form>
+   </div>
+   
+   <div id="divInfo">
+        <span id="info"></span>
+        <span id="beepernub"></span>
+   </div>
+
+<?php endif;?>

@@ -1,0 +1,99 @@
+<?php if (!$this->isAjaxRequest):?>
+<?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/admin/stores.js'); 
+         
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/admin/stores.css');
+        
+       
+        $this->headTitle('Quản lý Store');
+        $title = 'Thêm mới Store';
+        
+ ?>
+ 
+  <?php 
+    $source = "" ;
+    foreach($this->paginator  as $item){
+        $source .= '"'. $item->getName() . '",';
+    }
+    
+    $source = substr($source,0,strlen($source) -1 );
+    
+ ?>
+ <script>
+   var data = [<?php echo $source;?>]; 
+</script>
+ 
+ 
+   <div class="span3">
+     <h4><?php echo $this->escapeHtml($title);?></h4>
+     <form name="storesAddForm" id="storesAddForm" method="post" 
+                action="<?php echo $this->url('admin',array('action'=> 'stores'));?>">
+        
+        
+        <label for="name" >Nhập tên Store</label>
+        <input type="text" name="name" id="name"                  
+                value="" maxlength="255"/>
+        
+       <div id="errormsg"> <?php echo $errmsg;?></div>
+        <hr/>
+        
+        <label for="submitbutton"></label>
+        <input class="btn" type="submit" name="submitbuttom" id="btnAddNew" value=" Thêm " disabled />
+     </form>
+   </div>
+   <div class="span7">
+        <h4>Danh sách Store</h4>
+         <form action ="<?php echo $this->url('admin', array('action'=>'stores'));?>" 
+                name="storesForm"
+                method="post" id="storesForm">
+
+            <div id="storesList">
+ <?php endif;?>            
+            <input type="hidden" name="page" id="page" value="<?php echo $page; ?>" />            
+            <table class="table">
+            <thead>
+               <tr>
+                    <td colspan="4" style="text-align: right;"><input type="text" value="<?php echo $this->like;?>" name="search" id="search" placeholder="store" /> <input type="submit" value="Tìm" class="btn" />  </td>
+               </tr>
+               <tr>
+                    <th>#</th>
+                    <th>id</th>  
+                    <th>Store</th> 
+                    <th style="width: 50px; text-align: center;"></th>                     
+               </tr>            
+            </thead>
+            <tbody>
+                <?php $i = ($page -1)* $row + 1 ;?>
+                <?php foreach($paginator as $item):?>
+               <tr>
+                    <td><?php echo $i++; ?></td>
+                    <td ><?php echo $item->getId();?></td>
+                    <td><?php echo $item->getName(); ?></td>   
+                    <td style="width: 50px; text-align: center;">
+                        <a title="Sửa <?php echo $item->getName();?>" href="<?php echo $this->url('admin',array('action'=>'editstore','id'=> $item->getId()));?>"><span class="icon-pencil"></span></a>
+                        &nbsp;                       
+                        <a title="Xóa <?php echo $item->getName();?>" href="<?php echo $this->url('admin',array('action'=>'deletestore','id'=> $item->getId()));?>"><span class="icon-trash"></span></a>
+                    </td>                
+               </tr>
+               <?php endforeach;?>
+            </tbody>
+            <tfoot>
+                <tr>
+                            <td colspan="9">
+                                 <?php    
+                                    $url = $this->url('admin', array('action'=>'stores'));
+                                            echo $this->paginationControl(
+                                                        $paginator, 'Sliding', 'paginator-slide', 
+                                                        array('url'=>$url,'action'=>'stores')
+                                    );
+                                ?>   
+                            </td>
+                           </tr>
+            </tfoot>
+            </table>
+ <?php if (!$this->isAjaxRequest):?>
+        </div> 
+       </form>
+   </div>
+
+<?php endif;?>

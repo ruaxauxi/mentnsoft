@@ -1,0 +1,110 @@
+<?php if (!$this->isAjaxRequest):?>
+ <?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/admin/approvedcustomerorders.js'); 
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.autosize.min.js');
+        
+        $this->headScript()->appendFile($this->basePath() . '/js/slimscroll/jquery.slimscroll.js');
+         
+        
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/admin/approvedcustomerorders.css');
+ 
+        
+        $title = 'DS Đặt hàng';
+        $this->headTitle($title);
+       
+        
+ ?>
+
+  <div class="span11">
+        <h4>Thông tin đặt hàng</h4>
+         <form action ="<?php echo $this->url('admin', array('action'=>'approvedcustomerorders'));?>" 
+                name="orderForm"
+                method="post" id="orderForm">
+           <div id="orderList">        
+<?php endif;?>
+                   
+            <input type="hidden" name="page" id="page" value="<?php echo $page; ?>" />
+            
+            
+             
+            
+           
+                                       
+            <table class="table" id="listOrder">
+           
+            <thead>
+             <tr>
+                 <td colspan="7"  style="text-align: right;">                
+                     <div class="ui-widget"  id="divNick">                            
+                       Nick: <select class="nick" name="nick">
+                                <option value="">--nick--</option>
+                                <?php foreach($this->nicks as $item):?>
+                                    <option value="<?php echo $item->getNick();?>"><?php echo $item->getNick();?></option>
+                                <?php endforeach;?>
+                            </select>
+                     </div>
+                     
+                     <div class="ui-widget" id="divStore">                            
+                        Store: <select class="store" name="store">
+                                    <option value="">--store--</option>
+                                    <?php foreach($this->stores as $item):?>
+                                        <option value="<?php echo $item->getId();?>"><?php echo $item->getName();?></option>
+                                    <?php endforeach;?>
+                                </select>
+                    </div> 
+                    <input type="submit" value="submit" class="btn" id="search" />                  
+                </td>
+            </tr>
+            
+               <tr>                     
+                    <th style="width: 25px;">#</th>
+                    <th>Nick</th> 
+                    <th style="width: 65px;">Ngày</th>                   
+                    <th>Store</th>                   
+                    <th>Mô tả</th>
+                    <th>Ghi chú</th>                    
+                    <th style="text-align: center;">Duyệt bởi</th>                      
+               </tr>            
+            </thead>
+            <tbody>
+                <?php $i = ($page -1)* $row + 1 ;?>
+                <?php foreach($paginator as $item):?>
+               <tr>
+                    <td style="text-align:center;" class="no"><?php echo $i++; ?></td>
+                    <td><?php echo $item->getNick();?></td>
+                    <td ><?php echo date('d-m-Y',strtotime($item->getDatecreated()));?></td>
+                    <td ><?php echo $item->getStore_name();?></td>
+                    <td><div class="divDescription"><?php echo $item->getDescription(); ?></div></td>
+                    <td  style="width: 150px;">
+                        <?php echo $item->getNote();?>
+                    </td>                    
+                    <td >
+                        <?php echo $item->getApprovedby();?>                     
+                   </td>                
+                    
+               </tr>
+               <?php endforeach;?>
+            </tbody>
+            <tfoot>
+                <tr>
+                            <td colspan="7">
+                                 <?php    
+                                    $url = $this->url('admin', array('action'=>'approvedcustomerorders'));
+                                            echo $this->paginationControl(
+                                                        $paginator, 'Sliding', 'paginator-slide', 
+                                                        array('url'=>$url,'action'=>'approvedcustomerorders')
+                                    );
+                                ?>   
+                            </td>
+                           </tr>
+            </tfoot>
+            </table>
+<?php if (!$this->isAjaxRequest):?>
+        </div> 
+       </form>
+    </div>
+<?php endif;?>
+
+
+ 
+    

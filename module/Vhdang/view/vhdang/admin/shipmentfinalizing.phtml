@@ -1,0 +1,70 @@
+<?php if (!$this->isAjaxRequest):?>
+<?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/admin/shipmentfinalizing.js'); 
+         
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/admin/shipmentfinalizing.css');
+        
+       
+       // $this->headTitle('Kiểm tra lần cuối');
+         
+        
+ ?>
+ 
+ 
+   <div class="span11">
+        <h4>Danh sách Đợt hàng</h4>
+         <form action ="<?php echo $this->url('admin', array('action'=>'shipmentfinalizing'));?>" 
+                name="shipmentForm"
+                method="post" id="shipmentForm">
+
+            <div id="shipmentList">
+ <?php endif;?>            
+            <input type="hidden" name="page" id="page" value="<?php echo $this->page; ?>" />            
+            <table class="table">
+	            <thead>
+	               <tr>
+	                    <th>#</th>
+	                    <th>Date</th>  
+	                    <th>Name</th> 
+	                    <th style="width: 80px; text-align: center;">Weight</th>
+	                    <th>Note</th>
+	                    <th>Finalize</th>                   
+	               </tr>            
+	            </thead>
+	            <tbody>
+	                <?php $i = ($this->page -1)* $this->row + 1 ;?>
+	                <?php foreach($this->paginator as $item):?>
+	               <tr>
+	                    <td><?php echo $i++; ?></td>
+	                    <td ><a title="Xem chi tiết" href="<?php echo $this->url('admin',array('action'=>'viewshipment','id'=> $item->getId()));?>"><?php echo date('d-m-Y',strtotime($item->getShip_date()));?></a></td>
+	                    <td><a title="Xem chi tiết" href="<?php echo $this->url('admin',array('action'=>'viewshipment','id'=> $item->getId()));?>"><?php echo $item->getShip_name();?></a></td> 
+	                    <td style="text-align: right"><?php echo number_format($item->getWeight(),2,'.',','); ?></td>
+	                    <td><?php echo $item->getNote(); ?></td>
+	                    <td style="width: 50px; text-align: center;">	                                              
+	                        <?php if (!$item->getChecked()):?>
+	                           <a title="Kiểm tra lần cuối" href="<?php echo $this->url('admin',array('action'=>'orderfinalizing','id'=> $item->getId()));?>"><span class="icon-share-alt"></span></a>
+	                        <?php endif;?>
+	                    </td>                
+	               </tr>
+	               <?php endforeach;?>
+	            </tbody>
+	            <tfoot>
+	                <tr>
+	                            <td colspan="9">
+	                                 <?php    
+	                                    $url = $this->url('admin', array('action'=>'shipmentfinalizing'));
+	                                            echo $this->paginationControl(
+	                                                        $this->paginator, 'Sliding', 'paginator-slide', 
+	                                                        array('url'=>$url,'action'=>'shipped')
+	                                    );
+	                                ?>   
+	                            </td>
+	                           </tr>
+	            </tfoot>
+            </table>
+ <?php if (!$this->isAjaxRequest):?>
+        </div> 
+       </form>
+   </div>
+
+<?php endif;?>

@@ -1,0 +1,34 @@
+@CHARSET "ISO-8859-1";
+
+.warning{
+	font-weight: bold;
+	color: #c70000;
+}
+
+#divDeleteForm{
+	 display: none;
+}
+
+.col1{
+	width: 30px !important;
+}
+
+.col2{
+	width: 60px !important;
+}
+
+.col3{
+	width: 100px !important;
+}
+
+.col4{
+	width: 30px !important;
+}
+
+#mList{
+	width: 340px !important;
+}
+
+.bigsize{
+	font-size: 18px;
+}

@@ -1,0 +1,84 @@
+<div id="divResultSection">
+    <div id="divResultHeader">
+        
+    </div>
+    <div id="divResultBody">
+        <table class="table" id="searchOrderTable">
+        		<thead>
+        			<tr>
+        				<th><div class="soNo">#</div></th>
+        				<th ><div class="divDescription">OrderNo</div></th>
+        				<th><div class="soOrderdate">OrderDate</div></th>
+        				<th><div class="soStoreName">Store</div></th>
+        				<th><div class="soHolder">Holder</div></th>
+        				<th><div class="soItems">Items</div></th>
+        				<th><div class="soDiscount">Discount</div></th>        					
+        				<th><div class="soTotal_web">Total Web</div></th>
+        				<th><div class="soTotal_web1">Total Web1</div></th>
+        				<th><div class="soShipUS">Ship US</div></th>
+        				<th><div class="soTax">Tax</div></th>
+        				<th><div class="soTotalFinal">Total Final</div></th>	
+        				<th>Description</th>			
+        				<th >-</th>
+        			</tr>
+        		</thead>
+        		<tbody>    	  
+            	
+            	     <?php $i = 0;?>
+            	    <?php foreach ($this->orders as $item):?>    	    
+            	    	<tr class="trItem">
+            	    		<td>
+            	    		  <div class="soNo">
+            	    		       <?php echo ++$i; ?>
+            	    		  </div>          			    		  
+            	    		</td>
+            	    		<td>
+            	    		   <div class="divDescription">
+            		    		       <div >
+                    	     		    <?php if (!empty($item->images)):?>
+                    	     		       <?php 
+                    	     		            $images = $item->images;
+                    	     		            $img = array_shift($images);
+                    	     		             
+                    	     		       ?> 
+                    	     		       <a class="fancybox" data-fancybox-group="thumb_<?php echo $item->getOrderno();?>" href="<?php echo $img->getPath();?>"><?php echo $item->getOrderno();?></a>
+                    	     		       
+                    	     		       
+                    	     		       <?php  foreach($images as $img):?>
+                    	     		            <a class="hidden btn fancybox" data-fancybox-group="thumb_<?php echo $item->getOrderno();?>" href="<?php echo $img->getPath();?>"></a>
+                    	     		       <?php endforeach;?>
+                    	     		    <?php else: ?>
+                    	     		    <?php echo $item->getOrderno();?>
+                    	     		    <?php endif;?>
+            	     		        </div>
+            	     		    </div>
+            	    		</td>
+            	    		<td><div class="soOrderdate"><?php echo $item->getOrderdate();?></div></td>
+            	    		<td><div class="soStoreName"><?php echo $item->getStore_name();?></div></td>
+            	    		<td><div class="soHolder"><?php echo $item->getHolder();?></div></td>
+            	    		<td><div class="soItems"><?php echo $item->getItems();?></div></td>
+            	    		<td><div class="soDiscount"><?php echo number_format($item->getDiscount(),2,'.',',');?></div></td>
+            	    		<td><div class="soTotal_web"><?php echo number_format($item->getTotal_web(),2,'.',',');?></div></td>
+            	    		<td><div class="soTotal_web1"><?php echo number_format($item->getTotal_web1(),2,'.',',');?></div></td>
+            	    		<td><div class="soShipUS"><?php echo number_format($item->getShip_us(),2,'.',',');?></div></td>
+            	    		<td><div class="soTax"><?php echo number_format($item->getTax(),2,'.',',');?></div></td>
+            	    		<td><div class="soTotalFinal"><?php echo number_format($item->getTotal_final(),2,'.',',');?></div></td>    	    		
+            	    		<td><?php echo $item->getDescription();?></td>
+            	    		<td>
+            	    		   <input type="hidden" name="orderno[]" value="<?php echo $item->getOrderno();?>" />
+            	    			<div class="divAddOrder"><a href="javascript:void(0)"  data-orderno="<?php echo $item->getOrderno();?>" class="addOrder" title="Add Order" ><span class="icon-plus"></span></a>
+                      			</div>
+            	    		</td>
+            	    	</tr>
+            	    <?php endforeach;?>    	
+            	</tbody>
+            	<tfoot>    	 
+            	     <tr>    	           
+            	         <td colspan="14">   
+            	            	       
+            	         </td>
+            	     </tr>
+            	</tfoot>
+        </table>
+     </div>
+ </div> 

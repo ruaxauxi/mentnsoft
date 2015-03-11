@@ -1,0 +1,123 @@
+<?php if (!$this->isAjaxRequest):?>
+<?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/user/customer.js'); 
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/user/customer.css');
+        
+        $this->headScript()->appendFile($this->basePath() . '/js/jshashtable-3.0.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.numberformatter-1.2.3.js');
+       
+        $this->headTitle('Tài khoản Khách hàng');
+        $title = 'Tạo tài khoản Khách hàng mới';
+        
+ ?>
+ 
+   <div class="span3">
+     <h4><?php echo $this->escapeHtml($title);?></h4>
+     <form name="customerAddForm" id="customerAddForm" method="post" 
+                action="<?php echo $this->url('user',array('action'=> 'customeradd'));?>">
+        
+        
+        <label for="username" >Tên đăng nhập(*)</label>
+        <input type="text" name="username" id="username"                  
+                value="<?php echo $this->user->username;?>" maxlength="30"/>
+        <label for="password" >Mật khẩu (*)</label>
+        <input type="text" name="password" id="password" 
+                 value="<?php echo $this->user->password;?>" 
+                maxlength="30"/> 
+        
+              
+       <div id="errormsg"> <?php echo $this->errmsg;?></div>
+        <hr/>
+        
+        <label for="submitbutton"></label>
+        <input class="btn" type="submit" name="submitbuttom" id="btnAddNew" value=" Thêm " disabled />
+     </form>
+   </div>
+   <div class="span8">
+        <h4>Thông tin tài khoản Khách hàng</h4>
+         <form action ="<?php echo $this->url('user', array('action'=>'customer'));?>" 
+                name="customerForm"
+                method="post" id="customerForm">
+
+            <div id="customerList">
+              
+ <?php endif;?>            
+            <input type="hidden" name="page" id="page" value="<?php echo $this->page; ?>" />            
+            <table class="table">
+            <thead>
+               <tr>
+                <td colspan="10">
+                    <div id="divSearch">
+                     Nick: <select name="nicks" id="nicks">
+                                <option></option>
+                                <?php foreach($this->userlist as $item):?>
+                                <option value="<?php echo $item->getNick();?>"><?php echo $item->getNick();?></option>
+                                <?php  endforeach;?>
+                            </select>
+                            <a href="javascript:void(0)" class="btn" id="search">Search</a>
+                          
+                    </div>
+                </td>
+               </tr>
+               <tr>
+                    <th><input type="checkbox" name="chkall" id="chkall"/></th>
+                    <th>#</th>
+                    <th width="55px">Nick</th>   
+                    <th>Mật khẩu</th>  
+                    <th>Tài khoản</th>
+                    <th>Service(%)</th>
+                    <th>Shipping</th>
+                    <th>Ngày tạo</th>      
+                    <th>Cập nhật</th>
+                    <th></th>                      
+               </tr>            
+            </thead>
+            <tbody>
+                <?php $i = ($page -1)* $row + 1 ;?>
+                <?php foreach($paginator as $item):?>
+               <tr>
+                    <td><input class="chkdel" type="checkbox" name="del[]" value="<?php echo $item->getNick();?>" /></td>
+                    <td><?php echo $i++; ?></td>
+                    <td >
+                       <?php echo $item->getNick();?>
+                    </td>
+                    <td><input type="text" name="passwd" class="passwd" maxlength="20" id="<?php echo $item->getNick();?>"  
+                        value="<?php echo $item->getPassword();?>" data-val="<?php echo $item->getPassword();?>" 
+                        data-url="<?php echo $this->url('user',array('action'=>'changepassword'));?>"/></td>                    
+                     <td style="text-align:right;"><?php echo number_format($item->getCredit(),2,'.',',');?></td> 
+                     <td><input type="text" name="service" maxlength="6" class="service" id="<?php echo $item->getNick();?>"  
+                        value="<?php echo number_format($item->getService(),2,'.',',');?>" data-val="<?php echo  number_format($item->getService(),2,'.',',');?>" 
+                        data-url="<?php echo $this->url('user',array('action'=>'changeservice'));?>"/></td> 
+                      <td><input type="text" name="shipping" maxlength="6" class="shipping" id="<?php echo $item->getNick();?>"  
+                        value="<?php echo number_format($item->getShipping(),2,'.',',');?>" data-val="<?php echo number_format($item->getShipping(),2,'.',',');?>" 
+                        data-url="<?php echo $this->url('user',array('action'=>'changeshipping'));?>"/></td> 
+                      
+                    <td><?php echo date('d-m-Y',strtotime($item->getDatecreated()));?></td>     
+                    <td><?php echo date('d-m-Y H:i:s',strtotime($item->getLastupdated()));?></td>   
+                    <td>                       
+                        <a title="Xóa <?php echo $item->getNick();?>" href="<?php echo $this->url('user',array('action'=>'delete','id'=> $item->getNick()));?>"><span class="icon-trash"></span></a>
+                    </td>                
+                    
+               </tr>
+               <?php endforeach;?>
+            </tbody>
+            <tfoot>
+                <tr>
+                            <td colspan="11">
+                                 <?php    
+                                    $url = $this->url('user', array('action'=>'customer'));
+                                            echo $this->paginationControl(
+                                                        $paginator, 'Sliding', 'paginator-slide', 
+                                                        array('url'=>$url,'action'=>'customer')
+                                    );
+                                ?>   
+                            </td>
+                           </tr>
+            </tfoot>
+            </table>
+ <?php if (!$this->isAjaxRequest):?>
+        </div> 
+       </form>
+   </div>
+
+<?php endif;?>

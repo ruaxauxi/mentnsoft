@@ -1,0 +1,141 @@
+ <?php if (!$this->isAjaxRequest):?>
+ <?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/customer/vieworder.js'); 
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.autosize.min.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/jshashtable-3.0.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.numberformatter-1.2.3.js');
+        
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.mousewheel.pack.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/fancybox/jquery.fancybox.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/fancybox/jquery.fancybox-buttons.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/fancybox/jquery.fancybox-thumbs.js');
+        
+      /*   $this->headScript()->appendFile($this->basePath() . '/js/browserplus-min.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/plupload.full.min.js');
+         */
+        
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/customer/vieworder.css');
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/fancybox/jquery.fancybox.css');
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/fancybox/jquery.fancybox-buttons.css');
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/fancybox/jquery.fancybox-thumbs.css');
+        
+        $title = 'Kết quả mua hàng';
+        $this->headTitle($title);
+       
+  
+ ?>
+
+
+<div class="span11">
+	<form name="frmViewOrder" id="frmViewOrder" method="post"
+		action="<?php echo $this->url('customer',array('action'=>'vieworder'));?>">
+		<h4>Kết quả mua hàng</h4>
+
+		<hr />
+
+		<div id="divOrderdetails">
+ <?php endif;?>   
+            <input type="hidden" name="page" id="page"
+				value="<?php echo $page; ?>" />
+			<table class="table" id="orderdetailTable">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Date</th>
+						<th>Store</th>
+						<th>Description</th>
+						<th>Items</th>
+						<th>Total Web</th>
+						<th>Discount</th>
+						<th>Total Web1</th>
+						<th>Service</th>
+						<th>Ship US</th>
+						<th>Extra fee</th>
+						<th>Tax</th>
+						<th>Total Final</th>
+						<th>Status</th>
+						<th>Note</th>
+					</tr>
+				</thead>
+				<tbody>
+        			 <?php $i = ($this->page -1)* $this->row + 1 ;?>
+                     <?php foreach($this->paginator as $item):?>	            	     
+            	     	<tr class="trItem">
+						<td><?php echo $i++;?></td>
+						<td><?php echo date('d-m-Y',strtotime($item->getOrderdate()));?></td>
+						<td><?php echo $item->getStore_name();?></td>
+						<td><div class="divDescription">
+								<div class="content"><?php echo $item->getDescription();?></div>
+								<div>
+            	     		    <?php if (!empty($item->images)):?>
+            	     		       <?php 
+            	     		            $images = $item->images;
+            	     		            $img = array_shift($images);  
+            	     		       ?> 
+            	     		        <a class="photo btn fancybox"
+										data-fancybox-group="thumb_<?php echo $item->getId();?>"
+										href="<?php echo $img->getPath();?>">Xem ảnh</a>
+            	     		       
+            	     		       <?php  foreach($images as $img):?>
+            	     		            <a class="hidden btn fancybox"
+										data-fancybox-group="thumb_<?php echo $item->getId();?>"
+										href="<?php echo $img->getPath();?>"></a>
+            	     		       <?php endforeach;?>
+            	     		    <?php endif;?>
+            	     		    </div>
+							</div></td>
+						<td class="rightalign"><?php echo number_format($item->getItems(),0,',','.'); ?></td>
+						<td class="rightalign"><?php echo number_format($item->getTotal_web(),2,',','.'); ?></td>
+						<td class="rightalign"><?php echo number_format($item->getDiscount(),2,',','.'); ?></td>
+						<td class="rightalign"><?php echo number_format($item->getTotal_web1(),2,',','.'); ?></td>
+						<td class="rightalign"><?php echo number_format($item->getService(),2,',','.'); ?></td>
+						<td class="rightalign"><?php echo number_format($item->getShip_us(),2,',','.'); ?></td>
+						<td class="rightalign"><?php echo number_format($item->getExtra_fee(),2,',','.'); ?></td>
+						<td class="rightalign"><?php echo number_format($item->getTax(),2,',','.'); ?></td>
+						<td class="rightalign"><?php echo number_format($item->getTotal_final(),2,',','.'); ?></td>
+						<td class="status"><?php 
+            	     		
+            	     		if ($item->getShipment_name() != ""){
+            	     			if ($item->getStatus() == "cancelled"){
+            	     				echo $item->getStatus();
+            	     			}else{
+            	     			   	echo $item->getShipment_name(). ':' .$item->getStatus();
+            	     			}
+            	     		}else{
+            	     			echo $item->getStatus();
+                        }
+                        
+                        ?></td>
+						<td><div class="divNote"><?php echo $item->getNote();?></div></td>
+					</tr>
+            	     
+            	     <?php endforeach;?>
+        			</tbody>
+
+				<tfoot>
+
+					<tr>
+						<td colspan="15">
+        			     	<?php
+                $url = $this->url('customer', array(
+                    'action' => 'vieworder'
+                ));
+                echo $this->paginationControl(
+                                                        $this->paginator, 'Sliding', 'paginator-slide', 
+                                                        array('url'=>$url,'action'=>'vieworder')
+                                    );
+                             ?>   
+        			     </td>
+					</tr>
+				</tfoot>
+			</table>
+ <?php if (!$this->isAjaxRequest):?>
+	    </div>
+
+	</form>
+
+</div>
+
+<?php endif;?>
+
+

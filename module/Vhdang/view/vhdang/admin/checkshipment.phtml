@@ -1,0 +1,215 @@
+<?php if (!$this->isAjaxRequest):?>
+<?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/admin/checkshipment.js'); 
+        
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.autosize.min.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/jshashtable-3.0.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.numberformatter-1.2.3.js');
+        
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.mousewheel.pack.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/fancybox/jquery.fancybox.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/fancybox/jquery.fancybox-buttons.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/fancybox/jquery.fancybox-thumbs.js');
+        
+         
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/admin/checkshipment.css');
+        
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/fancybox/jquery.fancybox.css');
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/fancybox/jquery.fancybox-buttons.css');
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/fancybox/jquery.fancybox-thumbs.css');
+        
+        
+        $title = 'Kiểm tra đợt hàng';
+        $this->headTitle($title);
+                 
+ ?>
+
+<div class="span11">
+	<form name="frmShipment" id="frmShipment" method="post"
+		action="<?php echo $this->url('admin',array('action'=>'checkshipment'));?>">
+<?php endif;?>
+     <?php if (!$this->isAjaxRequest):?>
+		<div id="divOrderDetails">
+      <?php endif;?>
+      
+		<div id="divShipemnts">
+			OrderNo: <select name="orderno" id="orderno">
+				<option></option>
+		          <?php foreach($this->orders as $item):?>
+		          <option value="<?php echo $item->getOrderno();?>"
+					<?php echo $item->getOrderno()==$this->orderno?"selected":""; ?>><?php echo $item->getOrderno();?></option>
+		          <?php endforeach;?>
+		      </select> <input type="hidden" name="shipment_id"
+				value="<?php echo $this->shipment_id;?>" /> <input type="submit"
+				name="btnShow" value="Submit" class="btn" id="btnShow" />
+		</div>
+		<?php if ($this->orderno):?>
+		<div id="orderInfo">
+		<input type="hidden" name="total_web" id="total_web" value="<?php echo $this->order->getTotal_web();?>" />
+		<input type="hidden" name="total_web1" id="total_web1" value="<?php echo $this->order->getTotal_web1();?>" />
+		<input type="hidden" name="total_final" id="total_final" value="<?php echo $this->order->getTotal_final();?>" />
+        <span class="label">Total Web</span><span class="val"><?php echo $this->order->getTotal_web();?></span>
+        <span class="label">Total Web1</span><span class="val"><?php echo $this->order->getTotal_web1();?></span>
+        <span class="label">Total Final</span><span class="val"><?php echo $this->order->getTotal_final();?></span>
+        <br/>
+        
+        <span class="label">Note</span><span class="val" id="note_val"><?php echo $this->order->shipmentNote;?> &nbsp;</span>
+        <?php endif;?>
+        </div>
+		<hr />
+	<?php if ($this->orderno):?>		  
+			<div id="detailList">				 
+				<table class="table" id="orderDetailTable">
+					<thead>
+					    <tr>
+					       <td colspan="5"><label  title="Tổng số bị cancel" for="totalCancel_web1" class="label" id="lbltotalCancel_web1">Total Cancel (Web1)</label>
+					       <input type="text" maxlength="7" name="totalCancel_web1" id="totalCancel_web1"/>
+					       <label title="Tổng số bị cancel" for="totalCancel" class="label" id="lbltotalCancel">Total Cancel (Final)</label>
+					       <input  type="text" maxlength="7" name="totalCancel" id="totalCancel"/>
+					       </td>
+					        
+					       
+					       <td colspan="4"><label for="unshipped" class="label" id="lblunshipped">Chưa về</label><input type="checkbox" name="unshipped" id="unshipped" /></td>
+					       
+					       <td colspan="4"></td>
+					    </tr>
+						<tr>
+							<th style="width: 30px;"><div class="soNo">#</div></th>
+							<th  style="width: 100px;"><div>Nick</div></th>
+							<th style="width: 100px;"><div>Store</div></th>
+							<th style="width: 240px;"><div>Description</div></th>
+							<th style="width: 40px;"><div class="soItems">Items</div></th>
+							<th style="width: 40px;"><div class="soPackage">#Thung</div></th>
+							<th style="width: 60px;"><div class="soTotalFinal">Total Final</div></th>
+							<th style="width: 40px;"><div>#Item</div></th>
+							<th style="width: 60px;"><div>$Update</div></th>
+							<th  style="width: 180px;">Note</th>
+							<th style="width: 40px;">OK</th>
+							<th style="width: 40px;">Cancel</th>
+							<th style="width: 40px;">Backorder</th>
+
+						</tr>
+					</thead>
+					<tbody>
+        			<?php  
+        			     $i = 1;        			      
+        			     $total_item  = 0;
+        			      
+        			 ?>
+        			<?php if ($this->details):?>
+        			  
+        			    <?php foreach ($this->details as $item):?>
+        			        <?php 
+        			             
+        			             $total_item += $item->getItems(); 
+        			         ?>
+        			    	<tr class="trItem">
+							<td>
+								<div class="soNo">
+        			    		       <?php echo $i++; ?>
+        			    		  </div>
+							</td>
+							<td>
+								<div class="soNick"><?php echo $item->getNick();?>
+								           <input type="hidden" name="<?php echo $item->getId();?>_nick" value="<?php echo $item->getNick();?>" />
+        			    		           <input type="hidden"
+										name="order_detail_id[]" value="<?php echo $item->getId();?>" />
+								</div>
+							</td>
+							<td><div class="soStore"><?php echo $item->getStore_name(); ?></div></td>
+							<td>
+								<div class="divDescription">
+									<div class="content"><?php echo $item->getDescription();?></div>
+									<div>
+            	     		    <?php if (!empty($item->images)):?>
+            	     		       <?php 
+            	     		            $images = $item->images;
+            	     		            $img = array_shift($images);  
+            	     		       ?> 
+            	     		        <a class="photo btn fancybox"
+											data-fancybox-group="thumb_<?php echo $item->getId();?>"
+											href="<?php echo $img->getPath();?>">Xem ảnh</a>
+            	     		       
+            	     		       <?php  foreach($images as $img):?>
+            	     		            <a class="hidden btn fancybox"
+											data-fancybox-group="thumb_<?php echo $item->getId();?>"
+											href="<?php echo $img->getPath();?>"></a>
+            	     		       <?php endforeach;?>
+            	     		    <?php endif;?>
+            	     		    </div>
+								</div>
+							</td>
+							<td style="width: 40px;">
+							     <div class="soItems">
+							             <?php echo $item->getItems();?>							 
+							     </div>
+							     <input type="hidden" class="items_val" value="<?php echo $item->getItems();?>" />
+							</td>
+							     
+							<td><div class="soPackage"><?php echo $item->getPackage();?></div></td>
+							<td>
+							     <div class="soTotalFinal"><?php echo number_format($item->getTotal_final(),2,".",",");?>
+							     </div>
+							     <input type="hidden" class="totalFinal_val" value="<?php echo $item->getTotal_final();?>" />
+							</td>
+							<td><div>
+									<input  readonly class="totalItems" maxlength="3" type="text"
+										name="<?php echo $item->getId();?>_totalItems"
+										value="<?php echo $item->getCancelled_items()==null?"0":$item->getCancelled_items();?>" />
+								</div></td>
+							<td><div>
+									<input readonly class="totalUpdate" maxlength="7" type="text"
+										name="<?php echo $item->getId();?>_totalUpdate"
+										value="<?php echo $item->getCancelled_total()==null?"0.00":$item->getCancelled_total();?>" />
+								</div></td>
+							<td><div class="divNote">
+									<textarea rows="1" name="<?php echo $item->getId();?>_note"
+										class="soNote"><?php echo $item->getNote();?></textarea>
+								</div></td>
+							<td style="text-align: center;">
+							 <input type="radio" checked name="<?php echo $item->getId();?>_action"  class="rdoCommand" value="ok" />
+							</td>
+							<td style="text-align: center;">
+							 <input type="radio" name="<?php echo $item->getId();?>_action"  class="rdoCommand" value="cancel" />
+							</td>
+							<td style="text-align: center;">
+							 <input type="radio" name="<?php echo $item->getId();?>_action"  class="rdoCommand" value="backordered" />
+							</td>
+						</tr>
+        			    	
+        			    
+        			    <?php endforeach;?>
+        			<?php endif;?>
+        			</tbody>
+					<tfoot>						 
+						<tr>
+							<td colspan="13"><input type="submit" value="Finish" name="btnFinish" id="btnFinish"
+								class="btn" /></td>
+							 
+
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+			<?php elseif($this->info):?>
+			 <div><span class="success"><?php echo $this->info;?></span></div>
+			<?php endif;?>
+			
+			<?php if (!count($this->orders)):?>
+			     <div><span class="success">Đã kiểm tra xong Đợt hàng này.</span>
+			         <br/>
+			         <a href="<?php echo $this->url('admin',array('action' => 'shipped'));?>" class="btn" >Tiếp tục</a>
+			     </div>
+			<?php endif;?>
+         	 <?php if (!$this->isAjaxRequest):?>  
+                </div>
+             <?php endif;?>
+          
+          
+          
+ <?php if (!$this->isAjaxRequest):?>  
+	</form>
+
+</div>
+
+<?php endif;?>

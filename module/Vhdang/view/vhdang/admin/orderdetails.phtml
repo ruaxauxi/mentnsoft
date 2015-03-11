@@ -1,0 +1,342 @@
+ <?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/admin/orderdetails.js'); 
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.autosize.min.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/jshashtable-3.0.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.numberformatter-1.2.3.js');
+        
+        $this->headScript()->appendFile($this->basePath() . '/js/browserplus-min.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/plupload.full.min.js');
+        
+        
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/admin/orderdetails.css');
+        
+        $title = 'Nhập chi tiết đơn hàng';
+        $this->headTitle($title);
+       
+   $users = "";
+   foreach($this->nicks as $item){
+       $users .= "{nick: '" . $item->getNick()."',shipping: '". $item->getShipping() ."', service: '".$item->getService()."'},";
+   }     
+ ?>
+ 
+<script>
+   var users = [<?php echo $users;?>]; 
+</script>
+
+
+<div class="span11">
+	<form name="frmOrderDetails" id="frmOrderDetails" method="post"
+		action="<?php echo $this->url('admin',array('action'=>'saveorder'));?>">
+		<h4>Thông tin đơn hàng</h4>
+	    <div id="orderInfo">
+		
+		  <table>
+		  <tr>
+		      <td ><span class="label">OrderNo</span></td><td><span class="val"><?php echo $this->order->getOrderno();?></span><input type="hidden" name="orderno" id="orderno" value="<?php echo $this->order->getOrderno();?>" /></td>		      
+		      <td><span class="label">Items</span></td>  <td><span class="val"><?php echo $this->order->getItems(); ?></span><input type="hidden" name="order_items" id="order_items" value="<?php echo $this->order->getItems();?>" /></td>		      
+		      
+		       <td><span class="label">-</span></td> <td><span class="val">-</span></td>		      
+		  </tr>
+		  
+		  <tr>
+		     
+		      <td><span class="label">Store</span></td>  <td><span class="val"><?php echo $this->order->getStore_name();?></span><input type="hidden" name="order_store_id" id="order_store_id" value="<?php echo $this->order->getStore_id();?>" /></td>
+		      <td><span class="label">Discount</span></td>  <td><span class="val currency"><span class="dolar">$</span><?php echo number_format($this->order->getDiscount(),2,".",",");?></span><input type="hidden" name="order_discount" value="<?php echo $this->order->getDiscount();?>" /></td>
+		      <td><span class="label">Tax</span></td>  <td><span class="val currency"><span class="dolar">$</span><?php echo number_format($this->order->getTax(),2,".",",");?></span><input type="hidden" name="order_tax" value="<?php echo $this->order->getTax();?>" /></td>
+		  </tr>
+		  
+		  <tr>
+		      <td><span class="label">CreditCard</span></td>  <td><span class="val"><?php echo $this->order->getCreditcard();?></span><input type="hidden" name="creditcard" id="creditcard" value="<?php echo $this->order->getCreditcard();?>" /></td>
+		      <td><span class="label">Total Web</span></td>  <td><span class="val currency"><span class="dolar">$</span><?php echo number_format($this->order->getTotal_web(),2,".",",");?></span><input type="hidden" name="order_total_web" id="order_total_web" value="<?php echo $this->order->getTotal_web();?>" /></td>
+		     
+		      <td><span class="label">Ship US</span></td>  <td><span class="val currency" ><span class="dolar">$</span><?php echo number_format($this->order->getShip_us(),2,".",",");?></span><input type="hidden" name="order_ship_us" id="order_ship_us" value="<?php echo $this->order->getShip_us();?>" /></td>
+		      
+		      
+		  </tr>
+		   
+		  <tr>
+		      <td><span class="label">Holder</span></td>  <td><span class="val"><?php echo $this->order->getHolder();?></span><input type="hidden" name="holder" value="<?php echo $this->order->getHolder();?>" /></td>
+		       <td> <span class="label">Total Web 1</span></td> <td><span class="val currency highlight"><span class="dolar">$</span><?php echo number_format($this->order->getTotal_web1(),2,".",",");?></span><input type="hidden" name="order_total_web1" id="order_total_web1" value="<?php echo $this->order->getTotal_web1();?>" /></td>		       
+		       <td><span class="label">Total Final</span></td> <td><span class="val currency highlight"><span class="dolar">$</span><?php echo number_format($this->order->getTotal_final(),2,".",",");?></span><input type="hidden" name="order_total_final" id="order_total_final" value="<?php echo $this->order->getTotal_final();?>" /></td>
+		  </tr>	
+		  <tr>
+		      <td><span class="label">Description</span></td><td colspan="5"><span class="val" id="spanDescription" ><?php echo $this->order->getDescription();?> &nbsp; </span><input type="hidden" name="description" value="<?php echo $this->order->getDescription();?>" /></td>
+		  </tr>	 
+       </table>
+		<hr />
+		
+		<div id="nextstep">		
+		  <span class="label">Discount (%): </span>
+		  <input type="text" name="discount_order" id="discount_order" value="" maxlength="5"/> 
+		  <input type="hidden" name="discount_all" id="discount_all" value="" />
+		  <input type="button" class="btn" name="btnSet"  id="btnSet" value="Continue" disabled />
+		</div>  
+		</div>
+		
+		<hr/>
+		
+		<div id="divOrderdetails">
+        		<h4>Nhập chi tiết đơn hàng</h4>
+         
+        		<p>
+        		  
+        		</p>
+        		<table class="table" id="orderdetailTable">
+        			<thead>
+        				<tr>
+        					<th>#</th>
+        					<th>Nick</th>
+        					<th>Description</th>
+        					<th>Items</th>        					
+        					<th>Total Web</th>
+        					<th>Ship US</th>	
+        					<th>Extra fee</th>
+        					<th>Discount</th>
+        					<th>Total Web1</th>        					
+        					<th>Tax</th>
+        					<th>Total</th>
+        					<th>Total Final</th>
+        					<th >-</th>
+        				</tr>
+        			</thead>
+        			<tbody>
+        			<tr  id="hiddenRow" >
+        			    <td><div  class="no">1</div></td>
+        
+        			      <td style="text-align: center">
+                            <div class="divNicks">
+                                             
+                                <select name="nicks[]" id="hiddenNick">
+                                    <option value=""></option>
+                                    <?php foreach($this->nicks as $item):?>
+                                        <option value="<?php echo $item->getNick();?>"><?php echo $item->getNick();?></option>
+                                    <?php endforeach;?>
+                                </select>
+                              
+                            </div>
+                          </td>
+                                		     
+        			     
+                          <td><textarea rows="4" cols="" class="description" name="description[]"></textarea></td>
+                          <td style="text-align: right">
+        			          <input type="text" name="items[]" class="items formatnumber" maxlength="4"/>
+                          </td>
+                          
+                          <td >
+                            <div class="group1">
+                                <input type="text" title="Total web" name="total_web[]" class="total_web formatnumber" />
+                            </div>                            
+                          </td>
+                          <td>
+                            <div class="group2">                            
+                                <input type="text" title="Ship US" name="ship_us[]" class="ship_us formatnumber"  />
+                            </div>
+                          </td>
+                          
+                          <td >
+                            <div class="group3">
+                                <input type="text" title="Extra fee" name="extra_fee[]" class="extra_fee formatnumber" value="0.00" />
+                            </div>
+                          </td>
+                          
+                           <td >
+                            <div class="group1">
+                                <input type="text" name="discount[]" class="discount_val formatnumber"  value="0" data-changed="0"/>
+                            </div>                            
+                          </td>
+                          
+                           <td >
+                            <div class="group1">
+                               <input type="text" title="Total web1" name="total_web1[]" readonly class="total_web1" />
+                            </div>                           
+                          </td>
+                          
+                           
+                          <td>
+                            <div class="group4">
+                                <div class="divTax">                      
+                                    <input type="text" name="tax[]" class="tax" value="8.75" /> 
+                                    <span class="taxLabel">%</span><input type="checkbox" name="tax_type" class="tax_type" value="percent" checked />
+                                     
+                                    <input type="hidden" name="tax_val[]" class="tax_val" value="0" />
+                                </div>
+                            </div>
+                          </td>                    
+                          <td>
+                            <div class="group1">
+                                <input type="text" title="Total" name="total[]" readonly class="total" />
+                            </div>  
+                          </td>                   
+                          <td>                             
+                               <div class= "divTotal_final">
+                                    <div class="total_r">                                       
+                                        <input type="hidden" name="service[]" class="service_val"  value="0" />
+                                        <input type="hidden" name="service_final[]" class="service_final"  value="0" />
+                                    </div>                                    
+                                    <div class="total_r">
+                                        <span class="total_final_sp val currency">0.00</span>
+                                        <input type="hidden" name="total_final[]" class="total_final_val"  value="0.00"/>
+                                    </div>   
+                                </div>
+                                <div class="divImages">
+                                	<input type="hidden" name="images[]" class="images" value="" />
+                                </div>
+                           
+                          </td>   
+                          <td><div class="divDel"><a href="javascript:void(0)" class="removeRow" title="Xóa dòng" ><span class="icon-trash"></span></a>
+                          	<a href="javascript:void(0)" class="attachFile" title="Thêm hình ảnh" ><span class="icon-picture"></span></a>
+                          </div></td>               
+        			 </tr> 
+        			 
+        			 <tr class="trItem" id="trItem1">
+        			     <td><div  class="no">1</div></td>
+        
+        			      <td style="text-align: center">
+                            <div class="divNicks">
+                                             
+                                <select name="nicks[]" class="nicks">
+                                    <option value=""></option>
+                                    <?php foreach($this->nicks as $item):?>
+                                        <option value="<?php echo $item->getNick();?>"><?php echo $item->getNick();?></option>
+                                    <?php endforeach;?>
+                                </select>
+                              
+                            </div>
+                          </td>
+                                		     
+        			     
+                          <td><textarea rows="4" cols="" class="description" name="description[]"></textarea></td>
+                          <td style="text-align: center">
+        			          <input type="text" name="items[]" class="items formatnumber" maxlength="4"/>
+                          </td>
+                          
+                          <td >
+                            <div class="group1">
+                                <input type="text" title="Total web" name="total_web[]" class="total_web formatnumber" />
+                            </div>                            
+                          </td>
+                          
+                          <td>
+                            <div class="group2">                            
+                                <input type="text" title="Ship US" name="ship_us[]" class="ship_us formatnumber"  />
+                            </div>
+                          </td>
+                          
+                          <td >
+                            <div class="group3">
+                                <input type="text" title="Extra fee" name="extra_fee[]" class="extra_fee formatnumber" value="0.00" />
+                            </div>
+                          </td>
+                          
+                           <td >
+                            <div class="group1">
+                                <input type="text" name="discount[]" class="discount_val formatnumber"  value="0"  data-changed="0"/>
+                            </div>                            
+                          </td>
+                          
+                           <td >
+                            <div class="group1">
+                                <input type="text" title="Total web1" name="total_web1[]" readonly class="total_web1" />
+                            </div>                           
+                          </td>
+                          
+                          <td>
+                            <div class="group4">
+                                <div class="divTax">                      
+                                    <input type="text" name="tax[]" class="tax" value="8.75" /> 
+                                    <span class="taxLabel">%</span><input type="checkbox" name="tax_type1[]" class="tax_type" value="percent" checked />
+                                     
+                                    <input type="hidden" name="tax_val[]" class="tax_val" value="0" />
+                                </div>
+                            </div>
+                          </td> 
+                          <td>
+                            <div class="group1">
+                                <input type="text" title="Total" name="total[]" readonly class="total" />
+                            </div>  
+                          </td>                   
+                          <td>                             
+                               <div class= "divTotal_final">
+                                    <div class="total_r">                                       
+                                        <input type="hidden" name="service[]" class="service_val"  value="0" />
+                                        <input type="hidden" name="service_final[]" class="service_final"  value="0" />
+                                    </div>                                    
+                                    <div class="total_r">
+                                        <span class="total_final_sp val currency">0.00</span>
+                                        <input type="hidden" name="total_final[]" class="total_final_val"  value="0.00"/>
+                                    </div>   
+                                </div>
+                                <div class="divImages">
+                                	<input type="hidden" name="images[]" class="images" value="" />
+                                </div>
+                           
+                          </td>  
+                          <td><div class="divDel"><a href="javascript:void(0)" class="removeRow" title="Xóa dòng" ><span class="icon-trash"></span></a>
+                          	<a href="javascript:void(0)" class="attachFile" title="Thêm hình ảnh" ><span class="icon-picture"></span></a>
+                          </div></td>             
+        			 </tr> 
+        			    
+        			</tbody>
+        			<tfoot>
+        			<tr>
+        			     <td colspan="3"><b>Tổng cộng:</b></td>
+            	         <td><input type="text" name="totalItems" id="totalItems" class="currency" readonly value=""/></td>
+            	         <td ><div id="divTotalWeb"><input type="text" name="totalWeb" class="currency"  id="totalWeb" readonly value="0.00" /></div></td>
+            	         <td ><div id="divShipUS"><input type="text" name="totalShip_us" class="currency"  id="totalShip_us" readonly value="0.00" /></div></td>
+            	         <td ><div id="divTotalExtrafee"><input type="text" name="totalExtra_fee" class="currency"  id="totalExtra_fee" readonly value="0.00" /></div></td>
+            	        
+            	         <td ><div id="divTotalDiscount"><input type="text" name="totalDiscount" class="currency"  id="totalDiscount" readonly value="0.00" /></div></td>
+            	         <td ><div id="divTotalWeb1"><input type="text" name="totalWeb1" class="currency"  id="totalWeb1" readonly value="0.00" /></div></td>
+            	         
+            	         <td ><div id="divTotal_tax"><input type="text" name="totalTax" class="currency"  id="totalTax"  readonly value="0.00" /></div></td>
+            	         <td ><div id="divTotal_total"><input type="text" name="total_total" class="currency"  id="total_total" readonly value="0.00" /></div></td>
+            	         <td><div id="divTotal" class="currency"><input type="text" name="total"  class="currency" id="total" readonly value="0.00" /></div></td>
+            	         <td></td>
+            	     </tr>
+            	     
+        			   <tr>			        
+                           <td colspan="13" style="text-align: right"><a href="javascript:void(0)" class="btn" id="addRow" title="Thêm dòng mới"><span class="icon-plus-sign"></span></a></td>
+                       </tr> 
+        			     <tr>
+        			         <td colspan="13">
+        			              <input type="submit" name="btnSave" id="btnSave" value="Lưu" class="btn" />
+        			         </td>
+        			     </tr>
+        			</tfoot>
+        		</table>
+            </div>
+	</form>
+
+</div>
+
+<div id="imageDialog">
+	<h4>Chọn hình ảnh</h4>
+        	 <hr />
+         <form name="uploadForm" id="imageuploadForm" method="post"
+						action="<?php echo $this->url('upload',array('action'=> 'add'));?>">
+	 	
+			<div id="container">
+					<div id="filelist"></div>
+					<br />
+					<a class="btn" id="pickfiles" href="javascript:void(0)">Chọn ảnh</a>
+					<a class="btn" id="uploadfiles" href="javascript:void(0)">Upload</a>
+			</div>
+		</form>
+		
+	<div class="imgList" id="imgitemHidden">
+    	<div class="imgitem" >
+			<a class="delImg"  id="" title="Xóa ảnh"  href="javascript:void(0)">
+				<span class="icon-trash" data-url="<?php echo $this->url('upload',array('action'=> 'delete')); ?>" ></span>
+			</a>
+			<img title="Nhấn vào biểu tượng để xóa ảnh" src="" />
+		</div>		
+				
+	</div>
+	<input type="hidden" id="imageList" value="" />
+	<input type="hidden" id="refTr" value="" />
+	
+	<div id="OrderImages">
+		
+	</div>
+</div>
+

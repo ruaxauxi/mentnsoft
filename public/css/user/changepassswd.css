@@ -1,0 +1,21 @@
+@CHARSET "ISO-8859-1";
+
+.error{
+	border: 1px solid red !important;
+	background-color: rgba(255,255,0,0.5) !important;
+	background-image: none !important;	
+}
+
+#errmsg{
+	color: #c70000;
+	font-size: 13px;
+	font-weight: bold;
+	display: inline-block ;
+	 
+}
+#msg{
+	font-size: 13px;
+	font-weight: bold;
+	color: #008c4f;
+	display: inline-block ;
+}

@@ -1,0 +1,198 @@
+ <?php if (!$this->isAjaxRequest):?>
+ <?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/admin/viewsummarize.js'); 
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/admin/viewsummarize.css');
+        
+        $title = 'Tổng kết theo đợt';
+        $this->headTitle($title);
+        
+        
+ ?>
+
+<form action="<?php echo $this->url('admin',array('action'=>'viewsummarize')); ?> " method="post" id="frmViewsummarize" >
+     <div class="row">    
+       <div class="span11">
+              <div id="divViewsummarize"> 
+ <?php endif;?>    
+                <h3>TỔNG KẾT THEO ĐỢT</h3>      
+                    <input type="hidden" name="page" id="page" value="<?php echo $this->page; ?>" />         
+            		<table class="table" id="shippingTotalTable">
+            			<thead>
+            				<tr>
+            					<th rowspan="2" style="width: 30px;" >#</th>        					
+            					<th rowspan="2" >Shipment</th>
+            					<th rowspan="2" style="width: 80px;">Thu KH (1)</th>   
+            					<th colspan="2" style="width: 80px;">Shipping fee (2)</th>    
+            					<th rowspan="2" style="width: 80px;">Linh tinh (3)</th>   
+            					<th rowspan="2" style="width: 80px;">Tiền hàng (4)</th> 
+            					<th colspan="2"  style="width: 80px;">Tổng shipping (5)</th>  
+            					<th rowspan="2" style="width: 80px;">Chi phí (6)</th>
+            					<th rowspan="2" style="width: 80px;">GD khác (7)</th>                			
+            					<th rowspan="2" style="width: 80px;">Tổng DUNG (8)</th> 
+            					<th rowspan="2" style="width: 80px;"><span title="(1)+(2)-(3)-(4)-(5)-(6)-(7)-(8)">SUM</span></th>  		 
+            					<th rowspan="2">-</th>       					 
+            				</tr>
+            				
+            				<tr>
+            					<th style="width: 60px;">Kg</th>
+            					<th style="width: 60px;">USD</th>
+            					<th style="width: 60px;">Kg</th>
+            					<th style="width: 60px;">USD</th> 
+            					             					       					 
+            				</tr>
+            			</thead>
+            			<tbody>
+            			<?php $i = 1; ?>        			  
+            		 
+            			 <?php foreach ($this->paginator as $item):?>  
+            			   <?php if (!($this->UserInfo()->getUserGroup() == 'group2')&& ($this->UserInfo()->getNick()=='phuong' || 
+            			         $this->UserInfo()->getNick()=='PhuongAnh') && $item->getShipment_id() > 23 && !(($item->getShipment_id() == 28 || $item->getShipment_id() == 26)) ): ?>      			         
+        			    	<tr class="trItem">
+        			    		<td class="soNo">
+        			    		  <div class="soNo">
+        			    		       <?php echo $i++; ?>
+        			    		  </div>          			    		  
+        			    		</td>        			    		 
+        			    		<td>
+    			    		       <div class=""><?php echo $item->getShipment_name();?>
+    			    		           <input type="hidden" name="shipment_id" value="<?php echo $item->getShipment_id();?>"/>
+    			    		       </div>
+        			    		</td> 
+        			    		
+        			    		<td ><div class="curency "><a target="_blank" href="<?php echo $this->url('admin',array('action'=>'chitiettongthukh','id'=>$item->getShipment_id()));?>"><?php echo number_format($item->getTongthukh(),2,".",",");?></a></div></td> 
+        			    		
+        			    		<td ><div class="curency kg "><a target="_blank" href="<?php echo $this->url('admin',array('action'=>'shippingfeedetail','id'=>$item->getShipment_id()));?>"><?php echo number_format($item->getTongthuweight(),2,".",",");?></a></div></td> 
+        			    		<td ><div class="curency usd"><a target="_blank" href="<?php echo $this->url('admin',array('action'=>'shippingfeedetail','id'=>$item->getShipment_id()));?>"><?php echo number_format($item->getTongthushipping(),2,".",",");?></a></div></td> 
+        			    		
+        			    		<td ><div class="curency "><a target="_blank" href="<?php echo $this->url('admin',array('action'=>'chitietlinhtinh','id'=>$item->getShipment_id()));?>"><?php echo number_format($item->getLotamtinh(),2,".",",");?></a></div></td> 
+        			    		<td ><div class="curency "><a target="_blank" href="<?php echo $this->url('admin',array('action'=>'chitiettongtienhang','id'=>$item->getShipment_id()));?>"><?php echo number_format($item->getTongtienhang(),2,".",",");?></a></div></td> 
+        			    		
+        			    		<td ><div class="curency kg"><a target="_blank" href="<?php echo $this->url('admin',array('action'=>'chitiettongshippingfee','id'=>$item->getShipment_id()));?>"><?php echo number_format($item->getTongshippingweigh(),2,".",",");?></a></div></td> 
+        			    		<td ><div class="curency usd"><a target="_blank" href="<?php echo $this->url('admin',array('action'=>'chitiettongshippingfee','id'=>$item->getShipment_id()));?>"><?php echo number_format($item->getTongshipping(),2,".",",");?></a></div></td> 
+        			    		
+        			    		<td ><div class="curency "><a target="_blank" href="<?php echo $this->url('admin',array('action'=>'chitiettongchiphi','id'=>$item->getShipment_id()));?>"><?php echo number_format($item->getTongchiphi(),2,".",",");?></a></div></td> 
+        			    		<td ><div class="curency "><a target="_blank" href="<?php echo $this->url('admin',array('action'=>'chitietgiaodichkhac','id'=>$item->getShipment_id()));?>"><?php echo number_format($item->getTonggiaodichkhac(),2,".",",");?></a></div></td> 
+        			    		<td ><div class="curency "><a target="_blank" href="<?php echo $this->url('admin',array('action'=>'chitiettongketdung','id'=>$item->getShipment_id()));?>"><?php echo number_format($item->getTongdung(),2,".",",");?></a></div></td> 
+        			    		<td ><div class="curency total"><?php echo number_format($item->getTotal(),2,".",",");?></div></td>         			    		 
+        			    		<td>
+        			    		  <?php if ($item->getPaid()):?>
+        			    		   <span class="icon-check" title="Đã thanh toán"></span>
+        			    		  <?php else:?>
+        			    		   <span class="icon-time" title="Chờ tổng kết"></span>
+        			    		  <?php endif;?>
+        			    		</td>
+        			    	</tr>   
+        			    	<?php endif;?>   
+        			    	
+        			    	<?php if ($this->UserInfo()->getUserGroup() == 'group2' || $this->UserInfo()->getNick()=='diem'): ?>      			         
+        			    	<tr class="trItem">
+        			    		<td class="soNo">
+        			    		  <div class="soNo">
+        			    		       <?php echo $i++; ?>
+        			    		  </div>          			    		  
+        			    		</td>        			    		 
+        			    		<td>
+    			    		       <div class=""><?php echo $item->getShipment_name();?>
+    			    		           <input type="hidden" name="shipment_id" class="shipment_id" value="<?php echo $item->getShipment_id();?>"/>
+    			    		       </div>
+        			    		</td> 
+        			    		
+        			    		<td ><div class="curency ">
+        			    		   <input class="tongthukh" type="hidden" value="<?php echo $item->getTongthukh();?>" />
+        			    		   <a target="_blank" href="<?php echo $this->url('admin',array('action'=>'chitiettongthukh','id'=>$item->getShipment_id()));?>">
+        			    		       <?php echo number_format($item->getTongthukh(),2,".",",");?></a></div>
+        			    	    </td> 
+        			    		
+        			    		<td ><div class="curency kg ">
+        			    		   <input class="tongthuweight" type="hidden" value="<?php echo $item->getTongthuweight();?>" />
+        			    		   <a target="_blank" href="<?php echo $this->url('admin',array('action'=>'shippingfeedetail','id'=>$item->getShipment_id()));?>">
+        			    		       <?php echo number_format($item->getTongthuweight(),2,".",",");?></a></div>
+        			    		</td> 
+        			    		<td ><div class="curency usd">        			    		   
+        			    		   <input class="tongthushipping" type="hidden" value="<?php echo $item->getTongthushipping();?>" />
+        			    		   <a target="_blank" href="<?php echo $this->url('admin',array('action'=>'shippingfeedetail','id'=>$item->getShipment_id()));?>">
+        			    		       <?php echo number_format($item->getTongthushipping(),2,".",",");?></a></div>
+        			    		</td> 
+        			    		
+        			    		<td ><div class="curency ">
+        			    		   <input class="lotamtinh" type="hidden" value="<?php echo $item->getLotamtinh();?>" />
+        			    		   <a target="_blank" href="<?php echo $this->url('admin',array('action'=>'chitietlinhtinh','id'=>$item->getShipment_id()));?>">
+        			    		       <?php echo number_format($item->getLotamtinh(),2,".",",");?></a></div>
+        			    		</td>
+        			    		 
+        			    		<td ><div class="curency ">
+        			    		   <input class="tongtienhang" type="hidden" value="<?php echo $item->getTongtienhang();?>" />
+        			    		   <a target="_blank" href="<?php echo $this->url('admin',array('action'=>'chitiettongtienhang','id'=>$item->getShipment_id()));?>">
+        			    		       <?php echo number_format($item->getTongtienhang(),2,".",",");?></a></div>
+        			    		</td> 
+        			    		
+        			    		<td ><div class="curency kg">
+        			    		   <input class="tongshippingweigh" type="hidden" value="<?php echo $item->getTongshippingweigh();?>" />
+        			    		   <a target="_blank" href="<?php echo $this->url('admin',array('action'=>'chitiettongshippingfee','id'=>$item->getShipment_id()));?>">
+        			    		       <?php echo number_format($item->getTongshippingweigh(),2,".",",");?></a></div>
+        			    		</td> 
+        			    		        			    		
+        			    		<td ><div class="curency usd">
+        			    		   <input class="tongshipping" type="hidden" value="<?php echo $item->getTongshipping();?>" />
+        			    		   <a target="_blank" href="<?php echo $this->url('admin',array('action'=>'chitiettongshippingfee','id'=>$item->getShipment_id()));?>">
+        			    		       <?php echo number_format($item->getTongshipping(),2,".",",");?></a></div>
+        			    		</td> 
+        			    		
+        			    		<td ><div class="curency ">
+        			    		   <input class="tongchiphi" type="hidden" value="<?php echo $item->getTongchiphi();?>" />
+        			    		   <a target="_blank" href="<?php echo $this->url('admin',array('action'=>'chitiettongchiphi','id'=>$item->getShipment_id()));?>">
+        			    		       <?php echo number_format($item->getTongchiphi(),2,".",",");?></a></div>
+        			    		</td> 
+        			    		
+        			    		<td ><div class="curency ">
+        			    		   <input class="tonggiaodichkhac" type="hidden" value="<?php echo $item->getTonggiaodichkhac();?>" />
+        			    		   <a target="_blank" href="<?php echo $this->url('admin',array('action'=>'chitietgiaodichkhac','id'=>$item->getShipment_id()));?>">
+        			    		       <?php echo number_format($item->getTonggiaodichkhac(),2,".",",");?></a></div>
+        			    		</td> 
+        			    		
+        			    		<td ><div class="curency ">
+        			    		   <input class="tongdung" type="hidden" value="<?php echo $item->getTongdung();?>" />
+        			    		   <a target="_blank" href="<?php echo $this->url('admin',array('action'=>'chitiettongketdung','id'=>$item->getShipment_id()));?>">
+        			    		       <?php echo number_format($item->getTongdung(),2,".",",");?></a></div>
+        			    		</td> 
+        			    		
+        			    		<td ><div class="curency total">
+        			    		   <input class="sum" type="hidden" value="<?php echo $item->getTotal();?>" />
+        			    		   <?php echo number_format($item->getTotal(),2,".",",");?></div>
+        			    		   
+        			    		 </td>         			    		 
+        			    		<td>
+        			    		  <?php if ($item->getPaid()):?>
+        			    		   <span class="icon-check" title="Đã thanh toán"></span>
+        			    		  <?php else:?>
+        			    		   <a class="paid icon-fast-forward" title="Thanh toán" href="#" data-url="<?php echo $this->url('admin',array('action'=>'shipmentpaid'));?>" ></a>
+        			    		  <?php endif;?>
+        			    		</td>
+        			    	</tr>   
+        			    	<?php endif;?> 			    	
+            			    
+            			 <?php endforeach;?>
+            			 
+            			</tbody>
+            			
+            			<tfoot>
+    	                <tr>
+                            <td colspan="14">
+                                 <?php    
+                                    $url = $this->url('admin', array('action'=>'viewsummarize'));
+                                            echo $this->paginationControl(
+                                                        $this->paginator, 'Sliding', 'paginator-slide', 
+                                                        array('url'=>$url,'action'=>'viewsummarize')
+                                    );
+                                ?>   
+                            </td>
+                         </tr>
+    	               </tfoot>        			
+            			 
+            		</table>    
+ <?php if (!$this->isAjaxRequest):?>        	        
+              </div>
+       </div>
+    </div>
+  </form>
+<?php endif;?>

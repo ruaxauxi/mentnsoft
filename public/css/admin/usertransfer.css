@@ -1,0 +1,135 @@
+@CHARSET "ISO-8859-1";
+
+#divTitle .label{
+	line-height: 26px;
+	text-align: right;
+	padding: 3px !important;
+	margin-right: 2px;
+	
+}
+
+.error{
+	border: 1px solid red !important;
+	background-color: rgba(255,255,0,0.5) !important;
+	background-image: none !important;	
+}
+
+
+#divTitle .val{
+	line-height: 26px;
+	width: 160px;
+	border: 1px solid #c9c9c9;
+	display: inline-block;
+	padding: 2px;
+	
+	margin-right: 10px;
+	font-weight: bold;
+	font-size: 13px;
+	
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+#divTransfer select{
+	width: 160px;
+}
+#divTransfer input[type=text],#divTransfer textarea{
+	width: 150px;
+}
+
+.divNote{
+	width: 185px;
+	height: auto;
+	display: inline-block;
+	overflow: auto;
+}
+
+#vnd{
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.rate{
+	font-size: 14px;
+	font-weight: bold;
+	color: #c70000;
+}
+
+.waiting{
+	color: #c50000;
+	 
+	 
+}
+
+
+#divInfo {
+	position: fixed;
+	background-color: #fff;
+	background: rgba(255,255,255,0.98);
+	border: 1px solid #c5c5c5;
+	-webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+	-webkit-border-radius: 3px;
+	border: 1px solid rgba(100, 100, 100, .4);
+	-webkit-background-clip: padding-box;
+	padding: 10px;
+	width: 200px;
+	min-height: 30px;
+	text-align: center;
+	display: none;
+	z-index: 5000;
+	
+}
+
+
+
+#divNicks, {
+	margin-bottom: 10px;
+}
+
+#divNicks .custom-combobox-input{
+	width: 150px !important;
+	height: 20px !important;
+	
+	display: inline-block !important;
+	 
+	padding: 4px 6px !important;
+
+	font-size: 14px !important;
+	line-height: 20px !important;
+	color: #555 !important;
+	vertical-align: middle !important;
+	-webkit-border-radius: 4px !important;
+	-moz-border-radius: 4px !important;
+	border-radius: 4px !important;
+	
+}
+
+
+.ui-menu-item{
+	font-size: 12px;
+}
+.custom-combobox{
+	font-size: 12px;
+}
+
+.ui-autocomplete {
+	overflow-y: scroll;
+	overflow-x: hidden;	
+	max-height: 200px;
+}
+
+* html .ui-autocomplete { /* IE max- */
+	height: expression(this.scrollHeight >   200 ?   "200px" :   "auto");
+}
+
+
+#beepernub {
+	position: absolute;
+	top: 15px;
+	left: -14px;
+	background-image: url("../../images/beepernub.png");
+	z-index: 5001;
+	display: inline-block;
+	width: 15px;
+	height: 22px;
+}

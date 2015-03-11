@@ -1,0 +1,90 @@
+<?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/admin/orderfinalizing.js'); 
+        
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.autosize.min.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/jshashtable-3.0.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.numberformatter-1.2.3.js');
+        
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.mousewheel.pack.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/fancybox/jquery.fancybox.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/fancybox/jquery.fancybox-buttons.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/fancybox/jquery.fancybox-thumbs.js');
+        
+         
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/admin/orderfinalizing.css');
+        
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/fancybox/jquery.fancybox.css');
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/fancybox/jquery.fancybox-buttons.css');
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/fancybox/jquery.fancybox-thumbs.css');
+        
+        
+        $title = 'Kiểm tra lần cuối';
+        $this->headTitle($title);
+                 
+ ?>
+
+<div class="span11">
+	<form name="frmShipment" id="frmShipment" method="post"
+		action="<?php echo $this->url('admin',array('action'=>'orderfinalizing'));?>">
+        
+       <div id="divOrders">
+            <table class="table" id="orderInfo">
+                <thead>		
+                  
+    				<tr>
+    					<th style="width: 30px;"><div class="soNo">#</div></th>
+    					<th  style="width: 100px;"><div>OrderNo</div></th>
+    					<th style="width: 100px;"><div>Admin</div></th>
+    					<th style="width: 100px;"><div>Store</div></th>
+    					<th style="width: 100px;"><div>Credit Card</div></th>
+    					<th style="width: 100px;"><div>Holder</div></th>
+    					<th style="width: 40px;"><div class="soItems">Items</div></th>
+    					<th style="width: 40px;"><div class="soItems">Discount</div></th>
+    					<th style="width: 40px;"><div class="soItems">Tax</div></th>
+    					<th style="width: 40px;"><div class="soItems">Ship US</div></th>
+    					<th style="width: 40px;"><div class="soTotalWeb">Total Web</div></th>
+    					<th style="width: 60px;"><div class="soTotalWeb1">Total Web1</div></th>
+    					<th style="width: 60px;"><div class="soTotalFinal">Total Final</div></th>
+    					<th style="width: 40px;"><div>#item Cancel</div></th>
+    					<th style="width: 60px;"><div>Total web</div></th>
+    					<th style="width: 60px;"><div>Total Final</div></th>    
+    					<th>Finalize</th>					    
+    				</tr>
+			 </thead>
+			 <tbody>
+			 <?php $i = 1;?>
+			 <?php foreach ($this->orders as $item):?>
+			     <tr class='trItem'>
+			           <td class="stt"><?php echo $i++;?></td>
+			           <td><a target="_blank" href="<?php echo $this->url('admin',array('action'=> 'vieworder','id'=> $item->getOrderno()));?>">
+			             <?php echo $item->getOrderno();?></a></td>
+			           <td><?php echo $item->getAdmin();?></td>
+			           <td><?php echo $item->getStore_name();?></td>
+			           <td><?php echo $item->getCreditcard();?></td>
+			           <td><?php echo $item->getHolder();?></td>
+			           <td class="number_format"><?php echo $item->getItems();?></td>
+			           <td class="number_format"><?php echo number_format($item->getDiscount(),2,".",',');?></td>
+			           <td class="number_format"><?php echo number_format($item->getTax(),2,".",",");?></td>
+			           <td class="number_format"><?php echo number_format($item->getShip_us(),2,".",",");?></td>
+			           <td class="number_format"><?php echo number_format($item->getTotal_web(),2,".",".");?></td>
+			           <td class="number_format"><?php echo number_format($item->getTotal_web1(),2,".",',');?></td>
+			           <td class="number_format highlight"><?php echo number_format($item->getTotal_final(),2,".",",");?></td>
+			           <td class="number_format"><?php echo $item->getF_items()>0?$item->getItems() - $item->getF_items():0;?></td>
+			           <td class="number_format"><?php echo number_format($item->getF_total_web(),2,".",',');?></td>
+			           <td class="number_format highlight"><?php echo number_format($item->getF_total_final(),2,'.',',');?></td>
+			           <td class="check"><a class="finalize" href="<?php echo $this->url('admin',array('action'=>'finalizeorderajax','id'=>$item->getOrderno()));?>"><span class="icon-check"></span></a></td>
+			           
+			     </tr>
+			  <?php endforeach;?>
+			 </tbody>
+			 <tfoot>
+			     <tr>
+			         <td colspan="17"></td>
+			     </tr>
+			 </tfoot>
+            </table>
+       </div>
+ 
+	</form>
+</div>
+ 

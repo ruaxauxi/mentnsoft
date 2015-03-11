@@ -1,0 +1,99 @@
+ 
+ 
+<?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/admin/chitietgiaodichkhac.js'); 
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/admin/chitietgiaodichkhac.css');
+        
+        $title = 'Chi tiết giao dịch khác';
+        $this->headTitle($title);
+       
+        
+ ?>
+
+ <form action="<?php echo $this->url('admin',array('action'=>'chitietgiaodichkhac')); ?>" method="post" id="frmChitietgiaodichkhac">
+ <div class="row">    
+   <div class="span11">
+          <div id="divChitietgiaodichkhac">   
+            <h3>CHI TIẾT GIAO DỊCH KHÁC THEO ĐỢT</h3>          
+              
+                <table id="shipment">
+                    <tr>
+                        <td><span class="label">Shipment:</span></td>
+                        <td><span class="val"><?php echo $this->shipment->getShip_name();?></span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="label">Note:</span></td>
+                        <td><span class="val"><?php echo $this->shipment->getNote();?> &nbsp; </span></td>
+                    </tr>
+                </table>
+                <hr />
+        		<table class="table" id="shippingTotalTable">
+        			<thead>
+        				<tr>
+        					<th style="width: 30px;">#</th> 
+        					<th style="width: 80px;">Admin</th>
+        					<th style="width: 80px;">Nick</th>
+        					<th style="width: 80px;">Date</th>
+        					<th style="width: 100px;">OrderNo</th>
+        					<th>Note</th>
+        					<th style="width: 100px;">Thu</th> 
+        					<th style="width: 100px;">Chi</th>         					        					 
+        				</tr>
+        			</thead>
+        			<tbody>
+        			<?php 
+        			 $i = 1; 
+        			 $tongthu = 0;
+                	 $tongchi = 0;
+        			?>        			  
+        		 
+        			 <?php foreach ($this->list as $item):?>  
+        			 
+            			 <?php 
+            			     if ($item->getType() == '+'){
+            			     	$tongchi += $item->getTotal();
+            			     }else{
+            			     	$tongthu += $item->getTotal();
+            			     }
+            			     
+            			 ?>      			         
+    			    	<tr class="trItem">
+    			    		<td class="soNo">
+    			    		  <div class="soNo">
+    			    		       <?php echo $i++; ?>
+    			    		  </div>          			    		  
+    			    		</td>        			    		 
+    			    		<td><div><?php echo $item->getAdmin();?></div></td>
+    			    		<td><div><?php echo $item->getNick();?></div></td>
+    			    		<td><div><?php echo $item->getDate();?></div></td>
+    			    		<td><div><?php echo $item->getOrderno();?></div></td>
+    			    		<td><div><?php echo $item->getNote();?></div></td>
+    			    		<td ><div class="curency total"><?php echo $item->getType()=="-"?number_format($item->getTotal(),2,".",","):"";?></div></td> 
+    			    		<td ><div class="curency total"><?php echo $item->getType()=="+"?number_format($item->getTotal(),2,".",","):"";?></div></td>        			    		
+    			    		
+    			    	</tr>      			    	
+        			    
+        			 <?php endforeach;?>
+        			 
+        			</tbody>
+        			<tfoot> 
+        			   <tr>
+        			     <td colspan="6"><b>Tổng cộng:</b></td>
+            	         <td class="rightalign"><span class="label "><?php echo number_format($tongthu,2,'.',',');?></span></td>
+            	         <td class="rightalign"><span class="label"><?php echo number_format($tongchi,2,'.',',');?></span></td>            	          
+            	       </tr>
+            	       <tr>
+        			     <td colspan="6"><b>Total Final:</b></td>
+            	         <td colspan="2" class="rightalign"><span class="label ">
+            	           <?php echo number_format($tongthu,2,'.',',');?>  - <?php echo number_format($tongchi,2,'.',',');?>
+            	           =  <span class="curency total"><?php echo number_format($tongthu-$tongchi,2,'.',',');?></span></span></td>
+            	                 	          
+            	       </tr>
+        			</tfoot>
+        		</table> 
+     		          
+             </div>
+         </div>
+    </div>
+ </form>
+ 

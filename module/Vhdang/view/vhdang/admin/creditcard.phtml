@@ -1,0 +1,88 @@
+<?php if (!$this->isAjaxRequest):?>
+<?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/admin/creditcard.js'); 
+         
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/admin/creditcard.css');
+        
+       
+        $this->headTitle('Quản lý CreditCard');
+        $title = 'Thêm mới CreditCard';
+        
+ ?>
+ 
+ 
+ 
+   <div class="span3">
+     <h4><?php echo $this->escapeHtml($title);?></h4>
+     <form name="creditcardAddForm" id="creditcardAddForm" method="post" 
+                action="<?php echo $this->url('admin',array('action'=> 'creditcard'));?>">
+        
+        
+        <label for="name" >CreditCard</label>
+        <input type="text" name="creditcard" id="creditcard"                  
+                value="" maxlength="255"/>
+                
+         <label for="name" >Holder</label>
+        <input type="text" name="holder" id="holder"                  
+                value="" maxlength="255"/>
+        
+       <div id="errormsg"> <?php echo $this->errmsg;?></div>
+        <hr/>
+        
+        <label for="submitbutton"></label>
+        <input class="btn" type="submit" name="btnAddNew" id="btnAddNew" value=" Thêm " disabled />
+     </form>
+   </div>
+   <div class="span7">
+        <h4>Danh sách CreditCard</h4>
+         <form action ="<?php echo $this->url('admin', array('action'=>'creditcard'));?>" 
+                name="creditcardForm"
+                method="post" id="creditcardForm">
+
+            <div id="creditcardList">
+ <?php endif;?>            
+            <input type="hidden" name="page" id="page" value="<?php echo $this->page; ?>" />            
+            <table class="table">
+            <thead>
+               
+               <tr>
+                    <th>#</th>
+                    <th>CreditCard</th>  
+                    <th>Holder</th> 
+                    <th style="width: 50px; text-align: center;"></th>                     
+               </tr>            
+            </thead>
+            <tbody>
+                <?php $i = ($this->page -1)* $this->row + 1 ;?>
+                <?php foreach($this->paginator as $item):?>
+               <tr>
+                    <td><?php echo $i++; ?></td>
+                    <td ><?php echo $item->getCreditcard();?></td>
+                    <td><?php echo $item->getHolder(); ?></td>   
+                    <td style="width: 50px; text-align: center;">                                             
+                        <a title="Xóa <?php echo $item->getCreditcard();?>" 
+                          class="del"  href="#" data-url="<?php echo $this->url('admin',array('action'=>'deletecreditcard'));?>" data-creditcard="<?php echo $item->getCreditcard();?>"><span class="icon-trash"></span></a>
+                    </td>                
+               </tr>
+               <?php endforeach;?>
+            </tbody>
+            <tfoot>
+                <tr>
+                            <td colspan="9">
+                                 <?php    
+                                    $url = $this->url('admin', array('action'=>'creditcard'));
+                                            echo $this->paginationControl(
+                                                        $this->paginator, 'Sliding', 'paginator-slide', 
+                                                        array('url'=>$url,'action'=>'creditcard')
+                                    );
+                                ?>   
+                            </td>
+                           </tr>
+            </tfoot>
+            </table>
+ <?php if (!$this->isAjaxRequest):?>
+        </div> 
+       </form>
+   </div>
+
+<?php endif;?>

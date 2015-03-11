@@ -1,0 +1,95 @@
+<?php if (!$this->isAjaxRequest):?>
+ <?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/admin/sendmessage.js'); 
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.autosize.min.js');
+        
+        
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/admin/sendmessage.css');
+        
+/*         $this->headScript()->appendFile($this->basePath() . '/js/tinymce/tinymce.min.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/customer/tinymce_config.js'); */
+        
+        $title = 'Gởi tinh nhắn đến KH';
+        $this->headTitle($title);
+       
+        
+ ?>
+ 
+ 
+   <div class="span11">
+     <h4><?php echo $this->escapeHtml($title);?></h4>
+        <form name="frmQuestion" id="frmQuestion" method="post" action="<?php echo $this->url('admin',array('action'=>'sendmessage'));?>">
+        
+            <div id="divNicks">
+                <label for="nicks">Nick</label>
+                 <select name="nick" id="nicks"  class="required">
+                       <option value=""></option>
+                       <?php foreach ($this->nicks as $item):?>
+                        <option <?php echo $item->getNick()==$this->nick?'selected':'';?> value="<?php echo $item->getNick();?>"><?php echo $item->getNick();?></option>
+                       <?php endforeach;?>
+                 </select>         
+                 
+                 <input type="submit" class="btn" name="btnShow" id="btnShow" value="Show" />
+                 <hr/>
+            </div>
+        <?php if ($this->nick):?>
+            <label for="subject">Tiêu đề</label>
+            <input type="text" name="subject" id="subject" maxlength="255" />
+            <label for="content">Nội dung</label>
+            <textarea rows="" cols="" name="content" id="content"></textarea>
+            
+            <input class="btn" type="submit" value=" Gởi " name="btnSubmit" id="btnSubmit" />
+            
+            <hr />
+       <?php endif;?>
+            <div id="divQuestion">
+ <?php endif;?>   
+         <?php if ($this->nick):?>
+            <input type="hidden" name="page" id="page"
+				value="<?php echo $this->page; ?>" />
+			<table class="table" id="questionTable">
+				<thead>
+					<tr>
+					   <th>Admin</th>
+						<th>Tiêu đề</th>						 
+						<th>Ngày</th>
+						<th>-</th>
+					</tr>
+				</thead>
+				<tbody>
+        			 <?php $i = ($this->page -1)* $this->row + 1 ;?>
+                     <?php foreach($this->paginator as $item):?>	    
+                             	     
+            	     	<tr class="trItem <?php echo $item->getRead()==0?'unread':'';?>">
+            	     	<td style="width: 150px;"><?php echo $item->getAdmin();?></td>   
+						<td class="tdSubject"><a target="_blank" href="<?php echo $this->url('admin',array('action'=>'viewanswer','id'=>$item->getId()));?>" title="Xem nội dung"><div class="divSubject"><?php echo $item->getSubject().' ('.($item->getCount()!=null?$item->getCount():0).')';?></div></a></td>
+						<td class="tdDate"><?php echo date('d-m-Y',strtotime($item->getLastupdate()));?></td>
+						<td class="tdDel"><a class="delquestion" href="<?php echo $this->url('admin',array('action'=>'delquestion','id'=>$item->getId()));?>"><span class="icon-trash"></span></a></td>
+					</tr>
+            	     <?php endforeach;?>
+        			</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="4">
+        			     	<?php
+                         $url = $this->url('admin', array(
+                                        'action' => 'sendmessage'
+                         ));
+                        echo $this->paginationControl(
+                                                        $this->paginator, 'Sliding', 'paginator-slide', 
+                                                        array('url'=>$url,'action'=>'sendmessage')
+                                    );
+                             ?>   
+        			     </td>
+					</tr>
+				</tfoot>
+			</table>
+		  <?php endif;?>
+ <?php if (!$this->isAjaxRequest):?>
+	    </div>
+
+	</form>
+
+</div>
+
+<?php endif;?>

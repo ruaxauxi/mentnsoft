@@ -1,0 +1,39 @@
+@CHARSET "ISO-8859-1";
+
+.number_format{
+	text-align: right !important;
+}
+.highlight{
+	background-color: rgba(255,255,0,0.6) !important;
+	color: #c70000 !important;
+}
+.check{
+	text-align: center !important;
+}
+
+#holder{
+	width: 100px;
+	margin-top: 10px;
+}
+
+#divUpdateForm{
+	 display: none;
+}
+
+.ui-menu-item{
+	font-size: 12px;
+}
+.custom-combobox{
+	font-size: 12px;
+}
+
+.ui-autocomplete {
+	overflow-y: scroll;
+	overflow-x: hidden;	
+	max-height: 200px;
+	z-index: 10000;
+}
+
+* html .ui-autocomplete { /* IE max- */
+	height: expression(this.scrollHeight >   200 ?   "200px" :   "auto");
+}

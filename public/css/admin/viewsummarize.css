@@ -1,0 +1,20 @@
+@CHARSET "UTF-8";
+
+.curency{
+	text-align: right;
+	font-weight: bold;
+	font-size: 13px;
+}
+
+.kg{
+	
+}
+
+.total{
+	color: #c70000;
+}
+
+#shippingTotalTable thead th{
+	text-align: center;
+	vertical-align: middle;
+}

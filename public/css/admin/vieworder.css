@@ -1,0 +1,184 @@
+@CHARSET "ISO-8859-1";
+
+
+#spanDescription{
+	width: 700px !important;
+}
+
+.divDescription{
+	width: 220px;
+	height: auto;
+	display: inline-block;
+	overflow: auto;
+}
+
+#orderdetailTable tbody td {
+	padding-right: 5px;
+}
+
+.rightalign{
+	text-align: right !important;
+}
+
+#orderInfo .label{	 
+	width: 80px; 
+	text-align: right;
+	padding: 5px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+	margin-right: 0px;
+}
+
+#orderInfo .val{
+	width: 160px;
+	border: 1px solid #c9c9c9;
+	display: inline-block;
+	padding: 2px;
+	margin-right: 10px;
+	font-weight: bold;
+	font-size: 13px;
+	
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+#totalItems{
+	height: 18px !important;
+	width: 40px;
+	font-size: 14px !important;
+	font-weight: bold !important; 	 
+	text-align: right;
+}
+
+#totalWeb, #totalWeb1,#totalDiscount {
+	height: 18px !important;
+	width: 65px;
+	font-size: 14px !important;
+	font-weight: bold !important; 	 
+	text-align: right;
+}
+
+
+
+#totalShip_us{
+	height: 18px !important;
+	width: 65px;
+	font-size: 14px !important;
+	font-weight: bold !important; 	 
+	text-align: right;
+}
+
+#totalTax{
+	height: 18px !important;
+	width: 65px;
+	font-size: 14px !important;
+	font-weight: bold !important; 	 
+	text-align: right;
+}
+
+#totalExtra_fee{
+	height: 18px !important;
+	width: 65px;
+	font-size: 14px !important;
+	font-weight: bold !important; 	 
+	text-align: right;
+}
+
+#divTotalWeb, #divTotalWeb1,#divTotalDiscount{
+	position: relative;
+	text-align: right;
+}
+#divTotalWeb span{
+
+	font-size: 14px !important;
+	font-weight: bold !important;
+	display: inline-block;
+	width: 10px;
+	height: 20px;
+	margin-right: 3px;
+}
+
+#total{
+	height: 18px !important;
+	width: 70px;
+	font-size: 14px !important;
+	font-weight: bold !important; 	 
+	text-align: right;
+}
+#divTotal{
+	position: relative;
+	text-align: right;
+}
+#divTotal span{
+
+	font-size: 14px !important;
+	font-weight: bold !important;
+	display: inline-block;
+	width: 10px;
+	height: 20px;
+	margin-right: 3px;
+}
+
+.divTotal_final{
+	position: relative;
+	display: block; 
+	  
+	text-align: center;
+}
+
+.total_final{
+	height: 32px !important;
+	width: 70px;
+	font-size: 14px !important;
+	font-weight: bold !important;
+	 
+	margin-top: 10px !important;
+	 
+	text-align: right;
+}
+
+.divTotal_final .label{
+	width: 80px;
+	text-align: right;
+	padding: 3px !important;
+}
+
+.divTotal_final .val{
+	width: 70px;
+	height: 26px;
+	border: 1px solid #c9c9c9;
+	display: inline-block;
+	padding: 0px;
+	margin-top: 2px;
+	margin-right: 2px;
+	padding-right: 2px;
+	font-weight: bold;
+	font-size: 12px;
+	text-align: right;
+	
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+
+.divTax .val{
+	width: 65px;
+	height: 18px;
+	border: 1px solid #c9c9c9;
+	display: block;
+	padding: 3px;
+	margin-top: 10px;
+	margin-left: 3px;
+	padding-right:3px;
+	font-weight: bold;
+	font-size: 12px;
+	text-align: right;
+	
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	
+	background-color: #c3c3c3;
+}

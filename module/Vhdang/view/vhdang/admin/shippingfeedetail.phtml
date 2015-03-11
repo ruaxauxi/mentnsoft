@@ -1,0 +1,87 @@
+ 
+ 
+<?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/admin/shippingfeedetail.js'); 
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/admin/shippingfeedetail.css');
+        
+        $title = 'Tổng thu shipping weight theo đợt';
+        $this->headTitle($title);
+       
+        
+ ?>
+
+ <form action="<?php echo $this->url('admin',array('action'=>'shippingfeedetail')); ?>" method="post" id="frmShippingfeedetail">
+ <div class="row">    
+   <div class="span11">
+          <div id="divShippingfeedetail">   
+            <h3>CHI TIẾT TỔNG THU SHIPPING WEIGHT THEO ĐỢT</h3>          
+              
+                <table id="shipment">
+                    <tr>
+                        <td><span class="label">Shipment:</span></td>
+                        <td><span class="val"><?php echo $this->shipment->getShip_name();?></span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="label">Note:</span></td>
+                        <td><span class="val"><?php echo $this->shipment->getNote();?> &nbsp; </span></td>
+                    </tr>
+                </table>
+                <hr />
+        		<table class="table" id="shippingTotalTable">
+        			<thead>
+        				<tr>
+        					<th style="width: 30px;">#</th> 
+        					<th style="width: 200px;">Nick</th>
+        					<th >Note</th>
+        					<th style="width: 100px;">Weight</th>
+        					<th style="width: 100px;">Price</th> 
+        					<th style="width: 120px;">Total</th>        					        					 
+        				</tr>
+        			</thead>
+        			<tbody>
+        			<?php 
+        			 $i = 1; 
+        			 $total_weight = 0;        			 
+        			 $total_final = 0;
+        			?>        			  
+        		 
+        			 <?php foreach ($this->list as $item):?>  
+        			 
+            			 <?php 
+                			 $total_weight += $item->getWeight();
+                			 $total_final += $item->getTotal();
+            			     
+            			 ?>      			         
+    			    	<tr class="trItem">
+    			    		<td class="soNo">
+    			    		  <div class="soNo">
+    			    		       <?php echo $i++; ?>
+    			    		  </div>          			    		  
+    			    		</td>        			    		 
+    			    		<td><div><?php echo $item->getNick(); ?></div></td>
+    			    		<td><div><?php echo $item->getNote(); ?></div></td>
+    			    		<td ><div class="curency "><?php echo number_format($item->getWeight(),2,".",",");?></div></td> 
+    			    		<td ><div class="curency"><?php echo number_format($item->getPrice(),2,".",",");?></div></td>        			    		
+    			    		<td ><div class="curency total"><?php echo number_format($item->getTotal(),2,".",",");?></div></td>        			    		
+    			    		 
+    			    	</tr>      			    	
+        			    
+        			 <?php endforeach;?>
+        			 
+        			</tbody>
+        			<tfoot> 
+        			    <tr>
+        			    <td colspan="3"><b>Tổng cộng:</b></td>
+            	         <td class="rightalign"><span class="label "><?php echo number_format($total_weight,2,'.',',');?></span></td>
+            	         <td> &nbsp; </td>
+            	         <td class="rightalign"><span class="label"><?php echo number_format($total_final,2,'.',',');?></span></td>
+            	          
+            	     </tr>
+        			</tfoot>
+        		</table> 
+     		          
+             </div>
+         </div>
+    </div>
+ </form>
+ 

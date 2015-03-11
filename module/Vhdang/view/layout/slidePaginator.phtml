@@ -1,0 +1,45 @@
+
+<?php if ($this->pageCount): ?>
+     
+    <div class="pagination pagination-centered">
+            
+        <ul>
+            <li <?php echo!isset($this->previous) ? 'class="disabled"' : ''; ?>>
+                <a href="<?php echo $this->url($this->route, array('action'=>$this->action,'page' => $this->first)); ?>">&laquo;</a></li>
+            <li <?php echo!isset($this->previous) ? 'class="disabled"' : ''; ?>>
+                <a href="<?php echo $this->url($this->route, array('action'=>$this->action,'page' => $this->previous)); ?>">&lsaquo;</a></li>
+
+            <!-- Numbered page links -->
+            <?php foreach ($this->pagesInRange as $page): ?>
+                <li <?php echo $page == $this->current ? 'class="active"' : ''; ?>><a href="<?php echo $this->url($this->route, array('action'=>$this->action,'page' => $page)); ?>">
+                        <?php echo $page; ?>
+                    </a></li>
+            <?php endforeach; ?>
+
+            <!-- Next page link -->
+            <li <?php echo!isset($this->next) ? 'class="disabled"' : ''; ?>>
+                <a href="<?php echo $this->url($this->route, array('action'=>$this->action,'page' => $this->next)); ?>">&rsaquo;</a></li>
+            <!-- Last page link -->
+            <li <?php echo!isset($this->next) ? 'class="disabled"' : ''; ?>>
+                <a href="<?php echo $this->url($this->route, array('action'=>$this->action, 'page' => $this->last,)); ?>">&raquo;</a></li>
+        </ul>
+            <div id="itemPerPage">              
+                <select name="row" style="width: 65px; height: 26px; float:left;"  id ="rowPaginator">
+                    <option value="15" <?php if ($this->itemCountPerPage == 15) echo 'selected';?> >15</option>
+                    <option value="30" <?php if ($this->itemCountPerPage == 30) echo 'selected';?> >30</option>
+                    <option value="60" <?php if ($this->itemCountPerPage == 60) echo 'selected';?>>60</option>
+                    <option value="100" <?php if ($this->itemCountPerPage == 100) echo 'selected';?>>100</option>
+                    <option value="150" <?php if ($this->itemCountPerPage == 150) echo 'selected';?>>150</option>
+                    <option value="-1" <?php if ($this->itemCountPerPage != 15  && 
+                                                 $this->itemCountPerPage != 30  &&
+                                                 $this->itemCountPerPage != 60  &&
+                                                 $this->itemCountPerPage != 100 &&
+                                                 $this->itemCountPerPage != 150 ) echo 'selected';?>>Tất cả</option>
+                </select>
+                 
+                 <span style="float:left; position: relative; top: 5px;" > &nbsp; dòng </span> 
+           </div>
+           
+    </div>
+<?php endif; ?>
+ 

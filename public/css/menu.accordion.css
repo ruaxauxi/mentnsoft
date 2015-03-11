@@ -1,0 +1,42 @@
+@CHARSET "UTF-8";
+
+
+.list1 li{
+	height: 25px;	
+	line-height: 25px; 
+	border-bottom: 1px solid #e9eaed;
+	border-left: 1px solid #e9eaed;
+	border-right: 1px solid #e9eaed;
+	cursor:pointer;
+	padding: 5px;
+	margin:0px;
+	vertical-align: middle;
+	 
+}
+
+#accordion .ui-accordion-header-active{
+	background-image: url(../images/nav_bg.png) !important;
+}
+#accordion .ui-accordion-content {
+ padding: 0px !important; 
+border-top: 0;
+overflow: auto;
+}
+
+.list1 li:first-child{
+	border-top: 1px solid #e9eaed;
+	 
+}
+ 
+
+.list1 li:hover {
+	 background-color: #f6f6f6	;
+}
+
+.list1{
+	list-style-type: none;
+	margin: 0px;	
+	width: auto;
+	 
+	overflow:auto;	
+}

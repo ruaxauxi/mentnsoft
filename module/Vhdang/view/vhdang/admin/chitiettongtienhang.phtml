@@ -1,0 +1,89 @@
+ 
+ 
+<?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/admin/chitiettongtienhang.js'); 
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/admin/chitiettongtienhang.css');
+        
+        $title = 'Tổng thu của KH';
+        $this->headTitle($title);
+       
+        
+ ?>
+
+ <form action="<?php echo $this->url('admin',array('action'=>'chitiettongthukh')); ?>" method="post" id="frmChitiettongtienhang">
+ <div class="row">    
+   <div class="span11">
+          <div id="divChitiettongtienhang">   
+            <h3>CHI TIẾT TỔNG THU TỪ KHÁCH HÀNG THEO ĐỢT</h3>          
+              
+                <table id="shipment">
+                    <tr>
+                        <td><span class="label">Shipment:</span></td>
+                        <td><span class="val"><?php echo $this->shipment->getShip_name();?></span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="label">Note:</span></td>
+                        <td><span class="val"><?php echo $this->shipment->getNote();?> &nbsp; </span></td>
+                    </tr>
+                </table>
+                <hr />
+        		<table class="table" id="shippingTotalTable">
+        			<thead>
+        				<tr>
+        					<th style="width: 30px;">#</th> 
+        					<th style="width: 200px;">OrderNo</th>
+        					<th style="width: 80px;">Total (1)</th>
+        					<th style="width: 100px;">Cancel (2)</th>
+        					<th style="width: 120px;">Total Final (1)-(2)=(3)</th>         					        					 
+        				</tr>
+        			</thead>
+        			<tbody>
+        			<?php 
+        			 $i = 1; 
+        			 $total_total = 0;
+        			 $total_cancel = 0;
+        			 $total_fn_total = 0;
+        			?>        			  
+        		 
+        			 <?php foreach ($this->list as $item):?>  
+        			 
+            			 <?php 
+                			 $total_total += $item->getTotal();
+                			 $total_cancel += $item->getCancel();
+                			 $total_fn_total += $item->getTotal_final();
+            			     
+            			 ?>      			         
+    			    	<tr class="trItem">
+    			    		<td class="soNo">
+    			    		  <div class="soNo">
+    			    		       <?php echo $i++; ?>
+    			    		  </div>          			    		  
+    			    		</td>        			    		 
+    			    		<td>
+			    		       <div class=""><a href="<?php echo $this->url('admin',array('action'=>'vieworder','id'=>$item->getOrderno()));?>" target="_blank"><?php echo $item->getOrderno();?></a></div>
+    			    		</td>
+    			    		<td ><div class="curency "><?php echo number_format($item->getTotal(),2,".",",");?></div></td> 
+    			    		<td ><div class="curency"><?php echo number_format($item->getCancel(),2,".",",");?></div></td>        			    		
+    			    		<td ><div class="curency total"><?php echo number_format($item->getTotal_final(),2,".",",");?></div></td>        			    		
+    			    		 
+    			    	</tr>      			    	
+        			    
+        			 <?php endforeach;?>
+        			 
+        			</tbody>
+        			<tfoot> 
+        			    <tr>
+        			    <td colspan="2"><b>Tổng cộng:</b></td>
+            	         <td class="rightalign"><span class="label "><?php echo number_format($total_total,2,'.',',');?></span></td>
+            	         <td class="rightalign"><span class="label"><?php echo number_format($total_cancel,2,'.',',');?></span></td>
+            	         <td class="rightalign"><span class="label"><?php echo number_format($total_fn_total,2,'.',',');?></span></td>
+            	          
+            	     </tr>
+        			</tfoot>
+        		</table> 
+     		          
+             </div>
+         </div>
+    </div>
+ </form>
+ 

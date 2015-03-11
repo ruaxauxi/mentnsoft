@@ -1,0 +1,50 @@
+<?php if (!$this->isAjaxRequest):?>
+ <?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/customer/viewanswer.js'); 
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.autosize.min.js');
+        
+        
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/customer/viewanswer.css');
+        
+/*         $this->headScript()->appendFile($this->basePath() . '/js/tinymce/tinymce.min.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/customer/tinymce_config.js'); */
+        
+        $title = 'Nội dung '.($this->q->getAdmin()!=null?'tin nhắn':'câu hỏi');
+        $this->headTitle($title);
+       
+        
+ ?>
+ 
+ 
+   <div class="span11">
+     <h4><?php echo $this->escapeHtml($title);?></h4>
+        <form name="frmAnswer" id="frmAnswer" method="post" action="<?php echo $this->url('customer',array('action'=>'viewanswer','id'=>$this->q->getId()));?>">
+             <input type="hidden" name="question_id" id="question_id" value="<?php echo $this->q->getId();?>" />
+             <div id="divSubject"><?php echo $this->q->getSubject();?></div>
+             <div class="divBlock">
+                <div class="divContent"><span class="nick"><?php echo $this->q->getAdmin()!=null?$this->q->getAdmin():$this->q->getNick();?></span><?php echo $this->q->getContent();?></div>
+                <div class="info"><?php echo ' Ngày '.date("d-m-Y",strtotime($this->q->getDatecreated())). ' lúc '. date("H:i:s",strtotime($this->q->getDatecreated()));?></div>                
+             </div>             
+             
+            <div id="divAnswer">
+ <?php endif;?>    
+             
+           <?php foreach($this->a as $item):?>
+                <div class="divBlockAnswer">
+                    <div class="divContent"><span class="nick"><?php echo $item->getNick();?></span><?php echo $item->getContent();?></div>
+                    <div class="info"><?php echo ' Ngày '.date("d-m-Y",strtotime($item->getDatecreated())). ' lúc '. date("H:i:s",strtotime($item->getDatecreated()));?></div>                
+                </div> 
+           <?php endforeach;?>  
+             
+ <?php if (!$this->isAjaxRequest):?>
+	    </div>
+	     <div id="divBlockReply">
+	       <textarea rows="" cols="" id="reply" name="content"></textarea>
+	       <input type="submit" name="btnSubmit" id="btnSubmit" class="btn" value=" Trả lời " />
+	     </div> 
+
+	</form>
+
+</div>
+
+<?php endif;?>

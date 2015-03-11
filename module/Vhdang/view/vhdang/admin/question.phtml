@@ -1,0 +1,93 @@
+<?php if (!$this->isAjaxRequest):?>
+ <?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/admin/question.js'); 
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.autosize.min.js');
+        
+        
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/admin/question.css');
+        
+/*         $this->headScript()->appendFile($this->basePath() . '/js/tinymce/tinymce.min.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/customer/tinymce_config.js'); */
+        
+        $title = 'Hỏi-đáp';
+        $this->headTitle($title);
+       
+        
+ ?>
+
+
+<div class="span11">
+	<h4>Danh sách</h4>
+	<form name="frmQuestion" id="frmQuestion" method="post"
+		action="<?php echo $this->url('admin',array('action'=>'question'));?>">
+        
+
+		<div class="span8" id="filtergroup">
+		    
+			<ul class="nav nav-pills">
+				<li <?php echo $this->type=='all'?'class="active"':'';?> ><a class="filter" href="#" data-type='all'> <span class="badge pull-right"><?php echo $this->totalQuestion;?></span>All 
+				</a></li>
+				<li <?php echo $this->type=='unreply'?'class="active"':'';?> ><a class="filter" href="#" data-type='unreply'> <span class="badge pull-right"><?php echo $this->totalUnreply;?></span>Unreply 
+				</a></li>
+				<li <?php echo $this->type=='reply'?'class="active"':'';?> ><a class="filter" href="#" data-type='reply'> <span class="badge pull-right"><?php echo $this->totalReply;?></span>Replied
+				</a></li>
+			</ul>
+		</div>
+        <br />
+        <br/>
+
+		<div id="divQuestion">
+ <?php endif;?>   
+            <input type="hidden" name="page" id="page" 	value="<?php echo $this->page; ?>" />
+            <input type="hidden" name="type" id="type" value="<?php echo $this->type; ?>" />
+			<table class="table" id="questionTable">
+				<thead>
+					<tr>
+					   <th>#</th>
+						<th>Nick</th>
+						<th>Tiêu đề</th>
+						<th>Ngày</th>
+						<th>-</th>
+					</tr>
+				</thead>
+				<tbody>
+        			 <?php $i = ($this->page -1)* $this->row + 1 ;?>
+                     <?php foreach($this->paginator as $item):?>	  
+                                  	     
+            	     	<tr class="trItem <?php echo $item->getAnswer()==0?'unread':'';?>">
+            	     	<td><?php echo $i++;?></td>
+						<td class="tdNick"><?php echo $item->getNick();?></td>
+						<td class="tdSubject"><a
+							href="<?php echo $this->url('admin',array('action'=>'viewanswer','id'=>$item->getId()));?>"
+							title="Xem nội dung"><div class="divSubject"><?php echo $item->getSubject().' ('.($item->getCount()!=null?$item->getCount():0).')'; ?></div></a></td>
+						<td class="tdDate"><?php echo date('d-m-Y',strtotime($item->getLastupdate()));?></td>
+						<td class="tdDel"><a class="delquestion"
+							href="<?php echo $this->url('admin',array('action'=>'delquestion','id'=>$item->getId()));?>"><span
+								class="icon-trash"></span></a></td>
+					</tr>
+            	     <?php endforeach;?>
+        			</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="4">
+        			     	<?php
+                         $url = $this->url('customer', array(
+                                        'action' => 'question'
+                         ));
+                        echo $this->paginationControl(
+                                                        $this->paginator, 'Sliding', 'paginator-slide', 
+                                                        array('url'=>$url,'action'=>'question')
+                                    );
+                             ?>   
+        			     </td>
+					</tr>
+				</tfoot>
+			</table>
+ <?php if (!$this->isAjaxRequest):?>
+	    </div>
+
+	</form>
+
+</div>
+
+<?php endif;?>

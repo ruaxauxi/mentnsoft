@@ -1,0 +1,242 @@
+body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+
+legend{
+	font-size: 14px;
+	 
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+
+#notify{
+	width: 350px;
+	min-height: 250px;
+	 
+	 
+	padding: 10px;	 
+	text-align: center;
+	display: none;
+	z-index: 5000;
+}
+
+.icon{
+	width: 14px;
+	height: 14px;
+}
+
+.footer{
+	clear:both;
+	font-weight: bold;
+	width: auto;
+	
+	
+}
+
+.menu{
+	
+}
+
+.list li{
+	height: 25px;	
+	line-height: 25px; 
+	border-bottom: 1px solid #e9eaed;
+	border-left: 1px solid #e9eaed;
+	border-right: 1px solid #e9eaed;
+	cursor:pointer;
+	padding: 5px;
+	margin:0px;
+	vertical-align: middle;
+	 
+}
+
+.list li:first-child{
+	border-top: 1px solid #e9eaed;
+	background-color: #f6f7f8;
+}
+ 
+
+.list li:hover {
+	 background-color: #f6f6f6	;
+}
+
+.list{
+	list-style-type: none;
+	margin: 0px;	
+	width: auto;
+	height: 650px;
+	overflow:auto;	
+}
+
+
+
+.selected{
+	 background-color: #c6c6c6;
+}
+
+
+.icon-disabled {
+	background-image: url("../../img/glyphicons-halflings-disabled.png");
+}
+div.clear{
+	position: relative;
+	float: none;
+}
+
+#content{	
+	
+	position: relative;
+	width: auto;
+	height: auto;
+	display: block;
+}
+
+.center{
+	text-align: center;
+}
+ 
+
+
+.table th{	 
+	background-image: url(../images/nav_bg.png);
+	color: #fff;
+	text-align: left;
+	font-weight: bold;
+	border: 1px solid #aaa;
+	padding: 4px;
+}
+
+.table td{	 
+	padding: 4px;
+}
+
+.table  tbody tr:nth-child(even) {
+	background-color: #fff;
+}
+
+.table  tbody tr:nth-child(odd) {
+	  background-color: #f4f4f4; 
+}
+
+.table tbody tr:hover{
+	 background-color: #F8FFCB !important;	 
+}
+
+.table tbody tr.checked{
+	 background-color: rgba(128,0,0,.8) !important;	 
+	color: #fff;
+}
+
+.table tfoot{
+
+}
+ 
+.table tbody td:first-child{
+	border-left: 1px solid #aaa;
+}
+.table tbody td{
+	border-right: 1px solid #aaa;
+}
+
+.table tbody tr.highlight{
+	color: red;
+	font-weight: bold;
+	
+}
+
+.table tbody tr.highlight2{
+	  background-color: rgba(0,255,0,.4) !important;	
+	
+}
+
+.table tbody tr.highlight a{
+	color: red;
+	font-weight: bold;
+}
+
+
+span.gi {
+	color: #000;
+	font-weight: bold;
+	margin-right: 5px;
+	
+}
+
+span.space20{
+	display: inline-block;
+	width: 20px;
+}
+
+img.disabled{
+	opacity: 0.4;
+}
+
+.disabled{
+	opacity: 0.4;
+}
+
+/* splash */
+#splash {
+	position: fixed;
+	top: 100px;
+	border: 5px solid rgba(82, 82, 82, .45);
+	background-color: #fff;
+	padding: 10px;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	width: 400px;
+	min-height: 30px;
+	text-align: center;
+	display: none;
+	z-index: 5000;
+}
+
+#splashcontent {
+	margin: auto;
+}
+
+#imgLoading {
+	display: inline-block;
+	height: 18px;
+	width: 26px;
+}
+
+#itemPerPage {
+	width: 200px;
+	float: left;
+}
+
+.zf-green {
+    color: #68b604;
+}
+
+.btn-success {
+  background-color: #57a900;
+  background-image: -moz-linear-gradient(top, #70d900, #57a900);
+  background-image: -ms-linear-gradient(top, #70d900, #57a900);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#70d900), to(#57a900));
+  background-image: -webkit-linear-gradient(top, #70d900, #57a900);
+  background-image: -o-linear-gradient(top, #70d900, #57a900);
+  background-image: linear-gradient(top, #70d900, #57a900);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#70d900', endColorstr='#57a900', GradientType=0);
+}
+
+.btn-success:hover,
+.btn-success:active,
+.btn-success.active,
+.btn-success.disabled,
+.btn-success[disabled] {
+  background-color: #57a900;
+}
+
+.btn-success:active, .btn-success.active {
+  background-color: #57a900;
+}
+
+div.container a.brand {
+    background: url("../img/zf2-logo.png") no-repeat scroll 0 10px transparent;
+    margin-left: 0;
+    padding: 8px 20px 12px 40px;
+}

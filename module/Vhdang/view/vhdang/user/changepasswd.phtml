@@ -1,0 +1,54 @@
+<style>
+
+#errmsg{
+	color: #c70000;
+	font-size: 13px;
+	font-weight: bold;
+	display: block ;
+	 
+}
+#msg{
+	font-size: 13px;
+	font-weight: bold;
+	color: #008c4f;
+	display: block ;
+}
+</style>
+<?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/user/changepasswd.js'); 
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/user/changepasswd.css');
+        
+        $title = 'Đổi mật khẩu';
+        $this->headTitle($title);
+       
+        
+ ?>
+ <div id="divRegister">
+ 
+ 
+ <div class="row">
+   <div class="span6">
+    <?php echo '<h4>' . $this->escapeHtml($title) . '</h4>';?>
+     <form name="changepasswdForm" id="changepasswdForm" method="post" 
+                action="<?php echo $this->url('user',array('action'=> 'changepasswd'));?>">
+        
+         
+        <input type="hidden" name="nick" id="nick" value="<?php echo $this->UserInfo()->getNick();?>" maxlength="30"/>
+        <label for="password" >Mật khẩu hiện tại (*)</label>
+        <input type="password" name="oldpass" id="oldpass"  maxlength="30" class="required"/> 
+                
+        <label for="password" >Nhập mật khẩu mới(*)</label>
+        <input type="password" name="passwd" id="passwd"  maxlength="30" class="required"/> 
+                
+         <label for="password2" >Nhập lại mật khẩu mới(*)</label>
+        <input type="password" name="passwd2" id="passwd2"  maxlength="30" class="required"/> 
+       <div id="errmsg"></div>
+       <div id="msg"></div>
+        <hr/>
+        
+        <label for="submitbutton"></label>
+        <input type="submit" name="submitbuttom" id="submitbutton" value="Cập nhật" class="btn" disabled />
+     </form>
+    </div> 
+</div>
+</div>

@@ -1,0 +1,326 @@
+<?php if (!$this->isAjaxRequest):?>
+<?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/admin/createshipment.js'); 
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.autosize.min.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/jshashtable-3.0.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.numberformatter-1.2.3.js');
+          
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.mousewheel.pack.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/fancybox/jquery.fancybox.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/fancybox/jquery.fancybox-buttons.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/fancybox/jquery.fancybox-thumbs.js');
+        
+        $this->headScript()->appendFile($this->basePath() . '/js/slimscroll/jquery.slimscroll.js');
+        
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/admin/createshipment.css');
+
+ 
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/fancybox/jquery.fancybox.css');
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/fancybox/jquery.fancybox-buttons.css');
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/fancybox/jquery.fancybox-thumbs.css');
+        
+        
+        $title = 'Đợt hàng';
+        $this->headTitle($title);
+       
+   
+ ?>
+ 
+<script>
+   var users = [<?php //echo $users;?>]; 
+</script>
+
+
+<div class="span11">
+	<form name="frmShipment" id="frmShipment" method="post"
+		action="<?php echo $this->url('admin',array('action'=>'createshipment'));?>">
+		<h4>Thông tin Đợt hàng</h4>
+	    <div id="shipmentInfo">		
+			  <table>
+			     <tr>
+			         <td>
+			            <input type="hidden" name="id" id="ship_id" value="<?php echo $this->shipment->getId();?>" />
+				       	<label for="ship_date">Date</label>
+				       	<input type="text" name="ship_date" id="ship_date" class="datepicker" value="<?php 
+				       		if (($this->shipment->getShip_date())){
+				       			echo date("d-m-Y",strtotime($this->shipment->getShip_date()));
+				       		}?>" />
+			         </td>
+			         <td>
+			             <label for="ship_name">Name</label><input type="text" name="ship_name" id="ship_name" value="<?php echo $this->shipment->getShip_name();?>" />
+			         </td>
+			         <td><label for="weight">Weight (lbs)</label><input type="text" name="weight" value="<?php echo $this->shipment->getWeight()==""?"":number_format($this->shipment->getWeight(),2,'.',',');?>" id="weight"/></td>
+			         
+			     </tr>
+				 
+				 <tr>
+				    <td colspan="3">
+				        <label for="note">Note</label> <textarea name="note" id="note" ><?php echo $this->shipment->getNote();?></textarea>
+				    </td>
+				 </tr>
+				 
+			 	 
+	       	  </table>
+			 
+			
+			<div id="nextstep">	
+			  <button type="submit" class="btn" name="btnSave" value="save"  id="btnSave"><span class="ui-icon ui-icon-disk"></span>Save</button>
+			</div>  
+	   </div>
+		
+		<hr/>
+<?php endif;?>
+	<?php if ($this->shipment->getId()):?>	
+	  <?php if (!$this->isAjaxRequest):?>
+		<div id="divShipingOrder">
+      <?php endif;?>
+        		<h4>Nhập chi tiết Đợt hàng</h4>
+         
+        		<p>
+        		  
+        		</p>
+        		<div id="anchor"></div>
+        	   <div id="searchSection">
+            		<div id="orderList">
+            			 <label for="">OrderNo:
+            				<select name="orders" id="orders">
+            					<option></option>
+            					<?php foreach($this->orders as $item):?>
+            					<option value="<?php echo $item->getOrderno();?>"><?php echo $item->getOrderno();?></option>
+            					<?php endforeach;?>
+            				</select>
+            			</label>
+            			
+            			<input type="hidden" name="hiddenOrdernoAdd" id="hiddenOrdernoAdd" value=""/>
+            			
+            			<button class="btn" type="submit" data-url="<?php echo $this->url('admin',array('action'=> 'createshipmentajaxadd'));?>"  value="add" name="btnOrderAdd" id="btnOrderAdd" ><span class="icon-plus"></span>Add</button>
+            		 
+            		</div>
+            		<div id="divSearch">
+            		      <a href="javascript:void(0)" id="search" class="btn" ><span class="icon-search"></span>Search</a>
+            		</div>
+            		<p></p>
+               </div>               
+            <div id="shipmentList">
+               <div id="divTableHeader"></div>
+        		<table class="table" id="shipmentTable">
+        			<thead>
+        				<tr>
+        					<th><div class="soNo">#</div></th>
+        					<th ><div class="divDescription">OrderNo</div></th>
+        					<th><div class="soOrderdate">OrderDate</div></th>
+        					<th><div class="soStoreName">Store</div></th>
+        					<th><div class="soHolder">Holder</div></th>
+        					<th><div class="soItems">Items</div></th>
+        					<th><div class="soDiscount">Discount</div></th>        					
+        					<th><div class="soTotal_web">Total Web</div></th>
+        					<th><div class="soTotal_web1">Total Web1</div></th>
+        					<th><div class="soShipUS">Ship US</div></th>
+        					<th><div class="soTax">Tax</div></th>
+        					<th><div class="soTotalFinal">Total Final</div></th>
+        					<th><div class="soPackageno"># Thùng</div></th>
+        					<th><div class="soNote2">Note</div></th>
+        					<th><div class="soTotalWeb2">Total web</div></th>
+        					<th><div class="soTotalWeb21">Total web1</div></th>
+        					<th><div class="soItems2">Items</div></th>
+        					<th><div class="soTotalFinal2">Total final</div></th>
+        					<th >-</th>
+        				</tr>
+        			</thead>
+        			<tbody>
+        			 <?php 
+        			         $i = 1; 
+        			         $total_web = 0;
+        			         $total_web1 = 0; 
+        			         $total_items  = 0;        			         
+        			         $total_final = 0;
+        			         
+        			         $total_web_dung = 0;
+        			         $total_web1_dung = 0;
+        			         $total_final_dung = 0;
+        			         $total_items_dung = 0;
+        			         
+        			         $total_dung = 0;
+        			  ?>
+        			<?php if ($this->shipmentOrders):?>
+        			  
+        			    <?php foreach ($this->shipmentOrders as $item):?>
+        			    
+        			    <?php 
+        			    	
+        			    	if ($item->getHolder() == "DUNG"){                                                             
+        			    		$total_dung += $item->getTotal_final_o();
+        			    	}
+        			    	
+        			    	$total_web_dung += $item->getTotal_web();
+        			    	$total_web1_dung += $item->getTotal_web1();
+        			    	$total_final_dung += $item->getTotal_final();
+        			    	$total_items_dung += $item->getItems();
+        			    	
+        			    	$total_items += $item->getItems_o();
+        			    	$total_web += $item->getTotal_web_o();
+        			    	$total_web1 += $item->getTotal_web1_o();
+        			    	$total_final += $item->getTotal_final_o();
+        			    	
+        			    ?>
+        			    	<tr class="trItem" data-isSaved='false'>
+        			    		<td>
+        			    		  <div class="soNo">
+        			    		       <?php echo $i++; ?>
+        			    		  </div>          			    		  
+        			    		</td>
+        			    		<td>
+        			    		   <div class="divDescription">
+        			    		           <input type="hidden" name="orderno" class="orderno" value="<?php echo $item->getOrderno();?>" />
+            			    		       <div >
+                        	     		    <?php if (!empty($item->images)):?>
+                        	     		       <?php 
+                        	     		            $images = $item->images;
+                        	     		            $img = array_shift($images);
+                        	     		             
+                        	     		       ?> 
+                        	     		       <a class="fancybox" data-fancybox-group="thumb_<?php echo $item->getOrderno();?>" href="<?php echo $img->getPath();?>"><?php echo $item->getOrderno();?></a>
+                        	     		       
+                        	     		       
+                        	     		       <?php  foreach($images as $img):?>
+                        	     		            <a class="hidden btn fancybox" data-fancybox-group="thumb_<?php echo $item->getOrderno();?>" href="<?php echo $img->getPath();?>"></a>
+                        	     		       <?php endforeach;?>
+                        	     		    <?php else: ?>
+                        	     		    <?php echo $item->getOrderno();?>
+                        	     		    <?php endif;?>
+                	     		        </div>
+                	     		    </div>
+        			    		</td>
+        			    		<td><div class="soOrderdate"><?php echo $item->getOrderdate();?></div></td>
+        			    		<td><div class="soStoreName"><?php echo $item->getStore_name();?></div></td>
+        			    		<td><div class="soHolder"><?php echo $item->getHolder();?></div></td>
+        			    		<td><div class="soItems"><?php echo $item->getItems_o();?></div></td>
+        			    		<td><div class="soDiscount"><?php echo number_format($item->getDiscount(),2,'.',',');?></div></td>
+        			    		<td><div class="soTotal_web"><?php echo number_format($item->getTotal_web_o(),2,'.',',');?></div></td>
+        			    		<td><div class="soTotal_web1"><?php echo number_format($item->getTotal_web1_o(),2,'.',',');?></div></td>
+        			    		<td><div class="soShipUS"><?php echo number_format($item->getShip_us(),2,'.',',');?></div></td>
+        			    		<td><div class="soTax"><?php echo number_format($item->getTax(),2,'.',',');?></div></td>
+        			    		<td><div class="soTotalFinal"><?php echo number_format($item->getTotal_final_o(),2,'.',',');?></div></td>
+        			    		<td><input type="text" name="<?php echo $item->getOrderno();?>_package" class="packageno changed" value="<?php echo $item->getPackage();?>" data-initval="<?php echo $item->getPackage();?>"/></td>
+        			    		<td><textarea rows="2" cols="" class="soNote changed" data-initval="<?php echo $item->getNote();?>" name="<?php echo $item->getOrderno();?>_note"><?php echo $item->getNote();?></textarea></td>
+        			    		<td>
+        			    		    <input class="total_web changed" type="text" name="<?php echo $item->getOrderno();?>_total_web"
+            			    	            value="<?php echo $item->getTotal_web()=="0"?"":number_format($item->getTotal_web(),2,".",",");?>" data-initval="<?php echo $item->getTotal_web()=="0"?"":number_format($item->getTotal_web(),2,".",",");?>" />
+        			    		</td>
+        			    		<td>
+        			    		   <input class="total_web1 changed" type="text" name="<?php echo $item->getOrderno();?>_total_web1" 
+            			    	             value="<?php echo $item->getTotal_web1()=="0"?"":number_format($item->getTotal_web1(),2,".",",");?>"  data-initval="<?php echo $item->getTotal_web1()=="0"?"":number_format($item->getTotal_web1(),2,".",",");?>" />
+        			    		</td>
+        			    		<td>
+        			    		   <input class="items changed" type="text" name="<?php echo $item->getOrderno();?>_items"   
+            			    	            value="<?php echo $item->getItems()=="0"?"":number_format($item->getItems(),0,".",",");?>"  data-initval="<?php echo $item->getItems()=="0"?"":number_format($item->getItems(),0,".",",");?>" maxlength="4"/>
+        			    		</td>
+        			    		<td>
+        			    		   <input class="total_final changed" type="text" name="<?php echo $item->getOrderno();?>_total_final"  
+            			    	            value="<?php echo $item->getTotal_final()=="0"?"":number_format($item->getTotal_final(),2,".",",");?>" data-initval="<?php echo $item->getTotal_final()=="0"?"":number_format($item->getTotal_final(),2,".",",");?>" />
+        			    		</td>
+        			    		<td>
+        			    		   <input type="hidden" class="hiddenOrderno" name="orderno[]" value="<?php echo $item->getOrderno();?>" />
+        			    			<div class="divDel"><a href="<?php echo $this->url('admin',array('action'=>'shipdel')); ?>" data-shipment_id="<?php echo $item->getShipment_id();?>" data-orderno="<?php echo $item->getOrderno();?>" class="delShip" title="Xóa dòng" ><span class="icon-trash"></span></a>
+                          			</div>
+        			    		</td>
+        			    	</tr>
+        			    	
+        			    
+        			    <?php endforeach;?>
+        			<?php endif;?>
+        			</tbody>
+        			<tfoot>
+        				<?php if ($this->shipmentOrders):?>
+        				<tr id="totalRow">
+        				    <td id="tdTotal" colspan="5">Total</td>
+        				    <td class="val"><span class="label" id="total_items_tt"><?php echo number_format($total_items,0,".",",");?></span></td>
+        				    <td>&nbsp;</td>
+        				    <td class="val"><span class="label" id="total_web_tt"><?php echo number_format($total_web,2,".",",");?></span></td>
+        				    <td class="val"><span class="label" id="total_web1_tt"><?php echo number_format($total_web1,2,".",",");?></span></td>
+        				    <td>&nbsp;</td>
+        				    <td>&nbsp;</td>
+        				    <td class="val"><span class="label" id="total_final_tt"><?php echo number_format($total_final,2,".",",");?></span></td>
+        				    <td>&nbsp;</td>
+        				    <td>&nbsp;</td>
+        				    <td class="val"><span class="label" id="total_web_dung_tt"><?php echo number_format($total_web_dung,2,".",",");?></span></td>
+        				    <td class="val"><span class="label" id="total_web1_dung_tt"><?php echo number_format($total_web1_dung,2,".",",");?></span></td>
+        				    <td class="val"><span class="label" id="total_items_dung_tt"><?php echo number_format($total_items_dung,0,".",",");?></span></td>
+        				    <td class="val"><span class="label" id="total_final_dung_tt"><?php echo number_format($total_final_dung,2,".",",");?></span></td>
+        				    <td id="lastcell">&nbsp;</td>
+        				</tr>
+        				<tr id="trSumarize">
+        					<td colspan="19" id="sumarize">
+        					    <?php foreach($this->cards as $item):?>
+        					    <span class="label right"><?php echo $item['card']?>: </span><span class="val"><?php echo number_format($item['total'],2,'.',',');?></span> <br/>       					    
+        					    <?php endforeach;?>
+        					    <span class="label right">Total: </span><span class="val red"><?php echo number_format($total_dung,2,'.',',');?></span> <br/>
+        						<span class="label ">Total Web1: </span><span class="val red"><?php echo number_format($total_web1,2,'.',',');?></span> <br/>
+        						<span class="label">Total Final: </span><span class="val red"><?php echo number_format($total_final,2,'.',',');?></span> <br/>
+        						
+        					</td>
+        				</tr>
+        				<?php endif;?>
+        			     <tr>
+        			         <td colspan="2">
+        			             <br/>
+        			             <button type="submit" name="btnShipeOrderSave" id="btnShipeOrderSave" value="SaveOrder" class="btn" ><span class="ui-icon ui-icon-disk"></span>Save</button>
+        			         </td>
+        			         <td colspan="2" >
+        			             <br/>        			         	  
+        			              <button type="button" name="btnFinish" id="btnFinish" value="Finish" class="btn" ><span class="ui-icon ui-icon-circle-check"></span>Finish</button>
+        			         </td>
+        			         
+        			         <td colspan="11">
+        			             <div id="savingProcess"><span>Đang lưu thông tin, vui lòng đợi.....</span><br/><span id="percent">0%</span><div id="progressbar"></div></div>
+        			             <div id="saveInfo">
+        			             <?php if ($this->saved):?>
+        			                 <br/><span class="success">Thông tin đã được lưu.</span>
+        			             <?php endif;?>
+        			             </div>
+        			         </td>
+        			     </tr>
+        			</tfoot>
+        		</table>           
+            	</div>
+         	 <?php if (!$this->isAjaxRequest):?>  
+                </div>
+             <?php endif;?>
+          <?php endif;?>
+ <?php if (!$this->isAjaxRequest):?>  
+	</form>
+	<form method="post"  name="empty" id="emptyForm" action="<?php echo $this->url('admin',array('action'=>'createshipment'));?>">
+	   <input type="hidden" name="id" id="ship_id" value="<?php echo $this->shipment->getId();?>" />
+	   <input type="hidden" name="btnFinish" id="btnHiddenFinish" value="Finish" />
+	</form>
+
+</div>
+
+<div id="searchDialog">
+    <div id="searchInfo">
+               
+        <div id="divSeaarchDescription">
+            <label for="searchDescription">Description:</label>
+            <input type="text" name="searchDescription" id="searchDescription" value=""  />
+        </div>  
+        <div id="divSearchStore">
+            <label for="searchStore">Store: </label>
+                <select name="searchStore" id="searchStore">
+                    <option value=""></option>
+                    <?php foreach ($this->stores as $item):?>
+                        <option value="<?php echo $item->getId();?>"><?php echo $item->getName();?></option>
+                    <?php endforeach;?>
+                </select>
+           
+        </div> 
+        
+        <div id="divSubmit">
+            <a href="javascript:void(0)" class="btn" data-url="<?php echo $this->url('admin',array('action' => 'searchshipmentorder'));?>" id="submitSearch">Search</a>
+        </div> 
+    </div>
+    
+    <div id="searchResults"></div>
+</div>
+<?php endif;?>
+
+

@@ -1,0 +1,77 @@
+<?php if (!$this->isAjaxRequest):?>
+ <?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/customer/question.js'); 
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.autosize.min.js');
+        
+        
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/customer/question.css');
+        
+/*         $this->headScript()->appendFile($this->basePath() . '/js/tinymce/tinymce.min.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/customer/tinymce_config.js'); */
+        
+        $title = 'Hỏi-đáp';
+        $this->headTitle($title);
+       
+        
+ ?>
+ 
+ 
+   <div class="span11">
+     <h4><?php echo $this->escapeHtml($title);?></h4>
+        <form name="frmQuestion" id="frmQuestion" method="post" action="<?php echo $this->url('customer',array('action'=>'question'));?>">
+        
+            <label for="subject">Tiêu đề</label>
+            <input type="text" name="subject" id="subject" maxlength="255" />
+            <label for="content">Nội dung</label>
+            <textarea rows="" cols="" name="content" id="content"></textarea>
+            
+            <input class="btn" type="submit" value=" Gởi " name="btnSubmit" id="btnSubmit" />
+            
+            <hr />
+             
+            <div id="divQuestion">
+ <?php endif;?>   
+            <input type="hidden" name="page" id="page"
+				value="<?php echo $this->page; ?>" />
+			<table class="table" id="questionTable">
+				<thead>
+					<tr>
+						<th>Tiêu đề</th>						 
+						<th>Ngày</th>
+						<th>-</th>
+					</tr>
+				</thead>
+				<tbody>
+        			 <?php $i = ($this->page -1)* $this->row + 1 ;?>
+                     <?php foreach($this->paginator as $item):?>	            	     
+            	     	<tr class="trItem <?php echo $item->getRead()==0?'unread':'';?>">
+						<td class="tdSubject"><a href="<?php echo $this->url('customer',array('action'=>'viewanswer','id'=>$item->getId()));?>" title="Xem nội dung"><div class="divSubject"><?php echo ($item->getAdmin()?"&lt;&lt;".$item->getAdmin().'&gt;&gt; ':'').$item->getSubject().' ('.($item->getCount()!=null?$item->getCount():0).')'; ?></div></a></td>
+						<td class="tdDate"><?php echo date('d-m-Y',strtotime($item->getLastupdate()));?></td>
+						<td class="tdDel"><a class="delquestion" href="<?php echo $this->url('customer',array('action'=>'delquestion','id'=>$item->getId()));?>"><span class="icon-trash"></span></a></td>
+					</tr>
+            	     <?php endforeach;?>
+        			</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="3">
+        			     	<?php
+                         $url = $this->url('customer', array(
+                                        'action' => 'question'
+                         ));
+                        echo $this->paginationControl(
+                                                        $this->paginator, 'Sliding', 'paginator-slide', 
+                                                        array('url'=>$url,'action'=>'question')
+                                    );
+                             ?>   
+        			     </td>
+					</tr>
+				</tfoot>
+			</table>
+ <?php if (!$this->isAjaxRequest):?>
+	    </div>
+
+	</form>
+
+</div>
+
+<?php endif;?>

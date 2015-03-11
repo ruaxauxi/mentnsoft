@@ -1,0 +1,75 @@
+<?php if (!$this->isAjaxRequest):?>
+<?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/admin/deletecustomerorders.js'); 
+         
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/admin/deletecustomerorders.css');
+        
+       
+        $this->headTitle('Xoa thong tin GD Khac');
+         
+        
+ ?>
+ 
+ 
+   <div class="span11">
+        <h3>Xóa dữ liệu các Yêu cầu KH</h3>
+        <h2 class="warning">Chú ý: Dữ liệu xóa không thể phục hồi.</h2>
+         <form action ="<?php echo $this->url('admin', array('action'=>'deletecustomerorders'));?>" 
+                name="frmDelTransfers"
+                method="post" id="frmDelTransfers">
+
+            <div id="divList">
+ <?php endif;?>            
+            <input type="hidden" name="page" id="page" value="<?php echo $this->page; ?>" /> 
+            <input type="hidden" id="start" value="<?php echo (($this->page -1)* $this->row + 1);?>" />           
+            <table class="table" id="mList">
+	            <thead>
+	               <tr>
+	                    <th class="col1">#</th>
+	                    <th class="col2">Month</th>  
+	                    <th class="col3">Year</th> 	                   
+	                    <th class="col4">-</th>                   
+	               </tr>            
+	            </thead>
+	            <tbody>
+	                <?php $i = ($this->page -1)* $this->row + 1 ;?>
+	                
+	                <?php foreach($this->paginator as $item):?>
+	               <tr>
+	                    <td class="stt"><?php echo $i++; ?></td>
+	                    <td><?php echo $item->getMonth();?></td>
+	                    <td><?php echo $item->getYear();?></td>
+	                    <td style="width: 50px; text-align: center;">
+	                      <a class="del" title="Xóa bỏ toàn bộ dữ liệu" href="#"
+	                               data-my="<?php echo $item->getMY();?>"
+	                               data-month="<?php echo $item->getMonth(); ?>"
+	                               data-year="<?php echo $item->getYear();?>" ><span class="icon-trash"></span></a>
+	                        
+	                    </td>                
+	               </tr>
+	               <?php endforeach;?>
+	            </tbody>
+	            <tfoot>
+	                <tr>
+	                            <td colspan="4">
+	                                 <?php    
+	                                    $url = $this->url('admin', array('action'=>'deletecustomerorders'));
+	                                            echo $this->paginationControl(
+	                                                        $this->paginator, 'Sliding', 'paginator-slide', 
+	                                                        array('url'=>$url,'action'=>'deletecustomerorders')
+	                                    );
+	                                ?>   
+	                            </td>
+	                           </tr>
+	            </tfoot>
+            </table>
+ <?php if (!$this->isAjaxRequest):?>
+        </div> 
+       </form>
+   </div>
+   
+   <div id="divDeleteForm">
+    <span id="info" class="warning"></span>
+   </div>
+
+<?php endif;?>

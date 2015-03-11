@@ -1,0 +1,98 @@
+<?php if (!$this->isAjaxRequest):?>
+<?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/admin/viewallcustomeraddress.js'); 
+         
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/admin/viewallcustomeraddress.css');
+        
+       
+       $this->headTitle('Xem địa chỉ KH');
+         
+        
+ ?>
+
+
+<div class="span11">
+	<h4>Địa chỉ Khách hàng</h4>
+	<form
+		action="<?php echo $this->url('admin', array('action'=>'viewallcustomeraddress'));?>"
+		name="addressForm" method="post" id="addressForm">
+        <div id="divShipemnts">
+                <input type="text" name="nick" placeholder="nick" id="nick_search" value="<?php echo $this->search_nick;?>" />  
+                <button type="submit" class="btn"><span class='icon-search'></span></button>
+				Shipment: <select name="shipment_id" id="shipment_id">
+					<option></option>
+    		          <?php foreach($this->shipments as $item):?>
+    		          <option value="<?php echo $item->getId();?>"
+    							<?php echo $item->getId()==$this->shipment_id?"selected":""; ?>><?php echo $item->getShip_name();?></option>
+    		          <?php endforeach;?>
+    		          </select>
+    		     Shipping Method: 
+    		      <select name="ship_method" id="ship_method">
+    		          <option></option>
+    		          <?php foreach($this->shippingmethods as $item):?>
+    		          <option <?php echo $item->getId()==$this->method?'selected':'';?> value="<?php echo $item->getId(); ?>"><?php echo $item->getShipping_method();?></option>
+    		          <?php endforeach;?>
+    		      </select> 
+    		    
+    		           <input type="submit" name="btnShow" value="Show" class="btn" />
+		</div>
+		<div id="addressList">
+ <?php endif;?>            
+            <input type="hidden" name="page" id="page"
+				value="<?php echo $this->page; ?>" />
+			<table class="table">
+				<thead>
+					<tr>
+						<td colspan="9">
+							
+
+						</td>
+					</tr>
+					<tr>
+						<th>#</th>
+						<th>Nick</th>
+						<th>Người nhận</th>
+						<th>Ship</th>
+						<th>Address</th>
+						<th>City</th>
+						<th>Email</th>
+						<th>Tel</th>
+						<th>Updated</th>
+					</tr>
+				</thead>
+				<tbody>
+	                <?php $i = ($this->page -1)* $this->row + 1 ;?>
+	                <?php foreach($this->paginator as $item):?>
+	               <tr>
+						<td class="stt"><?php echo $i++; ?></td>
+						<td class="nick"><?php echo $item->getNick();?></td>
+						<td class="receiver"><?php echo $item->getReceiver();?></td>
+						<td class="sm"><?php echo $item->getShipping_method();?></td>
+						<td class="address"><?php echo $item->getAddress();?></td>
+						<td class="city"><?php echo $item->getCity_name();?></td>
+						<td class="email"><?php echo $item->getEmail();?></td>
+						<td class="tel"><?php echo $item->getTelephone();?></td>
+						<td class="updated"><?php echo date('d-m-Y H:i:s',strtotime($item->getDatecreated()));?></td>
+					</tr>
+	               <?php endforeach;?>
+	            </tbody>
+				<tfoot>
+					<tr>
+						<td colspan="9">
+	                                 <?php    
+	                                    $url = $this->url('admin', array('action'=>'viewallcustomeraddress'));
+	                                            echo $this->paginationControl(
+	                                                        $this->paginator, 'Sliding', 'paginator-slide', 
+	                                                        array('url'=>$url,'action'=>'viewallcustomeraddress')
+	                                    );
+	                                ?>   
+	                            </td>
+					</tr>
+				</tfoot>
+			</table>
+ <?php if (!$this->isAjaxRequest):?>
+        </div>
+	</form>
+</div>
+
+<?php endif;?>

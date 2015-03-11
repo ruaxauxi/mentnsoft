@@ -1,0 +1,11 @@
+@CHARSET "UTF-8";
+
+.curency{
+	text-align: right;
+	font-weight: bold;
+	font-size: 13px;
+}
+
+.total{
+	color: #c70000;
+}

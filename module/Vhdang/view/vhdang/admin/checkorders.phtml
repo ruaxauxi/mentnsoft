@@ -1,0 +1,98 @@
+<?php if (!$this->isAjaxRequest):?>
+<?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/admin/checkorders.js'); 
+         
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/admin/checkorders.css');
+        
+       
+       // $this->headTitle('Quản lý Đợt hàng');
+         
+        
+ ?>
+ 
+ 
+   <div class="span11">
+   
+        <h4>Danh sách Đơn hàng chưa được thêm vào đợt</h4>
+        
+         <div title="Lâu hơn số tuần" class="vhd-pagination">            
+                     <ul id="ulWeek">
+                    <?php for ($i = 1; $i <=10; $i++): ?>
+                     <li <?php echo $i==1? 'class="active"' : ''; ?> >
+                        <a href="" data-week="<?php echo $i;?>">
+                        <?php echo $i; ?>
+                    </a></li>
+                     <?php endfor; ?>  
+                     <li><span id="liweek">tuần</span></li>                
+                    </ul>
+                    
+         </div>
+         
+        
+       
+         
+         <form action ="<?php echo $this->url('admin', array('action'=>'checkorders'));?>" 
+                name="orderlistForm"
+                method="post" id="orderlistForm">
+                <input type="hidden" name="week" id="week" value="1" />
+            <div id="divOrderList">
+ <?php endif;?>            
+            <input type="hidden" name="page" id="page" value="<?php echo $this->page; ?>" />            
+            <table class="table">
+	            <thead>
+	               <tr>
+	                    <th>#</th>
+	                    <th>Date</th>  
+	                    <th>OrderNo</th> 
+	                    <th>Store</th>
+	                    <th>Items</th>
+	                    <th>Holder</th>
+	                    <th>Total web</th>
+	                    <th>Discount</th>
+	                    <th>Total web1</th>
+	                    <th>Ship US</th>
+	                    <th>Tax</th>
+	                    <th>Total final</th> 
+	                                
+	               </tr>            
+	            </thead>
+	            <tbody>
+	                <?php $i = ($this->page -1)* $this->row + 1 ;?>
+	                <?php foreach($this->paginator as $item):?>
+	               <tr>
+	                    <td><?php echo $i++; ?></td>
+	                    <td ><?php echo date('d-m-Y',strtotime($item->getOrderdate()));?></td>
+	                    <td><a target="_blank" href="<?php echo $this->url('admin',array('action' => 'vieworder','id'=> $item->getOrderno()));?>" ><?php echo $item->getOrderno();?></a></td>
+	                    <td><?php echo $item->getStore_name();?></td>
+	                    <td><?php echo number_format($item->getItems(),0,'.',',');?></td>
+	                    <td><?php echo $item->getHolder();?></td>
+	                    <td><?php echo number_format($item->getTotal_web(),2,'.',',');?></td>
+	                    <td><?php echo number_format($item->getDiscount(),2,'.',',');?></td>
+	                    <td><?php echo number_format($item->getTotal_web1(),2,'.',',');?></td>
+	                    <td><?php echo number_format($item->getShip_us(),2,'.',',');?></td>
+	                    <td><?php echo number_format($item->getTax(),2,'.',',');?></td>
+	                    <td><?php echo number_format($item->getTotal_final(),2,'.',',');?></td>
+	                                   
+	               </tr>
+	               <?php endforeach;?>
+	            </tbody>
+	            <tfoot>
+	                <tr>
+	                            <td colspan="12">
+	                                 <?php    
+	                                    $url = $this->url('admin', array('action'=>'checkorders'));
+	                                            echo $this->paginationControl(
+	                                                        $this->paginator, 'Sliding', 'paginator-slide', 
+	                                                        array('url'=>$url,'action'=>'checkorders')
+	                                    );
+	                                ?>   
+	                            </td>
+	                           </tr>
+	            </tfoot>
+            </table>
+ <?php if (!$this->isAjaxRequest):?>
+        </div> 
+       </form>
+   </div>
+
+<?php endif;?>

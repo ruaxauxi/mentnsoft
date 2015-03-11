@@ -1,0 +1,136 @@
+<?php 
+    
+    $str = "";
+    $stt = 0;
+    
+    $i = 1;
+    $total_web = 0;
+    $total_web1 = 0;
+    $total_items  = 0;
+    $total_final = 0;
+    
+    $total_web_dung = 0;
+    $total_web1_dung = 0;
+    $total_final_dung = 0;
+    $total_items_dung = 0;
+    
+    $total_dung = 0;
+?>
+<?php foreach ($this->shipmentOrders as $item):?>
+        			    
+    <?php 
+    	
+    	if ($item->getHolder() == "DUNG"){
+                                         
+    		$total_dung += $item->getTotal_final_o();
+    	}
+    	
+    	$total_web_dung += $item->getTotal_web();
+    	$total_web1_dung += $item->getTotal_web1();
+    	$total_final_dung += $item->getTotal_final();
+    	$total_items_dung += $item->getItems();
+    	
+    	$total_items += $item->getItems_o();
+    	$total_web += $item->getTotal_web_o();
+    	$total_web1 += $item->getTotal_web1_o();
+    	$total_final += $item->getTotal_final_o();
+    	
+    ?>
+    <?php if ($item->getOrderno() == $this->orderno) 
+            $stt = $i;
+        	$str = "<tr class='trItem'> 
+        			    		<td>
+        			    		  <div class='soNo'>
+        			    		        $i++  
+        			    		  </div>          			    		  
+        			    		</td>
+        			    		<td>
+        			    		   <div class='divDescription'>
+            			    		       <div >";
+                
+                if (!empty($item->images)){
+                	$images = $item->images;
+                    $img = array_shift($images);
+                    
+                    $str .= "<a class='fancybox' data-fancybox-group='thumb_".$item->getOrderno()."' href='".$img->getPath()."'>".$item->getOrderno()."></a>";
+                    foreach($images as $img){
+                        $str .="<a class='hidden btn fancybox' data-fancybox-group='thumb_".$item->getOrderno()."' href='".$img->getPath()."'></a>";                        
+                    }
+               }else{ 
+     		         $str .=  $item->getOrderno();
+     		    
+                }
+                 $str .= "</div>
+                	     </div>
+        			    </td>
+        			    <td><div class='soOrderdate'>".$item->getOrderdate()."</div></td>
+        			    <td><div class='soStoreName'>".$item->getStore_name()."</div></td>
+        			    <td><div class='soHolder'>".$item->getHolder()."</div></td>
+        			    <td><div class='soItems'>".$item->getItems_o()."</div></td>
+        			    <td><div class='soDiscount'>".number_format($item->getDiscount(),2,'.',',')."</div></td>
+        			    <td><div class='soTotal_web'>".number_format($item->getTotal_web_o(),2,'.',',')."</div></td>
+        			    <td><div class='soTotal_web1'>".number_format($item->getTotal_web1_o(),2,'.',',')."</div></td>
+        			    <td><div class='soShipUS'>".number_format($item->getShip_us(),2,'.',',')."</div></td>
+        			    <td><div class='soTax'>".number_format($item->getTax(),2,'.',',')."</div></td>
+        			    <td><div class='soTotalFinal'>".number_format($item->getTotal_final_o(),2,'.',',')."</div></td>
+        			    <td><input type='text' name='".$item->getOrderno()."_package' class='packageno' value='".$item->getPackage()."'/></td>
+        			    <td><textarea rows='2'   class='soNote' name='".$item->getOrderno()."_note'>".$item->getNote()."</textarea></td>
+        			    <td>
+        			       <input class='total_web' type='text' name='".$item->getOrderno()."_total_web'
+            				            value='" . $item->getTotal_web()=='0'?'':number_format($item->getTotal_web(),2,".",","). "'/>
+        			    		</td>
+        			    		<td>
+        			    		   <input class='total_web1' type='text' name='".$item->getOrderno()."_total_web1' 
+            			    	             value='".$item->getTotal_web1()=="0"?"":number_format($item->getTotal_web1(),2,".",",")."' />
+        			    		</td>
+        			    		<td>
+        			    		   <input class='items' type='text' name='".$item->getOrderno()."_items'  
+            			    	            value='".$item->getItems()=="0"?"":number_format($item->getItems(),0,".",",")."' maxlength='4'/>
+        			    		</td>
+        			    		<td>
+        			    		   <input class='total_final' type='text' name='".$item->getOrderno()."_total_final'  
+            			    	            value='".$item->getTotal_final()=="0"?"":number_format($item->getTotal_final(),2,".",",")."' />
+        			    		</td>
+        			    		<td>
+        			    		   <input type='hidden' name='orderno[]' value='".$item->getOrderno()."' />
+        			    			<div class='divDel'><a href='".$this->url('admin',array('action'=>'shipdel'))."' data-shipment_id='".$item->getShipment_id()."' data-orderno='".$item->getOrderno()."' class='delShip' title='Xóa dòng' ><span class='icon-trash'></span></a>
+                          			</div>
+        			    		</td>
+        			    	</tr>  ";     			    	
+   ?>
+<?php endforeach;?>
+
+ <?php 
+    $trSumzarize = '<td colspan="19" id="sumarize">';
+    
+    foreach($this->cards as $item){
+    	$trSumzarize .= "<span class='label right'>".$item['card'].": </span><span class='val'>".number_format($item['total'],2,'.',',')."</span> <br/>";
+    }
+     
+    $trSumzarize .= "<span class='label right'>Total: </span><span class='val red'>".number_format($total_dung,2,'.',',')."</span> <br/>
+	                <span class='label'>Total Web1: </span><span class='val red'>".number_format($total_web1,2,'.',',')."</span> <br/>
+	                <span class='label'>Total Final: </span><span class='val red'>".number_format($total_final,2,'.',',')."</span> <br/>";
+ 	$trSumzarize .= "</td>";
+ ?>
+
+
+<?php 
+
+    
+    $result = array(
+    	'stt'  => $stt,
+        'tr'    => $str,
+        'trSumzarize'   => $trSumzarize,
+        'total_web_dung'  => $total_web_dung,
+        'total_web1_dung'  => $total_web1_dung,
+        'total_final_dung'  => $total_final_dung,
+        'total_items_dung'  => $total_items_dung,
+        'total_items'  => $total_items,
+        'total_web'  => $total_web,
+        'total_web1'  => $total_web1,
+        'total_final'  => $total_final,
+    );
+
+   echo $str;
+
+?>

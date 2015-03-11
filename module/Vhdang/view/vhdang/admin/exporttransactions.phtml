@@ -1,0 +1,51 @@
+ 
+<?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/admin/exporttransactions.js');  
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/admin/exporttransactions.css');
+
+ 
+        
+        $title = 'Export Excel File';
+        $this->headTitle($title);
+       
+   
+ ?>
+ 
+<div class="span11">
+    <h3>Export Transactions</h3>
+	<form name="frmTrans" id="frmTrans" method="post"
+		action="<?php echo $this->url('admin',array('action'=>'exporttransactions'));?>">
+		 		  
+		<hr/>
+        <div id="divInfo">
+            <label for="fMonth">Từ </label>
+            <select name="fMonth" id="fMonth" class="month">             
+                <?php for($i=1; $i<=12; $i++):?>
+                    <option value="<?php echo $i;?>"><?php echo $i;?></option>
+                <?php endfor;?>
+            </select>
+            <select name="fYear" id="fYear" class="year">
+                 <?php for($i=date("Y"); $i>2012; $i--):?>
+                    <option value="<?php echo $i;?>"><?php echo $i;?></option>
+                <?php endfor;?>
+            </select>
+            <label for="">đến</label>
+            <select name="tMonth" id="tMonth" class="month">             
+                <?php for($i=1; $i<=12; $i++):?>
+                    <option value="<?php echo $i;?>"><?php echo $i;?></option>
+                <?php endfor;?>
+            </select>
+            <select name="tYear" id="tYear" class="year">
+                 <?php for($i=date("Y"); $i>2012; $i--):?>
+                    <option value="<?php echo $i;?>"><?php echo $i;?></option>
+                <?php endfor;?>
+            </select>
+            
+            <input type="submit" id="btnExport" name="btnExport" class="btn" value="Export" />
+        </div>
+	</form>
+
+</div>
+ 
+
+

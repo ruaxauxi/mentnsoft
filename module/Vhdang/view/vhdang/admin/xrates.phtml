@@ -1,0 +1,78 @@
+<?php if (!$this->isAjaxRequest):?>
+<?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/admin/xrates.js'); 
+        $this->headScript()->appendFile($this->basePath() . '/js/jshashtable-3.0.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.numberformatter-1.2.3.js'); 
+         
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/admin/xrates.css');
+        
+       
+        $this->headTitle('Quản lý tỷ giá');
+        $title = 'Tỷ giá';
+        
+ ?>
+ 
+   <div class="span3">
+     <h4><?php echo $this->escapeHtml($title);?></h4>
+     <form name="xRateAddForm" id="xRateAddForm" method="post" 
+                action="<?php echo $this->url('admin',array('action'=> 'xrates'));?>">
+        
+        
+        <label for="xrate" >Nhập tỷ giá mới</label>
+        <input type="text" name="xrate" id="xrate"                  
+                value="<?php ?>" maxlength="6" onkeypress="return isNumberKey(event)"/>
+        
+       <div id="errormsg"> <?php echo $errmsg;?></div>
+        <hr/>
+        
+        <label for="submitbutton"></label>
+        <input class="btn" type="submit" name="submitbuttom" id="btnAddNew" value=" Thêm " disabled />
+     </form>
+   </div>
+   <div class="span7">
+        <h4>Lịch sử cập nhật Tỷ giá</h4>
+         <form action ="<?php echo $this->url('admin', array('action'=>'xrates'));?>" 
+                name="xratesForm"
+                method="post" id="xratesForm">
+
+            <div id="xratesList">
+ <?php endif;?>            
+            <input type="hidden" name="page" id="page" value="<?php echo $page; ?>" />            
+            <table class="table">
+            <thead>
+               <tr>
+                    <th>#</th>
+                    <th>Ngày</th>  
+                    <th>Tỷ giá</th>                      
+               </tr>            
+            </thead>
+            <tbody>
+                <?php $i = ($page -1)* $row + 1 ;?>
+                <?php foreach($paginator as $item):?>
+               <tr>
+                    <td><?php echo $i++; ?></td>
+                    <td ><?php echo $item->getDate();?></td>
+                    <td><?php echo number_format($item->getRate(),0,'.',','); ?></td>                   
+               </tr>
+               <?php endforeach;?>
+            </tbody>
+            <tfoot>
+                <tr>
+                            <td colspan="9">
+                                 <?php    
+                                    $url = $this->url('admin', array('action'=>'xrates'));
+                                            echo $this->paginationControl(
+                                                        $paginator, 'Sliding', 'paginator-slide', 
+                                                        array('url'=>$url,'action'=>'xrates')
+                                    );
+                                ?>   
+                            </td>
+                           </tr>
+            </tfoot>
+            </table>
+ <?php if (!$this->isAjaxRequest):?>
+        </div> 
+       </form>
+   </div>
+
+<?php endif;?>

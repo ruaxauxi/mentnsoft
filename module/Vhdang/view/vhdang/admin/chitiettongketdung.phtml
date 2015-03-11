@@ -1,0 +1,117 @@
+ 
+ 
+<?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/admin/chitiettongketdung.js'); 
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/admin/chitiettongketdung.css');
+        
+        $title = 'Chi tiết tổng kết DUNG';
+        $this->headTitle($title);
+       
+        
+ ?>
+
+ <form action="<?php echo $this->url('admin',array('action'=>'chitiettongketdung')); ?>" method="post" id="frmChitiettongketdung">
+ <div class="row">    
+   <div class="span11">
+          <div id="divChitiettongketdung">   
+            <h3>CHI TIẾT TỔNG KẾT DUNG THEO ĐỢT</h3>          
+              
+                <table id="shipment">
+                    <tr>
+                        <td><span class="label">Shipment:</span></td>
+                        <td><span class="val"><?php echo $this->shipment->getShip_name();?></span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="label">Note:</span></td>
+                        <td><span class="val"><?php echo $this->shipment->getNote();?> &nbsp; </span></td>
+                    </tr>
+                </table>
+                <hr />
+        		<table class="table" id="shippingTotalTable">
+        			<thead>
+        				<tr>
+        					<th style="width: 30px;">#</th>        					
+        					<th >OrderNo</th>
+        					<th style="width: 90px;">Total Web1 (1) </th>
+        					<th style="width: 80px;">Cancel (2) </th>
+        					<th style="width: 80px;"> (1)-(2) = (3) </th>
+        					<th style="width: 80px;"> Service (3)*3% = (4)</th>      					 
+        				</tr>
+        			</thead>
+        			<tbody>
+        			<?php 
+        			
+        			     $i = 1; 
+        			     $total_service = 0;
+        			     $total_weight = 0;
+        			     $total_shipping = 0;
+        			     
+        			     $sum_web1 = 0;
+        			     $sum_cancel = 0;
+        			    
+        			     $sum_service = 0;
+        			     
+        			?>        			  
+        		 
+        			 <?php foreach ($this->list as $item):?>     
+        			 
+        			 <?php 
+        			     $total_service += $item->getService();
+        			     // shipping weight va shipping fee tinh cho ca dot
+        			     $total_weight = $item->getShippingweight();
+        			     $total_shipping = $item->getShipping();
+        			     
+        			     $sum_web1 += $item->getTotal_web1();
+        			     $sum_cancel += $item->getTotalItemCancel();
+        			     $sum_service += $item->getService();
+        			 
+        			 ?>   			         
+    			    	<tr class="trItem">
+    			    		<td class="soNo">
+    			    		  <div class="soNo">
+    			    		       <?php echo $i++; ?>
+    			    		  </div>          			    		  
+    			    		</td>        			    		 
+    			    		<td>
+			    		       <div class=""><a href="<?php echo $this->url('admin',array('action'=>'vieworder','id'=> $item->getOrderno()));?>" target="_blank"><?php echo $item->getOrderno();?></a></div>
+    			    		</td>
+    			    		<td ><div class="curency "><?php echo number_format($item->getTotal_web1(),2,".",",");?></div></td> 
+    			    		<td ><div class="curency "><?php echo number_format($item->getTotalItemCancel(),2,".",",");?></div></td> 
+    			    		<td ><div class="curency "><?php echo number_format($item->getTotal_web1() - $item->getTotalItemCancel(),2,".",",");?></div></td> 
+    			    		<td ><div class="curency total"><?php echo number_format($item->getService(),2,".",",");?></div></td>  
+    			    		
+    			    		
+    			    	</tr>      			    	
+        			    
+        			 <?php endforeach;?>
+        			 
+        			</tbody>
+        			<tfoot> 
+        			     <tr>
+        			         <td colspan="2"> Tổng cộng</td>
+        			         
+    			    		<td class="rightalign"><span class="label "><?php echo number_format($sum_web1,2,'.',',');?></span></td>
+            	            <td class="rightalign"><span class="label"><?php echo number_format($sum_cancel,2,'.',',');?></span></td>
+            	            <td class="rightalign"><span class="label "><?php echo number_format($sum_web1 - $sum_cancel,2,'.',',');?></span></td>
+            	            <td class="rightalign"><span class="label"><?php echo number_format($sum_service,2,'.',',');?></span></td>
+            	         
+        			     </tr>
+        			     <tr>
+                            <td colspan="10" id="sumarize">
+                            <br/>
+                               
+                               <span class="label right">Total Weight (1):</span><span class="val"><?php echo  number_format($total_weight,2,".",",");;?></span> <br/>
+                               <span class="label right">Total Shipping fee (1)*0.6 = (2):</span><span class="val"><?php echo  number_format($total_shipping,2,".",",");;?></span><br/> 
+                               <span class="label right">Total Service (3):</span><span class="val"><?php echo number_format($total_service,2,".",",");?></span> <br/>
+                               <span class="label right">Total Final (2)+(3) = (4):</span><span class="val total"><?php echo  number_format($total_service+$total_shipping,2,".",",");;?></span>
+                            </td>
+                         </tr>   			
+        			     
+        			</tfoot>
+        		</table>  
+     		          
+             </div>
+         </div>
+    </div>
+ </form>
+ 

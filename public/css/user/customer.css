@@ -1,0 +1,100 @@
+@CHARSET "ISO-8859-1";
+
+#divSearch{
+	display: inline-block;
+	margin-bottom: 5px;
+}
+
+
+#divSearch .custom-combobox-input{
+	width: 120px;
+	height: 18px !important;	
+	display: inline-block !important;	 
+	padding: 4px 6px !important;
+	font-size: 12px !important;
+	line-height: 20px !important;
+	color: #555 !important;
+	vertical-align: middle !important;
+	-webkit-border-radius: 4px !important;
+	-moz-border-radius: 4px !important;
+	border-radius: 4px !important;
+}
+
+.shipping, .service{
+	width: 60px;
+	text-align: right;
+	font-size: 11px;
+	padding-top: 1px !important;
+	padding-bottom: 1px !important;
+	padding-left: 3px !important;
+	padding-right: 3px !important;
+	margin: 0px !important;
+}
+
+.passwd{
+	width: 120px;
+	font-size: 11px;
+	padding-top: 1px !important;
+	padding-bottom: 1px !important;
+	padding-left: 3px !important;
+	padding-right: 3px !important;
+	margin: 0px !important;
+}
+
+.checking{	
+	width: 70px;
+	margin-right: 5px !important;
+}
+
+.checked{	
+	width: 120px;
+}
+
+.servicechecked{	
+	width: 60px;
+}
+
+.shippingchecking{	
+	width: 30px;
+	margin-right: 5px !important;
+}
+
+.shippingchecked{	
+	width: 60px;
+}
+
+.servicechecking{	
+	width: 30px;
+	margin-right: 5px !important;
+}
+
+
+#errormsg{
+	font-size: 13px;
+	font-weight: bold;
+	color: #c70000;
+}
+
+.error{
+	border: 1px solid red !important;
+	background-color: rgba(255,255,0,0.5) !important;
+	background-image: none !important;	
+}
+
+
+.ui-menu-item{
+	font-size: 12px;
+}
+.custom-combobox{
+	font-size: 12px;
+}
+
+.ui-autocomplete {
+	overflow-y: scroll;
+	overflow-x: hidden;	
+	max-height: 200px;
+}
+
+* html .ui-autocomplete { /* IE max- */
+	height: expression(this.scrollHeight >   200 ?   "200px" :   "auto");
+}
