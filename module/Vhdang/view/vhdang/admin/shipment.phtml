@@ -36,7 +36,10 @@
 	            </thead>
 	            <tbody>
 	                <?php $i = ($this->page -1)* $this->row + 1 ;?>
-	                <?php foreach($this->paginator as $item):?>
+	                <?php foreach($this->paginator as $item):
+	                   
+	                   if ($item->getId() == $this->cancelledO_ID):	                
+	                ?>
 	               <tr>
 	                    <td><?php echo $i++; ?></td>
 	                    
@@ -50,7 +53,33 @@
 	                        <a title="Xóa" href="<?php echo $this->url('admin',array('action'=>'deleteshipment','id'=> $item->getId()));?>"><span class="icon-trash"></span></a>
 	                    </td>                
 	               </tr>
-	               <?php endforeach;?>
+	               <?php 
+	                   endif;
+	               endforeach;?>
+	               
+	               
+	               
+	                <?php foreach($this->paginator as $item):
+	                   
+	                if ($item->getId() != $this->cancelledO_ID):
+	                
+	                ?>
+	               <tr>
+	                    <td><?php echo $i++; ?></td>
+	                    
+	                    <td><a title="Xem" href="<?php echo $this->url('admin',array('action'=>'createshipment','id'=> $item->getId()));?>"><?php echo date('d-m-Y',strtotime($item->getShip_date()));?></a></td>
+	                    <td><a title="Xem" href="<?php echo $this->url('admin',array('action'=>'createshipment','id'=> $item->getId()));?>"><?php echo $item->getShip_name();?></a></td> 
+	                    <td style="text-align: right"><?php echo number_format($item->getWeight(),2,'.',','); ?></td>
+	                    <td><?php echo $item->getNote(); ?></td>
+	                    <td style="width: 50px; text-align: center;">
+	                        <a title="Chỉnh sửa" href="<?php echo $this->url('admin',array('action'=>'createshipment','id'=> $item->getId()));?>"><span class="icon-pencil"></span></a>
+	                        &nbsp;                       
+	                        <a title="Xóa" href="<?php echo $this->url('admin',array('action'=>'deleteshipment','id'=> $item->getId()));?>"><span class="icon-trash"></span></a>
+	                    </td>                
+	               </tr>
+	               <?php 
+	                    endif;
+	               endforeach;?>
 	            </tbody>
 	            <tfoot>
 	                <tr>

@@ -83,6 +83,8 @@ use Zend\I18n\View\Helper\DateFormat;
 use Vhdang\Model\AddressTable;
 use Vhdang\Model\ShippingMethodTable;
 use Vhdang\Model\Transfer;
+use Vhdang\Model\ExpressShippingFeeTable;
+use Vhdang\Model\ExpressShippingFee;
  
 class AdminController extends AbstractActionController
 {
@@ -106,6 +108,7 @@ class AdminController extends AbstractActionController
     const dung_service = 0.03; // dung service 3%
     const dung_shipping = 0.6;// dung shipping = 0.6;
     
+    const cancelledOrders_ID = 18; // it's used to move this line to the top.
 
     public function getDbAdapter()
     {
@@ -2174,7 +2177,115 @@ class AdminController extends AbstractActionController
         return $view;
     }
     
+    public function expressshippingfeeAction(){
+        $request = $this->getRequest();
+        
+        $shipment_id = $request->getPost('shipment_id',null);
+     
     
+        $shipmentTable = new ShipmentTable($this->getDbAdapter());
+        
+        $shipments = $shipmentTable->fetchAll(1);
+        
+        $shipment = $shipmentTable->getShipmentById($shipment_id);
+        
+        $admin = $this->UserAuthPlugin()->getNick();
+        $expressShippingFeetable = new ExpressShippingFeeTable($this->getDbAdapter());
+       
+        $nicks = array();
+        $list = array();
+        $lastInserId=-1;
+        if ($request->isPost() && $shipment_id){
+            
+           
+            $nicks = $expressShippingFeetable->getNicks($shipment_id);
+            
+            if ($request->getPost("btnSave") && $shipment_id && $request->isXmlHttpRequest()){
+                $nick = $request->getPost('nick');
+                $fee =String::formatNumber($request->getPost("fee"));
+                $note = $request->getPost('note');
+            
+                $rateTable = new XRatesTable($this->getDbAdapter());
+                $rate = $rateTable->getCurrentRate();
+                $xrate = $rate->getRate();
+                $usd = round($fee/$xrate,2);
+                
+                $expresshippingfee = new ExpressShippingFee();
+                $expressShippingFeetable = new ExpressShippingFeeTable($this->getDbAdapter());
+                $expresshippingfee->setNick($nick);
+                $expresshippingfee->setFee($fee);
+                $expresshippingfee->setUsd($usd);
+                $expresshippingfee->setXrate($xrate);
+                $expresshippingfee->setNote($note);
+                $expresshippingfee->setAdmin($admin);
+                $expresshippingfee->setShipment_id($shipment_id);
+                
+                $order_detail_ids = $request->getPost('order_detail_ids');
+                $cancellItemTable = new CancelledItemsTable($this->getDbAdapter());
+                $customerTable = new CustomerTable($this->getDbAdapter());
+                $balanceTable = new BalanceTable($this->getDbAdapter());
+                $orderDetailTable = new AdminOrderDetailsTable($this->getDbAdapter());
+                $transactionTable = new TransactionTable($this->getDbAdapter());
+                
+                $total_web1 = $request->getPost('total_web1',0);
+                
+                $total_web1 = String::formatNumber($total_web1);
+                
+                $total_final = $request->getPost('total_final',0);
+                $total_final = String::formatNumber($total_final);
+                
+               
+                 
+                  /// aaaaa
+                  
+                
+                     
+                 
+                        $customer = $customerTable->getUserByNick($nick);
+                
+                        $credit = - $usd; // tru ra 
+                        // update balance
+                        $balanceTable->updateBalance($customer->getBalance_id(), $credit);
+                        $transaction = new Transaction();
+                
+                        $transaction->setAdmin($admin);
+                        $transaction->setBalance_id($customer->getBalance_id());
+                        $transaction->setAmount($credit);
+                
+                        $balance = $balanceTable->getBalanceById($customer->getBalance_id());
+                
+                        $transaction->setCredit($balance->getCredit());
+                        $transaction->setDate(date("Y-m-d"));
+                        $transaction->setShipment_id($shipment_id);
+                        $transaction->setType($this::minus);
+                        $transaction->setCheck(0);
+                        $note =  'Phí CPN trong nước, đợt "'. $shipment->getShip_name(). '"; Phí '. $fee . "VND, tỷ giá: ". $xrate.'; Note: "' . $note . '"';
+                        
+                
+                        $transaction->setNote($note);
+                        // update transaction
+                        $transactionTable->saveTransaction($transaction);
+                                 
+                        $lastInserId =  $expressShippingFeetable->saveExpressShippingFee($expresshippingfee);
+            }
+            
+            $list = $expressShippingFeetable->getAll($shipment_id);
+        }
+         
+      
+        $view = new ViewModel(array(
+            'shipments'    => $shipments,
+            'shipment'  => $shipment, 
+            'nicks' => $nicks,
+            'list'  => $list,
+            'lastInertedID'    => $lastInserId, 
+            'isAjaxRequest' => $request->isXmlHttpRequest()
+        ));
+        
+        $view->setTerminal($request->isXmlHttpRequest());
+        return $view;
+        
+    }
     
     public function shippingfeeAction(){
         
@@ -4807,6 +4918,7 @@ class AdminController extends AbstractActionController
     			'paginator' => $paginator,
     			'page' => $page,
     			'row'   => $itemsPerPage,
+    	        'cancelledO_ID'    => 18,
     			'isAjaxRequest' => $request->isXmlHttpRequest(),
     			'errmsg' => $errmsg,
     			 

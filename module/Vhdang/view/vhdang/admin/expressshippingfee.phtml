@@ -1,0 +1,157 @@
+<?php if (!$this->isAjaxRequest):?>
+<?php  
+        $this->headScript()->appendFile($this->basePath() . '/js/admin/expressshippingfee.js'); 
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.autosize.min.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/jshashtable-3.0.js');
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.numberformatter-1.2.3.js');
+          
+        $this->headScript()->appendFile($this->basePath() . '/js/jquery.mousewheel.pack.js');
+        
+        
+        
+        
+        $this->headLink()->prependStylesheet($this->basePath() . '/css/admin/expressshippingfee.css');
+
+ 
+    
+        
+        
+        $title = 'Nhập CPN';
+        $this->headTitle($title);
+       
+   
+ ?>
+ 
+<div class="span11">
+	<form name="frmExpressShipping" id="frmExpressShipping" method="post"
+		action="<?php echo $this->url('admin',array('action'=>'expressshippingfee'));?>">
+		 
+		 <h3>Nhập phí Chuyển phát </h3>
+		 <div id="divShipemnts">
+		 
+		      Shipment: 
+		      <select name="shipment_id" id="shipment_id">
+		          <option></option>
+		          <?php foreach($this->shipments as $item):?>
+		          <option value="<?php echo $item->getId();?>" <?php echo $item->getId()==$this->shipment->getId()?"selected":""; ?> ><?php echo $item->getShip_name();?></option>
+		          <?php endforeach;?>
+		      </select>		      
+		      <input type="hidden" name="hidden_shipment_id" id="hidden_shipment_id" value="<?php echo $this->shipment->getId();?>" />
+		      <input type="submit" name="btnShow" value="Submit" class="btn" />	
+		     <?php if ($this->shipment->getId()) : ?>
+		      <div id="shipmentInfo">
+		              <br/>		
+        			  <table>
+        			     <tr>
+        			         <td>        			         
+        				       	<span class="label label-default shipmentinfo">Date: </span>
+        				       	<span class="label label-info shipmentinfo"><?php 
+        				       		if (($this->shipment->getShip_date())){
+        				       			echo date("d-m-Y",strtotime($this->shipment->getShip_date()));
+        				       		}?></span>
+        			         </td>
+        			         <td>
+        			             <span class="label label-default shipmentinfo" >Name: </span>
+        			             <span class="label label-info shipmentinfo" >
+        			                 <?php echo $this->shipment->getShip_name();?>
+        			             </span>
+        			         </td>
+        			         <td>
+        			             <span class="label label-default shipmentinfo">Weight (lbs): </span>
+        			             <span class="label label-info shipmentinfo">
+        			                 <?php echo $this->shipment->getWeight()==""?"":number_format($this->shipment->getWeight(),2,'.',',');?>
+        			             </span>
+        			          </td>
+        			         
+        			     </tr>
+        				 
+        				 <tr>
+        				    <td colspan="3">
+        				       <div id="divNote" class="alert alert-info" ><?php echo $this->shipment->getNote();?></div>
+        				    </td>
+        				 </tr>
+        				 
+        			 	 
+        	       	  </table>  
+        	   </div>   
+        	  <?php endif;?>   
+		 </div>
+		
+		<hr/>
+
+	
+	  <?php if ($this->shipment->getId()) : ?> 
+	  
+	  <div id="divFee">	  
+	      <label class="label label-default" for="nick"> Nick:</label> 
+	       <select name="nick" id="nick" class="required" data-info="Bạn cần phải chọn Nick!">
+	           <option></option>
+	           <?php foreach($this->nicks as $item) :?>
+	           <option value="<?php echo $item['nick'];?>"><?php echo $item['nick'];?></option>
+	           <?php endforeach;?>
+	       </select>
+	       <span class="space20"></span>
+	       <label class="label label-default" for="fee">Phí: </label>
+	       <input type="text" class="required" data-info="Bạn phải nhập chi phí." name="fee" id="fee" placeholder="VND" maxlength="10" onkeypress="return isNumberKey(event)" />
+	       <span class="space20"></span>
+	       <label for="note" class="label label-default">Note:</label>
+	       <textarea rows="1" cols="" name="note" id="note"></textarea>
+	       <pan class="space20"></span>
+	       <button type="button" class="btn btn-primary" name="btnSave" id="btnSave" value="save" ><span class="ui-icon ui-icon-disk"></span>Save</button>
+	  </div>
+	  
+	  <div id="divList">
+	 <?php endif;?>
+<?php endif;?> <!--  ajax request // form -->
+     <?php if ($this->shipment->getId()) : ?> 
+	        <table class="table">
+	            <thead>
+	               <tr>
+	                    <th>#</th>
+	                    <th>Nick</th>  
+	                    <th>Admin</th> 
+	                    <th>Date</th>
+	                    <th>VND</th>
+	                    <th>USD</th>
+	                    <th>Xrate</th>
+	                    <th>Note</th>
+	                    <th>-</th>	                                
+	               </tr>            
+	            </thead>
+	               <?php $i=0 ; foreach($this->list as $item) :?>
+	               <tr class="<?php if ($item->getId() == $this->lastInertedID) echo "highlight info"; ?>">
+	                   <td><?php echo ++$i;?></td>
+	                   <td><input type="hidden" class="<?php echo $item->getNick(); ?>" /><?php echo $item->getNick(); ?></td>
+	                   <td><?php echo $item->getAdmin();?></td>
+	                   <td><?php echo date("d-m-Y h:i:s",strtotime($item->getDate())); ?></td>
+	                   <td> <span class="currency"><?php echo number_format($item->getFee(),0,".",",");?></span></td>
+	                   <td><span class="currency"><?php echo number_format($item->getUsd(),2,".",",");?></span></td>
+	                   <td><span class="currency"><?php echo number_format($item->getXrate(),0,".",",");?></span></td>
+	                   <td><?php echo $item->getNote();?></td>
+	                   
+	                   <td>-</td>
+	               </tr>
+	              <?php endforeach;?>
+	            <tbody>
+	            <tfoot>
+	               <tr><td colspan="10"></td></tr>
+	            </tfoot>
+	            </tbody>
+	       </table>
+	           
+	  </div>
+	  
+	  <?php endif;?>
+	 
+ <?php if (!$this->isAjaxRequest):?>  
+	</form>
+
+</div>
+ 
+<div id="divConfirmDialog">
+    <span class="warning"></span>
+</div>
+ 
+<?php endif;?>
+
+

@@ -3,7 +3,7 @@
 return array(
     'db'    => array(
        'username'  => 'root',
-        'password'  => ''
+        'password'  => 'haidangvo'
     ),
     
     

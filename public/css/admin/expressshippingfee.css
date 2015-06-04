@@ -1,0 +1,157 @@
+@CHARSET "ISO-8859-1";
+
+.currency{
+	display:inline-block;
+	width: 100%;
+	text-align: right;
+	font-weight: bold;
+	
+}
+
+#divConfirmDialog{
+	display: none;
+}
+
+#note{
+	position: relative;
+	top: 5px;
+}
+
+
+#divFee label{
+	padding: 5px;
+}
+
+
+#divNote{
+ 	margin-top: 5px;
+}
+
+.shipmentinfo{
+	padding: 5px;
+	font-size: 14px !important;
+	padding:10px !important;
+}
+
+#shipmentInfo .label-info{
+	margin-right: 20px;
+}
+
+#divFee label, #divFee input[type=text]{
+	display: inline-block !important;
+}
+
+#fee{
+	position:relative;
+	top: 5px;
+	width: 80px;
+	text-align: right;
+	padding-right: 5px;
+	color: #c70000;
+	font-weight: bold;
+}
+
+#shipmentInfo label{
+	 border: 0px;
+	 margin-top: 5px;
+	 margin-bottom: 2px;
+}
+
+#shipmentInfo input[type=text]{
+	margin-bottom: 0px;
+}
+
+#shipmentInfo table td{
+	 padding-right: 10px;
+	 vertical-align: top;
+}
+
+#divShipemnts .custom-combobox-input{
+	 
+	height: 20px !important;
+	
+	display: inline-block !important;
+	 
+	padding: 4px 6px !important;
+
+	font-size: 14px !important;
+	line-height: 20px !important;
+	color: #555 !important;
+	vertical-align: middle !important;
+	-webkit-border-radius: 4px !important;
+	-moz-border-radius: 4px !important;
+	border-radius: 4px !important;
+	
+}
+
+ 
+
+ 
+ 
+.ui-autocomplete{
+	z-index: 1000 !important;
+}
+
+#searchDialog{
+	display: none;
+	width: 980px;
+	min-height: 650px;
+	z-index: 100;
+}
+
+  
+ 
+  
+.success{
+	background-image: url("../../../images/check.png");
+	background-repeat: no-repeat;
+	display: inline-block;
+	height: 32px;
+	color: #018A06;
+	padding-left: 28px;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 32px;
+	vertical-align: middle;
+}
+
+ 
+#shipmentTable .val{
+	text-align: right;
+	font-weight: bold;
+	border-right: 1px solid #ddd;
+	border-left: 1px solid #ddd;
+}
+
+#shipmentTable th{
+	text-align: center;
+}
+
+
+.trItem td {
+	height: 32px !important;
+	line-height: 32px !important;
+	vertical-align: middle;
+}
+
+
+.ui-menu-item{
+	font-size: 12px;
+}
+.custom-combobox{
+	font-size: 12px;
+}
+
+.ui-datepicker { 
+	z-index: 1000 !important;
+}
+
+.ui-autocomplete {
+	overflow-y: scroll;
+	overflow-x: hidden;	
+	max-height: 200px;
+}
+
+* html .ui-autocomplete { /* IE max- */
+	height: expression(this.scrollHeight >   200 ?   "200px" :   "auto");
+}
