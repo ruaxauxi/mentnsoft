@@ -1,0 +1,74 @@
+[Fri Jul 31 13:10:04.016354 2015] [authz_core:error] [pid 1870] [client 127.0.0.1:49502] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/
+[Fri Jul 31 13:10:04.253268 2015] [authz_core:error] [pid 1870] [client 127.0.0.1:49502] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/favicon.ico, referer: http://mentnsoft.localhost/
+[Fri Jul 31 13:11:45.161516 2015] [authz_core:error] [pid 2072] [client 127.0.0.1:49529] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/
+[Fri Jul 31 13:11:45.306469 2015] [authz_core:error] [pid 2072] [client 127.0.0.1:49529] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/favicon.ico, referer: http://mentnsoft.localhost/
+[Fri Jul 31 13:11:46.502733 2015] [authz_core:error] [pid 2072] [client 127.0.0.1:49529] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/
+[Fri Jul 31 13:11:46.617089 2015] [authz_core:error] [pid 2072] [client 127.0.0.1:49529] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/favicon.ico, referer: http://mentnsoft.localhost/
+[Fri Jul 31 13:11:49.319272 2015] [authz_core:error] [pid 2072] [client 127.0.0.1:49529] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/
+[Fri Jul 31 13:11:49.428899 2015] [authz_core:error] [pid 2072] [client 127.0.0.1:49529] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/favicon.ico, referer: http://mentnsoft.localhost/
+[Fri Jul 31 13:11:51.245704 2015] [authz_core:error] [pid 2072] [client 127.0.0.1:49529] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/, referer: http://mentnsoft.localhost/
+[Fri Jul 31 13:11:51.343081 2015] [authz_core:error] [pid 2072] [client 127.0.0.1:49529] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/favicon.ico, referer: http://mentnsoft.localhost/
+[Fri Jul 31 13:12:20.820580 2015] [authz_core:error] [pid 2082] [client 127.0.0.1:49546] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/, referer: http://mentnsoft.localhost/
+[Fri Jul 31 13:12:20.966164 2015] [authz_core:error] [pid 2082] [client 127.0.0.1:49546] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/favicon.ico, referer: http://mentnsoft.localhost/
+[Fri Jul 31 13:23:21.374204 2015] [authz_core:error] [pid 2734] [client 127.0.0.1:49726] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/, referer: http://mentnsoft.localhost/
+[Fri Jul 31 13:23:21.515644 2015] [authz_core:error] [pid 2734] [client 127.0.0.1:49726] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/favicon.ico, referer: http://mentnsoft.localhost/
+[Fri Jul 31 13:23:23.075654 2015] [authz_core:error] [pid 2734] [client 127.0.0.1:49726] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/, referer: http://mentnsoft.localhost/
+[Fri Jul 31 13:23:23.177452 2015] [authz_core:error] [pid 2734] [client 127.0.0.1:49726] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/favicon.ico, referer: http://mentnsoft.localhost/
+[Fri Jul 31 13:23:25.063218 2015] [authz_core:error] [pid 2734] [client 127.0.0.1:49726] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/, referer: http://mentnsoft.localhost/
+[Fri Jul 31 13:23:25.175745 2015] [authz_core:error] [pid 2734] [client 127.0.0.1:49726] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/favicon.ico, referer: http://mentnsoft.localhost/
+[Fri Jul 31 13:23:57.018391 2015] [authz_core:error] [pid 2851] [client 127.0.0.1:49734] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/
+[Fri Jul 31 13:23:57.130040 2015] [authz_core:error] [pid 2851] [client 127.0.0.1:49734] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/favicon.ico, referer: http://mentnsoft.localhost/
+[Fri Jul 31 13:23:59.723840 2015] [authz_core:error] [pid 2851] [client 127.0.0.1:49734] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/
+[Fri Jul 31 13:23:59.818019 2015] [authz_core:error] [pid 2851] [client 127.0.0.1:49734] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/favicon.ico, referer: http://mentnsoft.localhost/
+[Fri Jul 31 13:24:00.879108 2015] [authz_core:error] [pid 2851] [client 127.0.0.1:49734] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/
+[Fri Jul 31 13:24:00.976957 2015] [authz_core:error] [pid 2851] [client 127.0.0.1:49734] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/favicon.ico, referer: http://mentnsoft.localhost/
+[Fri Jul 31 13:24:02.940929 2015] [authz_core:error] [pid 2851] [client 127.0.0.1:49734] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/
+[Fri Jul 31 13:24:03.045371 2015] [authz_core:error] [pid 2851] [client 127.0.0.1:49734] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/favicon.ico, referer: http://mentnsoft.localhost/
+[Fri Jul 31 13:29:06.648977 2015] [authz_core:error] [pid 2852] [client 127.0.0.1:49750] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/
+[Fri Jul 31 13:29:06.756310 2015] [authz_core:error] [pid 2852] [client 127.0.0.1:49750] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/favicon.ico, referer: http://mentnsoft.localhost/
+[Fri Jul 31 13:31:05.698967 2015] [authz_core:error] [pid 2854] [client 127.0.0.1:49783] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/
+[Fri Jul 31 13:31:05.850930 2015] [authz_core:error] [pid 2854] [client 127.0.0.1:49783] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/favicon.ico, referer: http://mentnsoft.localhost/
+[Fri Jul 31 13:31:07.291176 2015] [authz_core:error] [pid 2854] [client 127.0.0.1:49783] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/
+[Fri Jul 31 13:31:07.410229 2015] [authz_core:error] [pid 2854] [client 127.0.0.1:49783] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/favicon.ico, referer: http://mentnsoft.localhost/
+[Fri Jul 31 13:31:14.102835 2015] [authz_core:error] [pid 2855] [client 127.0.0.1:49784] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/
+[Fri Jul 31 13:31:14.212194 2015] [authz_core:error] [pid 2855] [client 127.0.0.1:49784] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/favicon.ico, referer: http://mentnsoft.localhost/
+[Fri Jul 31 13:31:20.408968 2015] [authz_core:error] [pid 2859] [client ::1:49786] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/
+[Fri Jul 31 13:31:22.662804 2015] [authz_core:error] [pid 2859] [client ::1:49786] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/
+[Fri Jul 31 13:31:22.827541 2015] [authz_core:error] [pid 2859] [client ::1:49786] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/favicon.ico, referer: http://localhost/
+[Fri Jul 31 13:31:24.405116 2015] [authz_core:error] [pid 2859] [client ::1:49786] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/
+[Fri Jul 31 13:31:24.511862 2015] [authz_core:error] [pid 2859] [client ::1:49786] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/favicon.ico, referer: http://localhost/
+[Fri Jul 31 13:36:53.501019 2015] [authz_core:error] [pid 3663] [client 127.0.0.1:49837] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/
+[Fri Jul 31 13:36:56.053735 2015] [authz_core:error] [pid 3663] [client 127.0.0.1:49837] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/
+[Fri Jul 31 13:36:56.202289 2015] [authz_core:error] [pid 3663] [client 127.0.0.1:49837] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/favicon.ico, referer: http://mentnsoft.localhost/
+[Fri Jul 31 13:38:10.307049 2015] [authz_core:error] [pid 3826] [client 127.0.0.1:49854] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/
+[Fri Jul 31 13:38:10.416372 2015] [authz_core:error] [pid 3826] [client 127.0.0.1:49854] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/favicon.ico, referer: http://mentnsoft.localhost/
+[Fri Jul 31 13:38:12.118704 2015] [authz_core:error] [pid 3826] [client 127.0.0.1:49854] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/
+[Fri Jul 31 13:38:12.225919 2015] [authz_core:error] [pid 3826] [client 127.0.0.1:49854] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/mentnsoft/public/favicon.ico, referer: http://mentnsoft.localhost/
+[Fri Jul 31 13:38:52.460466 2015] [authz_core:error] [pid 3932] [client 127.0.0.1:49858] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/
+[Fri Jul 31 13:38:52.614582 2015] [authz_core:error] [pid 3932] [client 127.0.0.1:49858] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/favicon.ico, referer: http://mentnsoft.localhost/
+[Fri Jul 31 13:38:54.013027 2015] [authz_core:error] [pid 3932] [client 127.0.0.1:49858] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/
+[Fri Jul 31 13:38:54.131452 2015] [authz_core:error] [pid 3932] [client 127.0.0.1:49858] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/favicon.ico, referer: http://mentnsoft.localhost/
+[Fri Jul 31 13:38:56.520618 2015] [authz_core:error] [pid 3932] [client 127.0.0.1:49858] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/
+[Fri Jul 31 13:38:56.619534 2015] [authz_core:error] [pid 3932] [client 127.0.0.1:49858] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/favicon.ico, referer: http://mentnsoft.localhost/
+[Fri Jul 31 13:39:11.018932 2015] [authz_core:error] [pid 3935] [client 127.0.0.1:49863] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/
+[Fri Jul 31 13:39:11.121014 2015] [authz_core:error] [pid 3935] [client 127.0.0.1:49863] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/favicon.ico, referer: http://mentnsoft.localhost/
+[Fri Jul 31 13:41:06.774007 2015] [authz_core:error] [pid 3938] [client 127.0.0.1:49889] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/
+[Fri Jul 31 13:41:06.923496 2015] [authz_core:error] [pid 3938] [client 127.0.0.1:49889] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/favicon.ico, referer: http://mentnsoft.localhost/
+[Fri Jul 31 13:41:07.976527 2015] [authz_core:error] [pid 3938] [client 127.0.0.1:49889] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/
+[Fri Jul 31 13:41:08.097936 2015] [authz_core:error] [pid 3938] [client 127.0.0.1:49889] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/favicon.ico, referer: http://mentnsoft.localhost/
+[Fri Jul 31 13:41:12.172905 2015] [authz_core:error] [pid 3934] [client ::1:49892] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/
+[Fri Jul 31 13:41:12.370469 2015] [authz_core:error] [pid 3934] [client ::1:49892] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/favicon.ico, referer: http://localhost/
+[Fri Jul 31 13:41:14.465501 2015] [authz_core:error] [pid 3934] [client ::1:49892] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/
+[Fri Jul 31 13:41:14.604044 2015] [authz_core:error] [pid 3934] [client ::1:49892] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/favicon.ico, referer: http://localhost/
+[Fri Jul 31 13:45:06.124390 2015] [authz_core:error] [pid 4397] [client ::1:49988] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/
+[Fri Jul 31 13:45:06.278387 2015] [authz_core:error] [pid 4397] [client ::1:49988] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/favicon.ico, referer: http://localhost/
+[Fri Jul 31 13:45:07.636972 2015] [authz_core:error] [pid 4397] [client ::1:49988] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/
+[Fri Jul 31 13:45:07.764505 2015] [authz_core:error] [pid 4397] [client ::1:49988] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/favicon.ico, referer: http://localhost/
+[Fri Jul 31 13:45:09.510350 2015] [authz_core:error] [pid 4397] [client ::1:49988] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/
+[Fri Jul 31 13:45:09.635137 2015] [authz_core:error] [pid 4397] [client ::1:49988] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/favicon.ico, referer: http://localhost/
+[Fri Jul 31 13:45:19.583861 2015] [authz_core:error] [pid 4398] [client ::1:49989] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/, referer: http://localhost/
+[Fri Jul 31 13:45:19.691418 2015] [authz_core:error] [pid 4398] [client ::1:49989] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/favicon.ico, referer: http://localhost/
+[Fri Jul 31 13:48:04.914403 2015] [authz_core:error] [pid 4622] [client ::1:50024] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/
+[Fri Jul 31 13:48:05.067457 2015] [authz_core:error] [pid 4622] [client ::1:50024] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/favicon.ico, referer: http://localhost/
+[Fri Jul 31 13:48:08.326291 2015] [authz_core:error] [pid 4622] [client ::1:50024] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/
+[Fri Jul 31 13:48:08.446589 2015] [authz_core:error] [pid 4622] [client ::1:50024] AH01630: client denied by server configuration: /Users/haidangvo/htdocs/favicon.ico, referer: http://localhost/

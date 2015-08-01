@@ -3719,6 +3719,10 @@ class AdminController extends AbstractActionController
         $creditcards = $creditcardTable->getAllCreditCard();
         $creditcard = $creditcardTable->getCreditCardById($creditcard);
         
+        if (!$creditcard){
+            $creditcard = new CreditCard();
+        }
+        
         $view = new ViewModel(array(
         	'orders'   => $orders,
             'creditcards'    => $creditcards,

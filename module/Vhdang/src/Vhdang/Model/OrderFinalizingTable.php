@@ -36,6 +36,11 @@ class OrderFinalizingTable extends AbstractTableGateway{
     public function getOrdersByCreditCard($creditcard, $finalized = 0){
         $select = new Select($this->table);
         
+        $subselect = new Select('cancelled_orders');
+        $subselect->columns(array(
+            'orderno' => 'orderno'
+        ));
+        
         $select->columns(array(
         	'orderno'  => 'orderno',
             'admin'     => 'admin',
@@ -54,7 +59,8 @@ class OrderFinalizingTable extends AbstractTableGateway{
         	'store_name'   => 'name'
         ))->where(array(
         	'finalized'    => $finalized,
-            'creditcard'   => $creditcard
+            'creditcard'   => $creditcard,
+            new \Zend\Db\Sql\Predicate\NotIn('orderno',$subselect)
             
         ))->order(array(
         	'orderdate'    => 'DESC'
