@@ -36,10 +36,17 @@ class OrderFinalizingTable extends AbstractTableGateway{
     public function getOrdersByCreditCard($creditcard, $finalized = 0){
         $select = new Select($this->table);
         
-        $subselect = new Select('cancelled_orders');
+        $predicate1 = new Predicate();
+        $predicate1->expression('cancelled_orders.items >= ao.items',null);
+        
+        $predicate = new  \Zend\Db\Sql\Where();
+        $subselect = new Select("cancelled_orders");
         $subselect->columns(array(
             'orderno' => 'orderno'
-        ));
+        ))->join(array('ao' => 'admin_order'),"cancelled_orders.orderno = ao.orderno",array())
+        ->where->addPredicate($predicate1,Predicate::COMBINED_BY_AND) ;
+        
+       
         
         $select->columns(array(
         	'orderno'  => 'orderno',
@@ -65,6 +72,8 @@ class OrderFinalizingTable extends AbstractTableGateway{
         ))->order(array(
         	'orderdate'    => 'DESC'
         ));
+         
+        
         
         $resultSet = $this->selectWith($select);
         $items = $resultSet->toArray();
@@ -98,7 +107,8 @@ class OrderFinalizingTable extends AbstractTableGateway{
         	$service = $orderdetailTable->getTotalServiceByOrderno($item->getOrderno());
         	$totalFinal = $orderdetailTable->getTotalFinalByOrderno($item->getOrderno());
         	
-        	$item->setPaid($totalFinal - $service - $item->getTotal_cancelled());
+        	//$item->setPaid($totalFinal - $service - $item->getTotal_cancelled());
+        	$item->setPaid($item->getTotal_final() -  $item->getTotal_cancelled());
         	
         	$list[] = $item;
         }
